@@ -102,22 +102,22 @@ entity DE0_Nano_SoC_top_level is
 end entity DE0_Nano_SoC_top_level;
 
 architecture rtl of DE0_Nano_SoC_top_level is
-
-	component system is
+component unsaved is
 		port (
 			clk_clk                          : in  std_logic                    := 'X'; -- clk
-			pio_0_external_connection_export : out std_logic_vector(7 downto 0);        -- export
-			reset_reset_n                    : in  std_logic                    := 'X'  -- reset_n
+			reset_reset_n                    : in  std_logic                    := 'X'; -- reset_n
+			pio_0_external_connection_export : out std_logic_vector(7 downto 0)         -- export
 		);
-	end component system;
-	
+	end component unsaved;
 begin
-	u0 : component system
+u0 : component unsaved
 		port map (
 			clk_clk                          => FPGA_CLK1_50,                          --                       clk.clk
-			pio_0_external_connection_export => LED,  -- pio_0_external_connection.export,
-			reset_reset_n                    => KEY_N(0)                    --                     reset.reset_n
-			
+			reset_reset_n                    => KEY_N(0),                    --                     reset.reset_n
+			pio_0_external_connection_export => LED  -- pio_0_external_connection.export
 		);
-end;
 
+end;
+	
+
+	
