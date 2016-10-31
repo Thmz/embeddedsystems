@@ -139,7 +139,7 @@ ACDS_VERSION := 16.0
 # Define path to the application ELF. 
 # It may be used by the makefile fragments so is defined before including them. 
 # 
-ELF := fpga_intro.elf
+ELF := ParallelPort.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS := hello_world.c
@@ -177,7 +177,7 @@ CRT0 :=
 SYS_LIB :=
 
 # Define path to the root of the BSP.
-BSP_ROOT_DIR := C:/Users/verelst/Desktop/fpga_intro/sw/nios/fpga_intro_bsp/
+BSP_ROOT_DIR := C:/Users/verelst/Desktop/fpga_intro/sw/nios/ParallelPort_bsp/
 
 # List of application specific include directories, library directories and library names
 APP_INCLUDE_DIRS :=

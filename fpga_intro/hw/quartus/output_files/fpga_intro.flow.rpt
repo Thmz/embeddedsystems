@@ -1,5 +1,5 @@
 Flow report for fpga_intro
-Fri Oct 21 10:43:23 2016
+Fri Oct 28 09:41:07 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -41,16 +41,16 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Fri Oct 21 10:43:23 2016       ;
+; Flow Status                     ; Successful - Fri Oct 28 09:41:07 2016       ;
 ; Quartus Prime Version           ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                   ; fpga_intro                                  ;
 ; Top-level Entity Name           ; DE0_Nano_SoC_top_level                      ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA4U23C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 1,294 / 15,880 ( 8 % )                      ;
-; Total registers                 ; 1935                                        ;
-; Total pins                      ; 11 / 314 ( 4 % )                            ;
+; Logic utilization (in ALMs)     ; 1,473 / 15,880 ( 9 % )                      ;
+; Total registers                 ; 2133                                        ;
+; Total pins                      ; 15 / 314 ( 5 % )                            ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 1,112,320 / 2,764,800 ( 40 % )              ;
 ; Total DSP Blocks                ; 3 / 84 ( 4 % )                              ;
@@ -68,7 +68,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 10/21/2016 10:40:20 ;
+; Start date & time ; 10/28/2016 09:38:09 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; fpga_intro          ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+------------------------+----------------+
 ; Assignment Name                     ; Value                                 ; Default Value ; Entity Name            ; Section Id     ;
 +-------------------------------------+---------------------------------------+---------------+------------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 203178705525818.147703922003704       ; --            ; --                     ; --             ;
+; COMPILER_SIGNATURE_ID               ; 203178705525002.147764028905776       ; --            ; --                     ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Verilog Hdl                           ; --            ; --                     ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (Verilog)             ; <None>        ; --                     ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                  ; --            ; --                     ; eda_simulation ;
@@ -100,12 +100,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:56     ; 1.0                     ; 1063 MB             ; 00:01:34                           ;
-; Fitter                    ; 00:01:29     ; 1.0                     ; 1957 MB             ; 00:01:56                           ;
-; Assembler                 ; 00:00:09     ; 1.0                     ; 933 MB              ; 00:00:06                           ;
-; TimeQuest Timing Analyzer ; 00:00:19     ; 1.0                     ; 1197 MB             ; 00:00:19                           ;
-; EDA Netlist Writer        ; 00:00:04     ; 1.0                     ; 867 MB              ; 00:00:03                           ;
-; Total                     ; 00:02:57     ; --                      ; --                  ; 00:03:58                           ;
+; Analysis & Synthesis      ; 00:00:57     ; 1.0                     ; 1075 MB             ; 00:01:34                           ;
+; Fitter                    ; 00:01:26     ; 1.0                     ; 1968 MB             ; 00:01:56                           ;
+; Assembler                 ; 00:00:07     ; 1.0                     ; 934 MB              ; 00:00:06                           ;
+; TimeQuest Timing Analyzer ; 00:00:16     ; 1.0                     ; 1201 MB             ; 00:00:16                           ;
+; EDA Netlist Writer        ; 00:00:05     ; 1.0                     ; 875 MB              ; 00:00:03                           ;
+; Total                     ; 00:02:51     ; --                      ; --                  ; 00:03:55                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -114,11 +114,11 @@ agreement for further details.
 +---------------------------+------------------+-----------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
 +---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; ICIN3PC27        ; Windows 7 ; 6.1        ; x86_64         ;
-; Fitter                    ; ICIN3PC27        ; Windows 7 ; 6.1        ; x86_64         ;
-; Assembler                 ; ICIN3PC27        ; Windows 7 ; 6.1        ; x86_64         ;
-; TimeQuest Timing Analyzer ; ICIN3PC27        ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer        ; ICIN3PC27        ; Windows 7 ; 6.1        ; x86_64         ;
+; Analysis & Synthesis      ; ICIN3PC18        ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; ICIN3PC18        ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; ICIN3PC18        ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; ICIN3PC18        ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer        ; ICIN3PC18        ; Windows 7 ; 6.1        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 

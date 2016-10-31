@@ -38,10 +38,10 @@ entity DE0_Nano_SoC_top_level is
         KEY_N            : in    std_logic_vector(1 downto 0);
 
         -- LED
-        LED              : out   std_logic_vector(7 downto 0)
+        LED              : out   std_logic_vector(7 downto 0);
 
         -- SW
---        SW               : in    std_logic_vector(3 downto 0);
+        SW               : inout    std_logic_vector(3 downto 0)
 --
 --        -- GPIO_0
 --        GPIO_0           : inout std_logic_vector(35 downto 0);
@@ -102,20 +102,45 @@ entity DE0_Nano_SoC_top_level is
 end entity DE0_Nano_SoC_top_level;
 
 architecture rtl of DE0_Nano_SoC_top_level is
-component unsaved is
+--		port (
+--			clk_clk                          : in  std_logic                    := 'X'; -- clk
+--			reset_reset_n                    : in  std_logic                    := 'X'; -- reset_n
+--			pio_0_external_connection_export : out std_logic_vector(7 downto 0)         -- export
+--		);
+--	end component unsaved;
+--begin
+--u0 : component unsaved
+--		port map (
+--			clk_clk                          => FPGA_CLK1_50,                          --                       clk.clk
+--			reset_reset_n                    => KEY_N(0),                    --                     reset.reset_n
+--			pio_0_external_connection_export => LED  -- pio_0_external_connection.export
+--		);
+--		
+		
+		signal LED_out : std_logic_vector(7 downto 0);
+		signal SW_in : std_logic_vector(3 downto 0);
+			component unsaved is
 		port (
-			clk_clk                          : in  std_logic                    := 'X'; -- clk
-			reset_reset_n                    : in  std_logic                    := 'X'; -- reset_n
-			pio_0_external_connection_export : out std_logic_vector(7 downto 0)         -- export
+			clk_clk                            : in    std_logic                    := 'X';             -- clk
+			reset_reset_n                      : in    std_logic                    := 'X';             -- reset_n
+			parallelport2_0_conduit_end_export : inout std_logic_vector(7 downto 0) := (others => 'X'); -- export
+			parallelport2_1_conduit_end_export : inout std_logic_vector(7 downto 0) := (others => 'X')  -- export
+			
 		);
 	end component unsaved;
 begin
-u0 : component unsaved
+
+	LED <= LED_out;
+	
+	u0 : component unsaved
 		port map (
-			clk_clk                          => FPGA_CLK1_50,                          --                       clk.clk
-			reset_reset_n                    => KEY_N(0),                    --                     reset.reset_n
-			pio_0_external_connection_export => LED  -- pio_0_external_connection.export
+			clk_clk                            => FPGA_CLK1_50,                            --                         clk.clk
+			reset_reset_n                      => KEY_N(0),                      --                       reset.reset_n
+			parallelport2_0_conduit_end_export(3 downto 0) => SW, -- parallelport2_0_conduit_end.export
+			parallelport2_1_conduit_end_export =>  LED_out  -- parallelport2_1_conduit_end.export
 		);
+
+
 
 end;
 	
