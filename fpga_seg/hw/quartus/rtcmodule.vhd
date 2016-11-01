@@ -1,8 +1,9 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-entity parallelport is
+entity rtc is
     port(
 		clk : IN std_logic;
 		nReset : IN std_logic;
@@ -24,49 +25,56 @@ entity parallelport is
 		LedButton        : out   std_logic_vector(3 downto 0)
 
 );
-	end parallelport;
+	end rtc;
 		
-	architecture comp of parallelport is
-			signal hundreds : unsigned (7 DOWNTO 0); -- 7 bits are also enough, maybe chance it later
-			signal seconds : unsigned (7 DOWNTO 0);
-			signal minutes : unsigned (7 DOWNTO 0);
-			
+	architecture comp of rtc is
+			signal hundreds : unsigned (7 DOWNTO 0) := (others => '0'); -- in BCD format
+			signal seconds : unsigned (7 DOWNTO 0) := (others => '0'); -- in BCD format
+			signal minutes : unsigned (7 DOWNTO 0) := (others => '0');-- in BCD format<
+			 
 			signal  enable_1khz : std_logic;
 			signal  enable_100hz : std_logic;
-			variable count : natural;
 		begin
 
 
 		-- slow clock logic
 		process(clk)
-			variable count : natural;
+			variable count_1khz : natural;
+			variable count_100hz : natural;
 		begin
 			if rising_edge(clk) then
 				enable_1khz <= '0';
-				count := count + 1;
-				if count = 5000 then -- value to be seen, assuming 50 Mhz FPGA
+				count_1khz := count_1khz + 1;
+				if count_1khz = 50 then -- value to be seen, assuming 50 Mhz FPGA so should be 5000, for testing purposes faster clock!
 					enable_1khz <= '1';
-					count := 0;
+					count_1khz := 0;
+				end if;
+				
+				enable_100hz <= '0';
+				count_100hz := count_100hz + 1;
+				if count_100hz = 5 then -- value to be seen, assuming 50 Mhz FPGA so should be 5000, for testing purposes faster clock!
+					enable_100hz <= '1';
+					count_100hz := 0;
 				end if;
 			end if;
 		end process;
 
 		-- time updater logic
-		update_rtc : process(clk_100hz)
+		update_rtc : process(clk, enable_100hz)
 		begin
 			if rising_edge(clk) and enable_100hz = '1' then
 				hundreds <= hundreds + 1;
 
 				if hundreds >= 100-1 then -- -1 because hundreds is only updated after the execution of the process!
-					hundreds <= 0;
+					hundreds <= to_unsigned(0, 8);
 					seconds <= seconds + 1;
 				end if;
-				if seconds >= 60-1  then
-					seconds <= 0;
+				if seconds >= 60-1 and hundreds >= 100-1  then
+					seconds <= to_unsigned(0, 8);
 					minutes <= minutes + 1;
 				end if;
-				if minutes >= 100-1 then
-					minutes <= 0;
+				if minutes >= 100-1  and seconds >= 59-1 and hundreds >= 100-1 then -- not very efficient but ok for now
+					minutes <= to_unsigned(0, 8);
 				end if;
 			end if;
 		end process update_rtc;
@@ -80,66 +88,69 @@ entity parallelport is
 			
 			
 			
-		end process update_screen
-
-		-- display_rtc
-		
-
-
-		-- below is code from parallelport
-		pPort: 
-			process (iRegDir, iRegPort)
-			begin 		
-				for i in 0 to 7 loop
-					if iRegDir(i) = '1' then
-						ParPort(i) <= iRegPort(i);
-					else
-						ParPort(i) <= 'Z';
-					end if;
-				end loop;
-			end process pPort;
-			
-			iRegPin <= ParPort;
 			
 			
-		pRegWr:
-			process(Clk, nReset)
-			begin 
-				if nReset = '0' then
-					iRegDir <= (others => '0');  --   Input by default
-					
-					
-				elsif rising_edge(Clk) then 
-					if ChipSelect= '1' and Write = '1' then  --   Write cycle
-						case Address (2 downto 0) is
-							when "000" => iRegDir <= WriteData; 
-							when "010" => iRegPort <= WriteData; 
-							when "011" => iRegPort <= iRegPort OR WriteData;
-							when "100" => iRegPort <= iRegPort AND  NOT WriteData; 
-							when others => null;
-						end case;
-					end if;
-				end if;
-			end process pRegWr;
+			
+		end process update_screen;
 
-
-
-
-
-		-- read	 
-		pRegRd: 
-			process(Clk) 
-			begin
-				if rising_edge(Clk) then 
-					ReadData <= (others => '0');
-					if ChipSelect = '1' and Read = '1' then 	 	
-						case Address(2 downto 0) is 
-							when "000" => ReadData <= iRegDir ; 
-							when "001" => ReadData <= iRegPin ;
-							when "010" => ReadData <= iRegPort; 
-							when others => null; 
-						end case; 
-					end if; 
-				end if; 
-			end process pRegRd; 
+--		-- display_rtc
+--		
+--
+--
+--		-- below is code from parallelport
+--		pPort: 
+--			process (iRegDir, iRegPort)
+--			begin 		
+--				for i in 0 to 7 loop
+--					if iRegDir(i) = '1' then
+--						ParPort(i) <= iRegPort(i);
+--					else
+--						ParPort(i) <= 'Z';
+--					end if;
+--				end loop;
+--			end process pPort;
+--			
+--			iRegPin <= ParPort;
+--			
+--			
+--		pRegWr:
+--			process(Clk, nReset)
+--			begin 
+--				if nReset = '0' then
+--					iRegDir <= (others => '0');  --   Input by default
+--					
+--					
+--				elsif rising_edge(Clk) then 
+--					if ChipSelect= '1' and Write = '1' then  --   Write cycle
+--						case Address (2 downto 0) is
+--							when "000" => iRegDir <= WriteData; 
+--							when "010" => iRegPort <= WriteData; 
+--							when "011" => iRegPort <= iRegPort OR WriteData;
+--							when "100" => iRegPort <= iRegPort AND  NOT WriteData; 
+--							when others => null;
+--						end case;
+--					end if;
+--				end if;
+--			end process pRegWr;
+--
+--
+--
+--
+--
+--		-- read	 
+--		pRegRd: 
+--			process(Clk) 
+--			begin
+--				if rising_edge(Clk) then 
+--					ReadData <= (others => '0');
+--					if ChipSelect = '1' and Read = '1' then 	 	
+--						case Address(2 downto 0) is 
+--							when "000" => ReadData <= iRegDir ; 
+--							when "001" => ReadData <= iRegPin ;
+--							when "010" => ReadData <= iRegPort; 
+--							when others => null; 
+--						end case; 
+--					end if; 
+--				end if; 
+--			end process pRegRd; 
 end architecture comp;

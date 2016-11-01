@@ -52,7 +52,7 @@ entity DE0_Nano_Soc_7_segment_extension is
         Reset_Led        : out   std_logic;
         nSelDig          : out   std_logic_vector(5 downto 0);
         SwLed            : in    std_logic_vector(7 downto 0);
-        nButton          : in    std_logic_vector(3 downto 0);
+        nButton          : in    std_logic_vector(3 downto 0)
         LedButton        : out   std_logic_vector(3 downto 0);
 
         -- HPS

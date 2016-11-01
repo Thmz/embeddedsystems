@@ -2,9 +2,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity parallelport is
+entity rtc is
     port(
-		Clk : IN std_logic;
+		clk : IN std_logic;
 		nReset : IN std_logic;
 		Address : IN std_logic_vector( 2 downto 0);
 		ChipSelect : IN std_logic;
@@ -17,47 +17,73 @@ entity parallelport is
 		
 
 		SelSeg           : out   std_logic_vector(7 downto 0);
-        Reset_Led        : out   std_logic;
-        nSelDig          : out   std_logic_vector(5 downto 0); 
-        SwLed            : in    std_logic_vector(7 downto 0);
-        nButton          : in    std_logic_vector(3 downto 0);
-        LedButton        : out   std_logic_vector(3 downto 0)
+		Reset_Led        : out   std_logic;
+		nSelDig          : out   std_logic_vector(5 downto 0); 
+		SwLed            : in    std_logic_vector(7 downto 0);
+		nButton          : in    std_logic_vector(3 downto 0);
+		LedButton        : out   std_logic_vector(3 downto 0)
 
-		);
-	end parallelport;
+);
+	end rtc;
 		
-	architecture comp of parallelport is
-			signal hundreds : std_logic_vector (7 DOWNTO 0); -- 7 bits are also enough, maybe chance it later
-			signal seconds : std_logic_vector (7 DOWNTO 0);
-			signal minutes : std_logic_vector (7 DOWNTO 0);
+	architecture comp of rtx is
+			signal hundreds : unsigned (7 DOWNTO 0); -- 7 bits are also enough, maybe chance it later
+			signal seconds : unsigned (7 DOWNTO 0);
+			signal minutes : unsigned (7 DOWNTO 0);
 			
-			signal  1khz_clock : std_logic;
+			signal  enable_1khz : std_logic;
+			signal  enable_100hz : std_logic;
 			variable count : natural;
 		begin
 
 
 		-- slow clock logic
 		process(clk)
+			variable count : natural;
 		begin
 			if rising_edge(clk) then
-				1khz_clock <= '0';
+				enable_1khz <= '0';
 				count := count + 1;
-				if count = 5000 then -- value to be seen
-					1khz_clock <= '1';
+				if count = 5000 then -- value to be seen, assuming 50 Mhz FPGA
+					enable_1khz <= '1';
 					count := 0;
 				end if;
 			end if;
 		end process;
 
 		-- time updater logic
-		update_rtc : process(clk)
+		update_rtc : process(clk_100hz)
 		begin
+			if rising_edge(clk) and enable_100hz = '1' then
+				hundreds <= hundreds + 1;
 
-			if 
+				if hundreds >= 100-1 then -- -1 because hundreds is only updated after the execution of the process!
+					hundreds <= 0;
+					seconds <= seconds + 1;
+				end if;
+				if seconds >= 60-1  then
+					seconds <= 0;
+					minutes <= minutes + 1;
+				end if;
+				if minutes >= 100-1 then
+					minutes <= 0;
+				end if;
+			end if;
+		end process update_rtc;
+		
+		-- screen updater logic
+		update_screen : process(clk_todo) -- 
+			variable seg_cnt : natural; -- which segmet to update next
+		begin
+			SelSeg <= std_logic_vector(2**seg_cnt); -- not sure if the power will synthesize correctly
+			
+			
+			
+			
+		end process update_screen
 
-		end process update_rtc
-
-
+		-- display_rtc
+		
 
 
 		-- below is code from parallelport
