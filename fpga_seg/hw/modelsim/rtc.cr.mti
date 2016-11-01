@@ -1,4 +1,4 @@
-D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench_config.vhd {1 {vcom -work work -2002 -explicit -stats=none {D:\Skydrive\Documenten\Univ\ES\GIT\fpga_seg\hw\modelsim\testbench_config.vhd}
+D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench_config.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench_config.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package STANDARD
 -- Compiling configuration rtc_tb_conf
@@ -9,7 +9,18 @@ Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading architecture bench of rtc_tb
 -- Loading entity rtc
 
-} {} {}} D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench.vhd {1 {vcom -work work -2002 -explicit -stats=none {D:\Skydrive\Documenten\Univ\ES\GIT\fpga_seg\hw\modelsim\testbench.vhd}
+} {} {}} D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/quartus/rtcmodule.vhd {2 {vcom -work work -2002 -explicit -stats=none D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/quartus/rtcmodule.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity rtc
+-- Compiling architecture comp of rtc
+** Warning: D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/quartus/rtcmodule.vhd(143): (vcom-1272) Length of expected is 4; length of slice name is 5.
+
+
+} {} {}} D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package STANDARD
 -- Loading package TEXTIO
