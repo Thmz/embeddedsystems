@@ -9,7 +9,7 @@ z2
 cModel Technology
 dE:/Program Files/Modeltech_pe_edu_10.4a/examples
 Ertc
-Z0 w1478039129
+Z0 w1478090870
 Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
@@ -22,9 +22,9 @@ VUAAe_EnE]Za^<2SkWBjf22
 !s100 D]3>MXiLHjG8D<?T92Tj@3
 Z7 OV;C;10.4d;61
 32
-Z8 !s110 1478039138
+Z8 !s110 1478090878
 !i10b 1
-Z9 !s108 1478039138.000000
+Z9 !s108 1478090878.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/quartus/rtcmodule.vhd|
 Z11 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/quartus/rtcmodule.vhd|
 !i113 1
@@ -37,8 +37,8 @@ R3
 Z14 DEx4 work 3 rtc 0 22 UAAe_EnE]Za^<2SkWBjf22
 l56
 L30
-V<T<]NJDS3=UL@R99YR4eF2
-!s100 z=PfL1FEbS2VzF<I:NdUW0
+Vh2]1JHUQ]ZKb<_[;K_jgH2
+!s100 loQ@OHf6WH@]jK1TgUI[L1
 R7
 32
 R8
@@ -109,7 +109,7 @@ VS38[B4HEG9MkQH<LFUz2o1
 !s100 Q21Sf]zAb7=B?N9aWGVGd0
 R7
 32
-R8
+!s110 1478090879
 !i10b 0
 R9
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_seg/hw/modelsim/testbench_config.vhd|

@@ -64,16 +64,16 @@ entity rtc is
 			variable count_100hz : natural;
 		begin
 			if rising_edge(clk) then
-				enable_1khz <= '0';
+				enable_1khz <= '0'; -- THIS CLOCK SHOULD BECOME 333 Hz because of the cycle
 				count_1khz := count_1khz + 1;
-				if count_1khz = 50 then -- value to be seen, assuming 50 Mhz FPGA so should be 5000, for testing purposes faster clock!
+				if count_1khz = 5 then -- assuming 50 Mhz FPGA so should be 150150, but for testing purposes faster clock!
 					enable_1khz <= '1';
 					count_1khz := 0;
 				end if;
 				
 				enable_100hz <= '0';
 				count_100hz := count_100hz + 1;
-				if count_100hz = 5 then -- value to be seen, assuming 50 Mhz FPGA so should be 5000, for testing purposes faster clock!
+				if count_100hz = 15 then -- assuming 50 Mhz FPGA so should be 500000, but for testing purposes faster clock!
 					enable_100hz <= '1';
 					count_100hz := 0;
 				end if;
@@ -116,22 +116,19 @@ entity rtc is
 			if rising_edge(clk) and enable_1khz = '1' then
 				
 				-- select current segment
-				SelSeg <= std_logic_vector(to_unsigned(2**count_seg, 8)); 
+				nSelDig <= std_logic_vector(to_unsigned(2**count_seg, 6)); 
 					
 				
 				if cycle = 0 then
 					cycle := 1;
-						-- clear all segments and load new segment
-						
-						-- TODO reset segments (something with reset_led = '1', need to look up on documentation if high or low!)
-						-- TODO stop resetting in next cycle! (undo reset_led in next cycle)
-						
+						-- clear all segments
+						Reset_led <= '1';						
 				
 				elsif cycle = 1 then
 					cycle := 2;
 					
 					-- undo reset led
-					
+					Reset_led <= '0';
 					
 					-- get number to show	
 					case count_seg is
@@ -140,7 +137,7 @@ entity rtc is
 					 when 2 => number_to_show := seconds(3 downto 0) ;
 					 when 3 => number_to_show := seconds(7 downto 4);
 					 when 4 => number_to_show := minutes(3 downto 0);
-					 when 5 => number_to_show := minutes(7 downto 3);
+					 when 5 => number_to_show := minutes(7 downto 4);
 					 when others => number_to_show := "0000";
 				  end case;
 		  
@@ -157,8 +154,17 @@ entity rtc is
 			
 					-- map number to nSelDig		
 					case to_integer(number_to_show) is
-					 when 0 => nSelDig <= "101010";-- just a placeholder TODO has to be changed to right string, according to 7-seg documentation
-					 when others =>  nSelDig <= "111111";
+					 when 0 => SelSeg <= "00111111";-- just a placeholder TODO has to be changed to right string, according to 7-seg documentation
+					 when 1 => SelSeg <= "00000110";
+					 when 2 => SelSeg <= "01010011";
+					 when 3 => SelSeg <= "01001111";
+					 when 4 => SelSeg <= "01100110";
+					 when 5 => SelSeg <= "01101101";
+					 when 6 => SelSeg <= "01111101";
+					 when 7 => SelSeg <= "00000111";
+					 when 8 => SelSeg <= "01111111";
+					 when 9 => SelSeg <= "01101111";
+					 when others =>  nSelDig <= "00000000";
 					end case;
 
 					
@@ -170,7 +176,7 @@ entity rtc is
 					cycle := 0;
 					
 					-- take load from segment
-					nSelDig <= "111111";
+					SelSeg <= "00000000";
 					
 					-- update segment counter
 					count_seg := count_seg + 1;
