@@ -30,7 +30,7 @@ entity rtc is
 	architecture comp of rtc is
 			signal hundreds : unsigned (7 DOWNTO 0) := (others => '0'); -- in BCD format
 			signal seconds : unsigned (7 DOWNTO 0) := (others => '0'); -- in BCD format
-			signal minutes : unsigned(7 DOWNTO 0) := (others => '0');-- in BCD format<
+			signal minutes : unsigned(7 DOWNTO 0) := (others => '0');-- in BCD format
 			 
 			signal  enable_1khz : std_logic;
 			signal  enable_100hz : std_logic;
@@ -110,7 +110,7 @@ entity rtc is
 		update_screen : process(clk, enable_1khz) -- 1khz is not correct, should be 333 hz, because we use 3 cycles for a segment refresh 
 			variable count_seg : natural; -- which segment to update next
 			variable cycle : natural; -- which cycle are we in: 
-			-- cycle 0 clear all segments , cycle 1 load new segment, cycle 2 take load from segmeent
+			-- cycle 0 clear all segments , cycle 1 load new segment, cycle 2 remove load from segmeent
 			variable number_to_show : unsigned(3 downto 0);
 		begin
 			if rising_edge(clk) and enable_1khz = '1' then
