@@ -1,14 +1,20 @@
 
 module system (
 	clk_clk,
-	reset_reset_n,
-	realtimeclock_0_conduit_end_readdata,
-	realtimeclock_0_conduit_end_writebyteenable_n,
-	realtimeclock_0_conduit_end_writeresponsevalid_n);	
+	realtimeclock_0_conduit_end_export,
+	realtimeclock_0_conduit_end_1_export,
+	realtimeclock_0_conduit_end_2_export,
+	realtimeclock_0_conduit_end_3_import,
+	realtimeclock_0_conduit_end_4_import,
+	realtimeclock_0_conduit_end_5_export,
+	reset_reset_n);	
 
 	input		clk_clk;
+	output	[3:0]	realtimeclock_0_conduit_end_export;
+	output		realtimeclock_0_conduit_end_1_export;
+	output	[7:0]	realtimeclock_0_conduit_end_2_export;
+	input	[7:0]	realtimeclock_0_conduit_end_3_import;
+	input	[3:0]	realtimeclock_0_conduit_end_4_import;
+	output	[5:0]	realtimeclock_0_conduit_end_5_export;
 	input		reset_reset_n;
-	output	[3:0]	realtimeclock_0_conduit_end_readdata;
-	input	[3:0]	realtimeclock_0_conduit_end_writebyteenable_n;
-	output		realtimeclock_0_conduit_end_writeresponsevalid_n;
 endmodule
