@@ -164,7 +164,7 @@ entity rtc is
 					 when 7 => SelSeg <= "00000111";
 					 when 8 => SelSeg <= "01111111";
 					 when 9 => SelSeg <= "01101111";
-					 when others =>  nSelDig <= "00000000";
+					 when others =>  SelSeg <= "00000000"; -- MODIFIED BY LUKAS before nSelDir
 					end case;
 
 					
