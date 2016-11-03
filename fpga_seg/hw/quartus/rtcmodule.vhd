@@ -66,14 +66,14 @@ entity rtc is
 			if rising_edge(clk) then
 				enable_1khz <= '0'; -- THIS CLOCK SHOULD BECOME 333 Hz because of the cycle
 				count_1khz := count_1khz + 1;
-				if count_1khz = 5 then -- assuming 50 Mhz FPGA so should be 150150, but for testing purposes faster clock!
+				if count_1khz = 15015000 then -- assuming 50 Mhz FPGA so should be 150150, but for testing purposes faster clock!
 					enable_1khz <= '1';
 					count_1khz := 0;
 				end if;
 				
 				enable_100hz <= '0';
 				count_100hz := count_100hz + 1;
-				if count_100hz = 15 then -- assuming 50 Mhz FPGA so should be 500000, but for testing purposes faster clock!
+				if count_100hz = 50000000 then -- assuming 50 Mhz FPGA so should be 500000, but for testing purposes faster clock!
 					enable_100hz <= '1';
 					count_100hz := 0;
 				end if;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="system" kind="system" version="1.0" fabric="QSYS">
  <!-- Format version 16.0 211 (Future versions may contain additional information.) -->
- <!-- 2016.11.02.23:05:53 -->
+ <!-- 2016.11.03.16:16:56 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1478124353</value>
+  <value>1478186215</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -2795,7 +2795,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x20000' end='0x40000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x40800' end='0x41000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='realtimeclock_0.avalon_slave_0' start='0x41000' end='0x41008' type='realtimeclock.avalon_slave_0' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x20000' end='0x40000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x40800' end='0x41000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='realtimeclock_0.avalon_slave_0' start='0x41000' end='0x41008' type='realtimeclock.avalon_slave_0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x41008' end='0x41010' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2924,7 +2924,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="internalIrqMaskSystemInfo">
    <type>long</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -3469,6 +3469,14 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
+    <moduleName>jtag_uart_0</moduleName>
+    <slaveName>avalon_jtag_slave</slaveName>
+    <name>jtag_uart_0.avalon_jtag_slave</name>
+    <baseAddress>266248</baseAddress>
+    <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
     <moduleName>realtimeclock_0</moduleName>
     <slaveName>avalon_slave_0</slaveName>
     <name>realtimeclock_0.avalon_slave_0</name>
@@ -3869,6 +3877,13 @@ parameters are a RESULT of the module parameters. -->
     <width>32</width>
     <role>irq</role>
    </port>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>jtag_uart_0</moduleName>
+    <slaveName>irq</slaveName>
+    <name>jtag_uart_0.irq</name>
+    <interruptNumber>0</interruptNumber>
+   </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="16.0">
    <!-- The connection points exposed by a module instance for the
@@ -5995,6 +6010,57 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <connection
+   name="nios2_gen2_0.data_master/jtag_uart_0.avalon_jtag_slave"
+   kind="avalon"
+   version="16.0"
+   start="nios2_gen2_0.data_master"
+   end="jtag_uart_0.avalon_jtag_slave">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x00041008</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>jtag_uart_0</endModule>
+  <endConnectionPoint>avalon_jtag_slave</endConnectionPoint>
+ </connection>
+ <connection
    name="nios2_gen2_0.data_master/realtimeclock_0.avalon_slave_0"
    kind="avalon"
    version="16.0"
@@ -6358,6 +6424,41 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
+   name="nios2_gen2_0.irq/jtag_uart_0.irq"
+   kind="interrupt"
+   version="16.0"
+   start="nios2_gen2_0.irq"
+   end="jtag_uart_0.irq">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>jtag_uart_0</endModule>
+  <endConnectionPoint>irq</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_0.clk_reset/nios2_gen2_0.reset"
    kind="reset"
    version="16.0"
@@ -6546,33 +6647,6 @@ parameters are a RESULT of the module parameters. -->
   <endModule>onchip_memory2_0</endModule>
   <endConnectionPoint>reset1</endConnectionPoint>
  </connection>
- <connection
-   name="nios2_gen2_0.debug_reset_request/realtimeclock_0.reset_sink"
-   kind="reset"
-   version="16.0"
-   start="nios2_gen2_0.debug_reset_request"
-   end="realtimeclock_0.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>debug_reset_request</startConnectionPoint>
-  <endModule>realtimeclock_0</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
  <plugin>
   <instanceCount>1</instanceCount>
   <name>clock_source</name>
@@ -6718,7 +6792,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.0</version>
  </plugin>
  <plugin>
-  <instanceCount>5</instanceCount>
+  <instanceCount>6</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -6734,7 +6808,15 @@ parameters are a RESULT of the module parameters. -->
   <version>16.0</version>
  </plugin>
  <plugin>
-  <instanceCount>8</instanceCount>
+  <instanceCount>1</instanceCount>
+  <name>interrupt</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IConnection</subtype>
+  <displayName>Interrupt Connection</displayName>
+  <version>16.0</version>
+ </plugin>
+ <plugin>
+  <instanceCount>7</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
