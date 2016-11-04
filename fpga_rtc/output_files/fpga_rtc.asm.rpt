@@ -1,5 +1,5 @@
 Assembler report for fpga_rtc
-Fri Nov 04 11:57:59 2016
+Fri Nov 04 18:53:34 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -11,7 +11,7 @@ Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
   3. Assembler Settings
   4. Assembler Encrypted IP Cores Summary
   5. Assembler Generated Files
-  6. Assembler Device Options: C:/Users/lumoser/Desktop/fpga_rtc/output_files/fpga_rtc.sof
+  6. Assembler Device Options: C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/fpga_rtc/output_files/fpga_rtc_time_limited.sof
   7. Assembler Messages
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Nov 04 11:57:59 2016 ;
+; Assembler Status      ; Successful - Fri Nov 04 18:53:33 2016 ;
 ; Revision Name         ; fpga_rtc                              ;
 ; Top-level Entity Name ; DE0_Nano_Soc_7_segment_extension      ;
 ; Family                ; Cyclone V                             ;
@@ -54,35 +54,35 @@ agreement for further details.
 +--------+---------+---------------+
 
 
-+-------------------------------------------------------+
-; Assembler Encrypted IP Cores Summary                  ;
-+--------+-------------------------------+--------------+
-; Vendor ; IP Core Name                  ; License Type ;
-+--------+-------------------------------+--------------+
-; Altera ; Nios II Processor (6AF7 00A2) ; Licensed     ;
-; Altera ; Signal Tap (6AF7 BCE1)        ; Licensed     ;
-; Altera ; Signal Tap (6AF7 BCEC)        ; Licensed     ;
-+--------+-------------------------------+--------------+
++--------------------------------------------------------+
+; Assembler Encrypted IP Cores Summary                   ;
++--------+-------------------------------+---------------+
+; Vendor ; IP Core Name                  ; License Type  ;
++--------+-------------------------------+---------------+
+; Altera ; Nios II Processor (6AF7 00A2) ; OpenCore Plus ;
+; Altera ; Signal Tap (6AF7 BCE1)        ; Licensed      ;
+; Altera ; Signal Tap (6AF7 BCEC)        ; Licensed      ;
++--------+-------------------------------+---------------+
 
 
-+-------------------------------------------------------------+
-; Assembler Generated Files                                   ;
-+-------------------------------------------------------------+
-; File Name                                                   ;
-+-------------------------------------------------------------+
-; C:/Users/lumoser/Desktop/fpga_rtc/output_files/fpga_rtc.sof ;
-+-------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------+
+; Assembler Generated Files                                                                                             ;
++-----------------------------------------------------------------------------------------------------------------------+
+; File Name                                                                                                             ;
++-----------------------------------------------------------------------------------------------------------------------+
+; C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/fpga_rtc/output_files/fpga_rtc_time_limited.sof ;
++-----------------------------------------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/lumoser/Desktop/fpga_rtc/output_files/fpga_rtc.sof ;
-+----------------+----------------------------------------------------------------------+
-; Option         ; Setting                                                              ;
-+----------------+----------------------------------------------------------------------+
-; Device         ; 5CSEMA4U23C6                                                         ;
-; JTAG usercode  ; 0x034B8F99                                                           ;
-; Checksum       ; 0x034B8F99                                                           ;
-+----------------+----------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/fpga_rtc/output_files/fpga_rtc_time_limited.sof ;
++----------------+--------------------------------------------------------------------------------------------------------------------------------+
+; Option         ; Setting                                                                                                                        ;
++----------------+--------------------------------------------------------------------------------------------------------------------------------+
+; Device         ; 5CSEMA4U23C6                                                                                                                   ;
+; JTAG usercode  ; 0x034FDE35                                                                                                                     ;
+; Checksum       ; 0x034FDE35                                                                                                                     ;
++----------------+--------------------------------------------------------------------------------------------------------------------------------+
 
 
 +--------------------+
@@ -91,13 +91,15 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Fri Nov 04 11:57:52 2016
+    Info: Processing started: Fri Nov 04 18:53:23 2016
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off fpga_rtc -c fpga_rtc
 Info (115030): Assembler is generating device programming files
-Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 933 megabytes
-    Info: Processing ended: Fri Nov 04 11:57:59 2016
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:06
+Info (115017): Design contains a time-limited core -- only a single, time-limited programming file can be generated
+Warning (210042): Can't convert time-limited SOF into POF, HEX File, TTF, or RBF
+Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 962 megabytes
+    Info: Processing ended: Fri Nov 04 18:53:34 2016
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:10
 
 

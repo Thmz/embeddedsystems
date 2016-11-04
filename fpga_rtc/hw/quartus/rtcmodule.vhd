@@ -102,23 +102,48 @@ entity rtc is
 	 
 	 
 
---		-- time updater logic
-		update_rtc : process(clk, enable_100hz)
+--		-- time updater logic + write
+		update_rtc : process(clk, enable_100hz, nReset)
 			
 		begin
-			if rising_edge(clk) and enable_100hz = '1' then
-				hundreds <= increment_bcd(hundreds);
+		
+			if nReset = '0' then
+					hundreds  <= (others => '0');  --   Input by default
+					seconds <= (others => '0');  --   Input by default
+					minutes  <= (others => '0');  --   Input by default
+		
+		
+			elsif rising_edge(clk) then
+			
+				if ChipSelect= '1' and Write = '1' then  --   Write cycle
+						case Address (2 downto 0) is
+							when "001" => hundreds <= WriteData; 
+							when "010" => seconds <= WriteData; 
+							when "011" => minutes <= WriteData; 
+							when others => null;
+						end case;
 				
-				if hundreds = "10011001" then --153 then -- 153 is decimal for 10011001 which is 99 in BCD
-					hundreds <= (others => '0');
-					seconds <= increment_bcd(seconds);
+				else			
+			
+					if enable_100hz = '1' then
+					hundreds <= increment_bcd(hundreds);
+					end if;
+					
+					if hundreds = "10011001" then --153 then -- 153 is decimal for 10011001 which is 99 in BCD
+						hundreds <= (others => '0');
+						seconds <= increment_bcd(seconds);
+					end if;
+					
+					if seconds = "01011001" and hundreds = "10011001" then -- 89 is decimal for 01011001 which is 59 in BCD
+						seconds <= (others => '0');
+						minutes <= increment_bcd(minutes);
+					end if;
+					if minutes = "10011001" and seconds = "01011001" and hundreds = "10011001" then -- 89 is decimal for 01011001 which is 59 in BCD
+						hundreds <= (others => '0');
+						seconds <= (others => '0');
+						minutes <= (others => '0');
+					end if;
 				end if;
-				
-				if seconds = "01011001" and hundreds = "10011001" then -- 89 is decimal for 01011001 which is 59 in BCD
-					seconds <= (others => '0');
-					minutes <= increment_bcd(minutes);
-				end if;
-				
 			end if;
 		end process update_rtc;
 		
@@ -217,6 +242,8 @@ entity rtc is
 			END IF; -- close rising edge if
 			
 		end process update_screen;
+		
+
 		
 		
 		
