@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="system" kind="system" version="1.0" fabric="QSYS">
  <!-- Format version 16.0 211 (Future versions may contain additional information.) -->
- <!-- 2016.11.03.16:16:56 -->
+ <!-- 2016.11.03.22:19:46 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1478186215</value>
+  <value>1478207985</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -5915,7 +5915,7 @@ parameters are a RESULT of the module parameters. -->
     <name>SwLed</name>
     <direction>Input</direction>
     <width>8</width>
-    <role>import</role>
+    <role>export</role>
    </port>
   </interface>
   <interface name="conduit_end_4" kind="conduit_end" version="16.0">
@@ -5960,7 +5960,7 @@ parameters are a RESULT of the module parameters. -->
     <name>nButton</name>
     <direction>Input</direction>
     <width>4</width>
-    <role>import</role>
+    <role>export</role>
    </port>
   </interface>
   <interface name="conduit_end_5" kind="conduit_end" version="16.0">

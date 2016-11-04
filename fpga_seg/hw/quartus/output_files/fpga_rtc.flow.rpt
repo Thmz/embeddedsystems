@@ -1,5 +1,5 @@
 Flow report for fpga_rtc
-Thu Nov 03 16:20:58 2016
+Thu Nov 03 22:29:27 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -41,15 +41,15 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Thu Nov 03 16:20:34 2016       ;
+; Flow Status                     ; Successful - Thu Nov 03 22:28:21 2016       ;
 ; Quartus Prime Version           ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                   ; fpga_rtc                                    ;
 ; Top-level Entity Name           ; DE0_Nano_Soc_7_segment_extension            ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA4U23C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 1,474 / 15,880 ( 9 % )                      ;
-; Total registers                 ; 2170                                        ;
+; Logic utilization (in ALMs)     ; 1,473 / 15,880 ( 9 % )                      ;
+; Total registers                 ; 2147                                        ;
 ; Total pins                      ; 34 / 314 ( 11 % )                           ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 1,112,320 / 2,764,800 ( 40 % )              ;
@@ -68,7 +68,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/03/2016 16:16:34 ;
+; Start date & time ; 11/03/2016 22:19:16 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; fpga_rtc            ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+----------------------------------+----------------+
 ; Assignment Name                     ; Value                                 ; Default Value ; Entity Name                      ; Section Id     ;
 +-------------------------------------+---------------------------------------+---------------+----------------------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 202898063946546.147818619400420       ; --            ; --                               ; --             ;
+; COMPILER_SIGNATURE_ID               ; 202898063946546.147820795509580       ; --            ; --                               ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; None                                  ; --            ; --                               ; eda_simulation ;
 ; EDA_TIME_SCALE                      ; 1 ps                                  ; --            ; --                               ; eda_simulation ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --                               ; --             ;
@@ -99,11 +99,11 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:01:24     ; 1.0                     ; 1099 MB             ; 00:02:23                           ;
-; Fitter                    ; 00:02:19     ; 1.0                     ; 2072 MB             ; 00:03:19                           ;
-; Assembler                 ; 00:00:09     ; 1.0                     ; 960 MB              ; 00:00:09                           ;
-; TimeQuest Timing Analyzer ; 00:00:23     ; 1.0                     ; 1231 MB             ; 00:00:23                           ;
-; Total                     ; 00:04:15     ; --                      ; --                  ; 00:06:14                           ;
+; Analysis & Synthesis      ; 00:02:26     ; 1.0                     ; 1097 MB             ; 00:04:29                           ;
+; Fitter                    ; 00:05:59     ; 1.0                     ; 2019 MB             ; 00:08:54                           ;
+; Assembler                 ; 00:00:24     ; 1.0                     ; 958 MB              ; 00:00:24                           ;
+; TimeQuest Timing Analyzer ; 00:01:04     ; 1.0                     ; 1250 MB             ; 00:01:03                           ;
+; Total                     ; 00:09:53     ; --                      ; --                  ; 00:14:50                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

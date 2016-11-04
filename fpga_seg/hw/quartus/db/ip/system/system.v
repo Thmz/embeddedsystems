@@ -8,8 +8,8 @@ module system (
 		output wire [3:0] realtimeclock_0_conduit_end_export,   //   realtimeclock_0_conduit_end.export
 		output wire       realtimeclock_0_conduit_end_1_export, // realtimeclock_0_conduit_end_1.export
 		output wire [7:0] realtimeclock_0_conduit_end_2_export, // realtimeclock_0_conduit_end_2.export
-		input  wire [7:0] realtimeclock_0_conduit_end_3_import, // realtimeclock_0_conduit_end_3.import
-		input  wire [3:0] realtimeclock_0_conduit_end_4_import, // realtimeclock_0_conduit_end_4.import
+		input  wire [7:0] realtimeclock_0_conduit_end_3_export, // realtimeclock_0_conduit_end_3.export
+		input  wire [3:0] realtimeclock_0_conduit_end_4_export, // realtimeclock_0_conduit_end_4.export
 		output wire [5:0] realtimeclock_0_conduit_end_5_export, // realtimeclock_0_conduit_end_5.export
 		input  wire       reset_reset_n                         //                         reset.reset_n
 	);
@@ -132,8 +132,8 @@ module system (
 		.LedButton  (realtimeclock_0_conduit_end_export),                          //    conduit_end.export
 		.Reset_Led  (realtimeclock_0_conduit_end_1_export),                        //  conduit_end_1.export
 		.SelSeg     (realtimeclock_0_conduit_end_2_export),                        //  conduit_end_2.export
-		.SwLed      (realtimeclock_0_conduit_end_3_import),                        //  conduit_end_3.import
-		.nButton    (realtimeclock_0_conduit_end_4_import),                        //  conduit_end_4.import
+		.SwLed      (realtimeclock_0_conduit_end_3_export),                        //  conduit_end_3.export
+		.nButton    (realtimeclock_0_conduit_end_4_export),                        //  conduit_end_4.export
 		.nSelDig    (realtimeclock_0_conduit_end_5_export)                         //  conduit_end_5.export
 	);
 

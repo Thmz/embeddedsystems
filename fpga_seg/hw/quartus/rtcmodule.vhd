@@ -116,19 +116,20 @@ entity rtc is
 			if rising_edge(clk) and enable_1khz = '1' then
 				
 				-- select current segment
-				nSelDig <= std_logic_vector(to_unsigned(2**count_seg, 6)); 
-					
+				nSelDig <= "010000";--not std_logic_vector(to_unsigned(count_seg**2, 6)); 
+				--SelSeg <= "01011011";
+				--Reset_led <= '0';
 				
 				if cycle = 0 then
 					cycle := 1;
 						-- clear all segments
-						Reset_led <= '1';						
+						Reset_led <= '0';						
 				
 				elsif cycle = 1 then
 					cycle := 2;
 					
 					-- undo reset led
-					Reset_led <= '0';
+					Reset_led <= '1';
 					
 					-- get number to show	
 					case count_seg is
@@ -150,7 +151,7 @@ entity rtc is
 		--					 minutes(3 downto 0) when 4,
 		--					 minutes(7 downto 3) when 5;
 						
-
+					
 			
 					-- map number to nSelDig		
 					case to_integer(number_to_show) is

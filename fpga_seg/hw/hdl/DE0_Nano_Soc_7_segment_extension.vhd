@@ -115,8 +115,8 @@ architecture rtl of DE0_Nano_Soc_7_segment_extension is
 			realtimeclock_0_conduit_end_export   : out std_logic_vector(3 downto 0);                    -- export
 			realtimeclock_0_conduit_end_1_export : out std_logic;                                       -- export
 			realtimeclock_0_conduit_end_2_export : out std_logic_vector(7 downto 0);                    -- export
-			realtimeclock_0_conduit_end_3_import : in  std_logic_vector(7 downto 0) := (others => 'X'); -- import
-			realtimeclock_0_conduit_end_4_import : in  std_logic_vector(3 downto 0) := (others => 'X'); -- import
+			realtimeclock_0_conduit_end_3_export : in  std_logic_vector(7 downto 0) := (others => 'X'); -- import
+			realtimeclock_0_conduit_end_4_export : in  std_logic_vector(3 downto 0) := (others => 'X'); -- import
 			realtimeclock_0_conduit_end_5_export : out std_logic_vector(5 downto 0);                    -- export
 			reset_reset_n                        : in  std_logic                    := 'X'              -- reset_n
 		);
@@ -131,8 +131,8 @@ begin
 			realtimeclock_0_conduit_end_export   => LedButton ,   --   realtimeclock_0_conduit_end.export
 			realtimeclock_0_conduit_end_1_export => Reset_Led , -- realtimeclock_0_conduit_end_1.export
 			realtimeclock_0_conduit_end_2_export => SelSeg , -- realtimeclock_0_conduit_end_2.export
-			realtimeclock_0_conduit_end_3_import => SwLed, -- realtimeclock_0_conduit_end_3.import
-			realtimeclock_0_conduit_end_4_import => nButton, -- realtimeclock_0_conduit_end_4.import
+			realtimeclock_0_conduit_end_3_export => SwLed, -- realtimeclock_0_conduit_end_3.import
+			realtimeclock_0_conduit_end_4_export => nButton, -- realtimeclock_0_conduit_end_4.import
 			realtimeclock_0_conduit_end_5_export => nSelDig , -- realtimeclock_0_conduit_end_5.export
 			reset_reset_n                        => KEY_N(0)                         --                         reset.reset_n
 		);

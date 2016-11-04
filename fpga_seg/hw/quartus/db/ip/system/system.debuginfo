@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="system" kind="system" version="16.0" fabric="QSYS">
  <!-- Format version 16.0 211 (Future versions may contain additional information.) -->
- <!-- 2016.11.03.16:17:19 -->
+ <!-- 2016.11.03.22:20:17 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1478186215</value>
+  <value>1478207985</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -5965,7 +5965,7 @@ parameters are a RESULT of the module parameters. -->
     <name>SwLed</name>
     <direction>Input</direction>
     <width>8</width>
-    <role>import</role>
+    <role>export</role>
    </port>
   </interface>
   <interface name="conduit_end_4" kind="conduit_end" version="16.0">
@@ -6010,7 +6010,7 @@ parameters are a RESULT of the module parameters. -->
     <name>nButton</name>
     <direction>Input</direction>
     <width>4</width>
-    <role>import</role>
+    <role>export</role>
    </port>
   </interface>
   <interface name="conduit_end_5" kind="conduit_end" version="16.0">
@@ -10852,5 +10852,5 @@ parameters are a RESULT of the module parameters. -->
   <version>16.0</version>
  </plugin>
  <reportVersion>16.0 211</reportVersion>
- <uniqueIdentifier>0A0027000003000001582AC3BB62</uniqueIdentifier>
+ <uniqueIdentifier>0A0027000003000001582C0FEFD6</uniqueIdentifier>
 </EnsembleReport>
