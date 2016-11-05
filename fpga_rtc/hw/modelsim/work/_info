@@ -9,7 +9,7 @@ z2
 cModel Technology
 dE:/Program Files/Modeltech_pe_edu_10.4a/examples
 Ertc
-Z0 w1478374152
+Z0 w1478379312
 Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
@@ -18,13 +18,13 @@ Z5 8D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd
 Z6 FD:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd
 l0
 L5
-VnkI;XD?9^X?ZW4A82@zi93
-!s100 ifV4UdDYImN;fL52lzBn<0
+V@o?6GkfBa2Sh2c3GM<mD<0
+!s100 eGIn=XB0X@=gM_?DFB8@Q2
 Z7 OV;C;10.4d;61
 32
-Z8 !s110 1478374178
+Z8 !s110 1478379321
 !i10b 1
-Z9 !s108 1478374178.000000
+Z9 !s108 1478379321.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd|
 Z11 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd|
 !i113 1
@@ -34,7 +34,7 @@ Acomp
 R1
 R2
 R3
-Z14 DEx4 work 3 rtc 0 22 nkI;XD?9^X?ZW4A82@zi93
+Z14 DEx4 work 3 rtc 0 22 @o?6GkfBa2Sh2c3GM<mD<0
 l49
 L24
 Vem65ei:07Eh35oBZTcI<z1
@@ -50,7 +50,7 @@ R11
 R12
 R13
 Ertc_tb
-Z15 w1478019694
+Z15 w1478379192
 R1
 R2
 R3
@@ -78,8 +78,8 @@ R3
 Z20 DEx4 work 6 rtc_tb 0 22 ?Re:i971PazXd2@Q:d98n0
 l60
 L7
-ViQ7UOA0:5BBhZ322`ZeVO3
-!s100 Yobkk20FZz7k_ZC73]Jz83
+V<eaWj9`g6FU1U2e96dhMm3
+!s100 IFzJek[G@@Mf6T=n]H^_`0
 R7
 32
 R8
@@ -94,7 +94,7 @@ Crtc_tb_conf
 ertc_tb
 abench
 R14
-DAx4 work 6 rtc_tb 5 bench 22 iQ7UOA0:5BBhZ322`ZeVO3
+DAx4 work 6 rtc_tb 5 bench 22 <eaWj9`g6FU1U2e96dhMm3
 R1
 R2
 R3
@@ -109,9 +109,9 @@ VS38[B4HEG9MkQH<LFUz2o1
 !s100 Q21Sf]zAb7=B?N9aWGVGd0
 R7
 32
-!s110 1478374179
+R8
 !i10b 0
-!s108 1478374179.000000
+R9
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench_config.vhd|
 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench_config.vhd|
 !i113 1

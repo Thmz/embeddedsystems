@@ -10,14 +10,14 @@ entity rtc is
 		ChipSelect : IN  std_logic;
 		Read       : IN  std_logic;
 		Write      : IN  std_logic;
-		ReadData   : OUT std_logic_vector(7 DOWNTO 0);
+		ReadData   : OUT std_logic_vector(7 DOWNTO 0) := (others => '0');
 		WriteData  : IN  std_logic_vector(7 DOWNTO 0);
-		SelSeg     : out std_logic_vector(7 downto 0);
-		Reset_Led  : out std_logic;
-		nSelDig    : out std_logic_vector(5 downto 0);
+		SelSeg     : out std_logic_vector(7 downto 0) := (others => '0');
+		Reset_Led  : out std_logic := '0';
+		nSelDig    : out std_logic_vector(5 downto 0) := (others => '1');
 		SwLed      : in  std_logic_vector(7 downto 0);
 		nButton    : in  std_logic_vector(3 downto 0);
-		LedButton  : out std_logic_vector(3 downto 0)
+		LedButton  : out std_logic_vector(3 downto 0) := (others => '0')
 	);
 end rtc;
 
@@ -72,7 +72,7 @@ begin
 
 	
 	
-	--		-- read	 
+	-- read	 
 	pTimeRd : process(Clk)
 	begin
 		if rising_edge(Clk) then
