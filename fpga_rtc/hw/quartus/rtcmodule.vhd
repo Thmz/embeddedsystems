@@ -99,6 +99,24 @@ entity rtc is
 			end if;
 		end process;
 		
+		
+		--		-- read	 
+		pTimeRd: 
+			process(Clk) 
+			begin
+				if rising_edge(Clk) then 
+					ReadData <= (others => '0');
+					if ChipSelect = '1' and Read = '1' then 	 	
+						case Address(2 downto 0) is 
+							when "001" => ReadData <= hundreds ; 
+							when "010" => ReadData <= seconds ;
+							when "011" => ReadData <= minutes; 
+							when others => null; 
+						end case; 
+					end if; 
+				end if; 
+			end process pTimeRd;
+		
 	 
 	 
 
