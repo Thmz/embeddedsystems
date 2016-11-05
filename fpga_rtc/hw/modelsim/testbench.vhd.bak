@@ -1,0 +1,113 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity rtc_tb is end;
+
+architecture bench of rtc_tb is
+
+   constant APPLY_DELAY : time := 2 ns;
+   constant CHECK_DELAY : time := 5 ns;
+
+   component rtc is
+          port(
+		clk : IN std_logic;
+		nReset : IN std_logic;
+		Address : IN std_logic_vector( 2 downto 0);
+		ChipSelect : IN std_logic;
+		
+		Read : IN std_logic;
+		Write : IN std_logic;
+		
+		ReadData : OUT std_logic_vector( 7 DOWNTO 0);
+		WriteData : IN std_logic_vector( 7 DOWNTO 0);
+		
+
+		SelSeg           : out   std_logic_vector(7 downto 0);
+		Reset_Led        : out   std_logic;
+		nSelDig          : out   std_logic_vector(5 downto 0); 
+		SwLed            : in    std_logic_vector(7 downto 0);
+		nButton          : in    std_logic_vector(3 downto 0);
+		LedButton        : out   std_logic_vector(3 downto 0)
+
+	);
+   end component rtc;
+   
+   subtype dp_in is std_logic_vector(63 downto 0);
+   subtype dp_in_elem is std_logic_vector(7 downto 0);
+
+   signal a_tb, b_tb : dp_in;
+   signal dp_tb      : std_logic_vector(18 downto 0);
+   signal dp_exp     : integer;
+   signal check      : std_logic;
+
+begin
+
+   DUV : component rtc
+      port map (
+	clk => clk_tb;
+         a  => a_tb,
+         b  => b_tb,
+         dp => dp_tb);
+
+   process
+
+	clk_tb <= not clk_tb after CLK_PER/2 when not stop;
+      
+      function dotprod (a_tb, b_tb : dp_in) return integer is
+         variable res : integer := 0;
+      --
+      -- compute the expected dot product value
+      --
+      begin
+         for i in 0 to 7 loop
+            res := res +
+                   to_integer(signed(a_tb(i*8+7 downto i*8)))
+                   * to_integer(signed(b_tb(i*8+7 downto i*8)));
+         end loop;
+         return res;
+      end function dotprod;
+      
+      procedure verify is
+      --
+      -- check the output value against the expected value 
+      --
+      begin
+         dp_exp <= dotprod(a_tb, b_tb);
+         wait for CHECK_DELAY;
+         check <= '1';
+--         report "### Check ###";
+         assert to_integer(signed(dp_tb)) = dp_exp report "expected" & integer'image(dp_exp)  ;
+         wait for 1 ns;
+         check <= '0';
+         wait for APPLY_DELAY;         
+      end procedure verify;      
+      
+      procedure do_test1 (a, b : integer) is
+      --
+      -- a_tb(i) = a, b_tb(i) = b
+      --
+      begin
+      	for i in 0 to 7 loop
+      		a_tb(i*8+7 downto i*8) <= std_logic_vector(to_signed(a, 8));
+      		b_tb(i*8+7 downto i*8) <= std_logic_vector(to_signed(b, 8));
+         end loop;
+         wait for 1 ns;
+         verify;
+      end procedure do_test1;
+      
+   begin
+      check <= '0';
+      wait for APPLY_DELAY/10;
+      
+      do_test1(2, 4);
+      do_test1(-55, 99);
+      do_test1(127, 127);
+      do_test1(-128, -128);
+      do_test1(-128, 127);
+
+      wait for APPLY_DELAY;
+      wait;
+   end process;
+
+end architecture bench;

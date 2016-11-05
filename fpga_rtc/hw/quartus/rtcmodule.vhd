@@ -22,9 +22,9 @@ entity rtc is
 end rtc;
 
 architecture comp of rtc is
-	signal hundreds : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
-	signal seconds  : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
-	signal minutes  : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
+	signal RegHundreds : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
+	signal RegSeconds  : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
+	signal RegMinutes  : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
 
 	signal enable_1khz  : std_logic;
 	signal enable_100hz : std_logic;
@@ -79,9 +79,9 @@ begin
 			ReadData <= (others => '0');
 			if ChipSelect = '1' and Read = '1' then
 				case Address(2 downto 0) is
-					when "001"  => ReadData <= hundreds;
-					when "010"  => ReadData <= seconds;
-					when "011"  => ReadData <= minutes;
+					when "001"  => ReadData <= RegHundreds;
+					when "010"  => ReadData <= RegSeconds;
+					when "011"  => ReadData <= RegMinutes;
 					when others => null;
 				end case;
 			end if;
@@ -94,38 +94,38 @@ begin
 	update_rtc : process(clk, enable_100hz, nReset)
 	begin
 		if nReset = '0' then
-			hundreds <= (others => '0'); --   Input by default
-			seconds  <= (others => '0'); --   Input by default
-			minutes  <= (others => '0'); --   Input by default
+			RegHundreds <= (others => '0'); --   Input by default
+			RegSeconds  <= (others => '0'); --   Input by default
+			RegMinutes  <= (others => '0'); --   Input by default
 
 
 		elsif rising_edge(clk) then
 			if ChipSelect = '1' and Write = '1' then --   Write cycle
 				case Address(2 downto 0) is
-					when "001"  => hundreds <= WriteData;
-					when "010"  => seconds <= WriteData;
-					when "011"  => minutes <= WriteData;
+					when "001"  => RegHundreds <= WriteData;
+					when "010"  => RegSeconds <= WriteData;
+					when "011"  => RegMinutes <= WriteData;
 					when others => null;
 				end case;
 
 			else
 			
 				if enable_100hz = '1' then
-					hundreds <= increment_bcd(hundreds);
+					RegHundreds <= increment_bcd(RegHundreds);
 				end if;
 				
-				if minutes = "10011001" and seconds = "01011001" and hundreds = "10011001" then -- 59, 59 and 99 in BCD
-					hundreds <= (others => '0');
-					seconds  <= (others => '0');
-					minutes  <= (others => '0');
+				if RegMinutes = "10011001" and RegSeconds = "01011001" and RegHundreds = "10011001" then -- 59, 59 and 99 in BCD
+					RegHundreds <= (others => '0');
+					RegSeconds  <= (others => '0');
+					RegMinutes  <= (others => '0');
 					
-				elsif seconds = "01011001" and hundreds = "10011001" then -- 59 and 99 in BCD
-					seconds <= (others => '0');
-					minutes <= increment_bcd(minutes);
+				elsif RegSeconds = "01011001" and RegHundreds = "10011001" then -- 59 and 99 in BCD
+					RegSeconds <= (others => '0');
+					RegMinutes <= increment_bcd(RegMinutes);
 					
-				elsif hundreds = "10011001" then -- 99 in BCD
-					hundreds <= (others => '0');
-					seconds  <= increment_bcd(seconds);
+				elsif RegHundreds = "10011001" then -- 99 in BCD
+					RegHundreds <= (others => '0');
+					RegSeconds  <= increment_bcd(RegSeconds);
 				end if;
 				
 			end if;
@@ -170,18 +170,18 @@ begin
 
 				-- get number to show	
 				case count_seg is
-					when 0      => number_to_show := hundreds(3 downto 0);
-										show_dot <= '0';
-					when 1      => number_to_show := hundreds(7 downto 4);
-										show_dot <= '0';
-					when 2      => number_to_show := seconds(3 downto 0);
-										show_dot <= '1';
-					when 3      => number_to_show := seconds(7 downto 4);
-										show_dot <= '0';
-					when 4      => number_to_show := minutes(3 downto 0);
-										show_dot <= '1';
-					when 5      => number_to_show := minutes(7 downto 4);
-										show_dot <= '0';
+					when 0      => number_to_show := RegHundreds(3 downto 0);
+										show_dot := '0';
+					when 1      => number_to_show := RegHundreds(7 downto 4);
+										show_dot := '0';
+					when 2      => number_to_show := RegSeconds(3 downto 0);
+										show_dot := '1';
+					when 3      => number_to_show := RegSeconds(7 downto 4);
+										show_dot := '0';
+					when 4      => number_to_show := RegMinutes(3 downto 0);
+										show_dot := '1';
+					when 5      => number_to_show := RegMinutes(7 downto 4);
+										show_dot := '0';
 					when others => number_to_show := "0000";
 				end case;
 

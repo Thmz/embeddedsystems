@@ -1,0 +1,119 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dE:/Program Files/Modeltech_pe_edu_10.4a/examples
+Ertc
+Z0 w1478374152
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dD:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim
+Z5 8D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd
+Z6 FD:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd
+l0
+L5
+VnkI;XD?9^X?ZW4A82@zi93
+!s100 ifV4UdDYImN;fL52lzBn<0
+Z7 OV;C;10.4d;61
+32
+Z8 !s110 1478374178
+!i10b 1
+Z9 !s108 1478374178.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd|
+Z11 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/quartus/rtcmodule.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1
+Acomp
+R1
+R2
+R3
+Z14 DEx4 work 3 rtc 0 22 nkI;XD?9^X?ZW4A82@zi93
+l49
+L24
+Vem65ei:07Eh35oBZTcI<z1
+!s100 [Ti::jzU;EVOT>3o6QN>^3
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Ertc_tb
+Z15 w1478019694
+R1
+R2
+R3
+R4
+Z16 8D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench.vhd
+Z17 FD:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench.vhd
+l0
+L5
+V?Re:i971PazXd2@Q:d98n0
+!s100 J86^HzTG6o=ERCfcLRN>W0
+R7
+32
+R8
+!i10b 1
+R9
+Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench.vhd|
+Z19 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench.vhd|
+!i113 1
+R12
+R13
+Abench
+R1
+R2
+R3
+Z20 DEx4 work 6 rtc_tb 0 22 ?Re:i971PazXd2@Q:d98n0
+l60
+L7
+ViQ7UOA0:5BBhZ322`ZeVO3
+!s100 Yobkk20FZz7k_ZC73]Jz83
+R7
+32
+R8
+!i10b 1
+R9
+R18
+R19
+!i113 1
+R12
+R13
+Crtc_tb_conf
+ertc_tb
+abench
+R14
+DAx4 work 6 rtc_tb 5 bench 22 iQ7UOA0:5BBhZ322`ZeVO3
+R1
+R2
+R3
+R20
+w1478018194
+R4
+8D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench_config.vhd
+FD:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench_config.vhd
+l0
+L1
+VS38[B4HEG9MkQH<LFUz2o1
+!s100 Q21Sf]zAb7=B?N9aWGVGd0
+R7
+32
+!s110 1478374179
+!i10b 0
+!s108 1478374179.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench_config.vhd|
+!s107 D:/Skydrive/Documenten/Univ/ES/GIT/fpga_rtc/hw/modelsim/testbench_config.vhd|
+!i113 1
+R12
+R13
