@@ -26,7 +26,7 @@ architecture comp of rtc is
 	signal RegSeconds  : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
 	signal RegMinutes  : std_logic_vector(7 DOWNTO 0) := (others => '0'); -- in BCD format
 
-	signal enable_1khz  : std_logic;
+	signal enable_100khz  : std_logic;
 	signal enable_100hz : std_logic;
 
 	
@@ -50,22 +50,22 @@ begin
 
 	-- slow clock logic
 	process(clk)
-		variable count_1khz  : natural;
+		variable count_100khz  : natural;
 		variable count_100hz : natural;
 	begin
 		if rising_edge(clk) then
-			enable_1khz <= '0';         -- TODO  change name of clock
-			count_1khz  := count_1khz + 1;
-			if count_1khz = 5000 then   -- assuming 50 Mhz FPGA so should be 150150, but for testing purposes faster clock!
-				enable_1khz <= '1';
-				count_1khz  := 0;
+			enable_100khz <= '0';         -- TODO  change name of clock
+			count_100khz  := count_100khz + 1;
+			if count_100khz = 500 then   -- assuming 50 Mhz FPGA so should be 150150, but for testing purposes faster clock!
+				enable_100khz <= '1';
+				count_100khz  := 1;
 			end if;
 
 			enable_100hz <= '0';
 			count_100hz  := count_100hz + 1;
 			if count_100hz = 500000 then -- assuming 50 Mhz FPGA so should be 500000, but for testing purposes faster clock!
 				enable_100hz <= '1';
-				count_100hz  := 0;
+				count_100hz  := 1;
 			end if;
 		end if;
 	end process;
@@ -136,14 +136,14 @@ begin
 	
 	
 	-- screen updater logic
-	update_screen : process(clk, enable_1khz)
+	update_screen : process(clk, enable_100khz)
 		variable count_seg      : natural; -- which segment to update next
 		variable show_dot			: std_logic := '0';
 		variable cycle          : natural; 
-		-- cycle 0 clear all segments , cycle 1 load new segment, cycle 20 remove load from segment and go to next segment
+		-- cycle 0 clear all segments , cycle 1 load new segment, cycle 2-14 hold it, cycle 15 remove load from segment and go to next segment
 		variable number_to_show : std_logic_vector(3 DOWNTO 0) := (others => '0');
 	begin
-		if rising_edge(clk) and enable_1khz = '1' then
+		if rising_edge(clk) and enable_100khz = '1' then
 
 			if cycle = 0 then
 				cycle     := 1;
@@ -197,13 +197,13 @@ begin
 					when "0111" => SelSeg <= show_dot & "0000111";
 					when "1000" => SelSeg <= show_dot & "1111111";
 					when "1001" => SelSeg <= show_dot & "1101111";
-					when others => SelSeg <= show_dot & "0000000"; -- MODIFIED BY LUKAS before nSelDir
+					when others => SelSeg <= show_dot & "0000000"; 
 				end case;
 
-			elsif cycle >= 2 and cycle <= 19 then
+			elsif cycle >= 2 and cycle <= 14 then
 				cycle := cycle + 1;
 
-			elsif cycle = 20 then
+			elsif cycle = 15 then
 				cycle := 0;
 
 				-- take load from segment
@@ -220,64 +220,4 @@ begin
 
 	end process update_screen;
 
---		-- display_rtc
---		
---
---
---		-- below is code from parallelport
---		pPort: 
---			process (iRegDir, iRegPort)
---			begin 		
---				for i in 0 to 7 loop
---					if iRegDir(i) = '1' then
---						ParPort(i) <= iRegPort(i);
---					else
---						ParPort(i) <= 'Z';
---					end if;
---				end loop;
---			end process pPort;
---			
---			iRegPin <= ParPort;
---			
---			
---		pRegWr:
---			process(Clk, nReset)
---			begin 
---				if nReset = '0' then
---					iRegDir <= (others => '0');  --   Input by default
---					
---					
---				elsif rising_edge(Clk) then 
---					if ChipSelect= '1' and Write = '1' then  --   Write cycle
---						case Address (2 downto 0) is
---							when "000" => iRegDir <= WriteData; 
---							when "010" => iRegPort <= WriteData; 
---							when "011" => iRegPort <= iRegPort OR WriteData;
---							when "100" => iRegPort <= iRegPort AND  NOT WriteData; 
---							when others => null;
---						end case;
---					end if;
---				end if;
---			end process pRegWr;
---
---
---
---
---
---		-- read	 
---		pRegRd: 
---			process(Clk) 
---			begin
---				if rising_edge(Clk) then 
---					ReadData <= (others => '0');
---					if ChipSelect = '1' and Read = '1' then 	 	
---						case Address(2 downto 0) is 
---							when "000" => ReadData <= iRegDir ; 
---							when "001" => ReadData <= iRegPin ;
---							when "010" => ReadData <= iRegPort; 
---							when others => null; 
---						end case; 
---					end if; 
---				end if; 
---			end process pRegRd; 
 end architecture comp;

@@ -111,14 +111,14 @@ architecture rtl of DE0_Nano_Soc_7_segment_extension is
 
 	component system is
 		port (
-			clk_clk                              : in  std_logic                    := 'X';             -- clk
+			clk_clk                           : in  std_logic                    := 'X';             -- clk
 			rtc_module_0_conduit_end_export   : out std_logic_vector(3 downto 0);                    -- export
 			rtc_module_0_conduit_end_1_export : out std_logic;                                       -- export
 			rtc_module_0_conduit_end_2_export : out std_logic_vector(7 downto 0);                    -- export
 			rtc_module_0_conduit_end_3_export : in  std_logic_vector(7 downto 0) := (others => 'X'); -- import
 			rtc_module_0_conduit_end_4_export : in  std_logic_vector(3 downto 0) := (others => 'X'); -- import
 			rtc_module_0_conduit_end_5_export : out std_logic_vector(5 downto 0);                    -- export
-			reset_reset_n                        : in  std_logic                    := 'X'              -- reset_n
+			reset_reset_n                     : in  std_logic                    := 'X'              -- reset_n
 		);
 	end component system;
 
@@ -127,14 +127,14 @@ begin
 
 	u0 : component system
 		port map (
-			clk_clk                              => FPGA_CLK1_50,                              --                           clk.clk
-			rtc_module_0_conduit_end_export   => LedButton ,   --   realtimeclock_0_conduit_end.export
-			rtc_module_0_conduit_end_1_export => Reset_Led , -- realtimeclock_0_conduit_end_1.export
-			rtc_module_0_conduit_end_2_export => SelSeg , -- realtimeclock_0_conduit_end_2.export
-			rtc_module_0_conduit_end_3_export => SwLed, -- realtimeclock_0_conduit_end_3.import
-			rtc_module_0_conduit_end_4_export => nButton, -- realtimeclock_0_conduit_end_4.import
-			rtc_module_0_conduit_end_5_export => nSelDig , -- realtimeclock_0_conduit_end_5.export
-			reset_reset_n                        => KEY_N(0)                         --                         reset.reset_n
+			clk_clk                           => FPGA_CLK1_50, -- clk.clk
+			rtc_module_0_conduit_end_export   => LedButton ,   -- realtimeclock_0_conduit_end.export
+			rtc_module_0_conduit_end_1_export => Reset_Led ,   -- realtimeclock_0_conduit_end_1.export
+			rtc_module_0_conduit_end_2_export => SelSeg ,      -- realtimeclock_0_conduit_end_2.export
+			rtc_module_0_conduit_end_3_export => SwLed,        -- realtimeclock_0_conduit_end_3.import
+			rtc_module_0_conduit_end_4_export => nButton,      -- realtimeclock_0_conduit_end_4.import
+			rtc_module_0_conduit_end_5_export => nSelDig ,     -- realtimeclock_0_conduit_end_5.export
+			reset_reset_n                     => KEY_N(0)      -- reset.reset_n
 		);
 
 
