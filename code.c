@@ -34,7 +34,7 @@ uint8_t bcd_to_int(uint8_t bcd){
 Write a decimal number between 0 and 99 (not in BCD format!) to the RTC 
 */ 
 void write_rtc(uint8_t offset, int value){
-   IOWR_8DIRECT(RTC_MODULE_0_BASE, ofset, int_to_bcd(value));
+   IOWR_8DIRECT(RTC_MODULE_0_BASE, offset, int_to_bcd(value));
 }
 
 /*
