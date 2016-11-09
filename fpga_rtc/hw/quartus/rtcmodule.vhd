@@ -54,16 +54,16 @@ begin
 		variable count_100hz : natural;
 	begin
 		if rising_edge(clk) then
-			enable_100khz <= '0';         -- TODO  change name of clock
+			enable_100khz <= '0';         
 			count_100khz  := count_100khz + 1;
-			if count_100khz = 500 then   -- assuming 50 Mhz FPGA so should be 150150, but for testing purposes faster clock!
+			if count_100khz = 500 then   -- assuming 50 Mhz FPGA
 				enable_100khz <= '1';
-				count_100khz  := 1;
+				count_100khz  := 1;		  -- starting at 1, because we compare to 500, and not 499
 			end if;
 
 			enable_100hz <= '0';
 			count_100hz  := count_100hz + 1;
-			if count_100hz = 500000 then -- assuming 50 Mhz FPGA so should be 500000, but for testing purposes faster clock!
+			if count_100hz = 500000 then -- assuming 50 Mhz FPGA 
 				enable_100hz <= '1';
 				count_100hz  := 1;
 			end if;
@@ -76,7 +76,7 @@ begin
 	pTimeRd : process(Clk)
 	begin
 		if rising_edge(Clk) then
-			ReadData <= (others => '0');
+			ReadData <= (others => '0'); -- default value of ReadData line 
 			if ChipSelect = '1' and Read = '1' then
 				case Address(2 downto 0) is
 					when "001"  => ReadData <= RegHundreds;
@@ -90,16 +90,18 @@ begin
 
 	
 	
-	-- time updater logic + write
+	-- write + time updater logic
 	update_rtc : process(clk, enable_100hz, nReset)
-	begin
+	begin	
+			-- reset is checked first
 		if nReset = '0' then
 			RegHundreds <= (others => '0'); --   Input by default
 			RegSeconds  <= (others => '0'); --   Input by default
 			RegMinutes  <= (others => '0'); --   Input by default
 
-
 		elsif rising_edge(clk) then
+		
+			-- write request is checked just after reset
 			if ChipSelect = '1' and Write = '1' then --   Write cycle
 				case Address(2 downto 0) is
 					when "001"  => RegHundreds <= WriteData;
@@ -107,7 +109,8 @@ begin
 					when "011"  => RegMinutes <= WriteData;
 					when others => null;
 				end case;
-
+				
+			--If no write request update the clock
 			else
 			
 				if enable_100hz = '1' then
@@ -139,9 +142,15 @@ begin
 	update_screen : process(clk, enable_100khz)
 		variable count_seg      : natural; -- which segment to update next
 		variable show_dot			: std_logic := '0';
-		variable cycle          : natural; 
-		-- cycle 0 clear all segments , cycle 1 load new segment, cycle 2-14 hold it, cycle 15 remove load from segment and go to next segment
+		variable cycle          : natural;
 		variable number_to_show : std_logic_vector(3 DOWNTO 0) := (others => '0');
+		
+	 
+		--cycle 0 clear all segments
+		--cycle 1 load new segment, 
+		--cycle 2-14 hold it (accumulating), 
+		--cycle 15 remove load from segment and go to next segment
+		
 	begin
 		if rising_edge(clk) and enable_100khz = '1' then
 
@@ -215,8 +224,7 @@ begin
 					count_seg := 0;
 				end if;
 			end if;
-
-		END IF;                         -- close rising edge if
+		end if;                         
 
 	end process update_screen;
 
