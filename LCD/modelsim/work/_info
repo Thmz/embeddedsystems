@@ -1,0 +1,120 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Programs/altera_lite/16.0
+Elcd_controller
+Z0 w1480794826
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dD:/Skydrive/Documenten/Univ/ES/GIT/LCD/modelsim
+Z5 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller.vhd
+Z6 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller.vhd
+l0
+L5
+VBXU:GU7lJIdB:MV5W0XME1
+!s100 mBiS1SAN2VXS?Z24B@mmN3
+Z7 OV;C;10.4d;61
+32
+Z8 !s110 1480794980
+!i10b 1
+Z9 !s108 1480794980.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller.vhd|
+Z11 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1
+Artl
+R1
+R2
+R3
+Z14 DEx4 work 14 lcd_controller 0 22 BXU:GU7lJIdB:MV5W0XME1
+l44
+L39
+VZiLIW54@[S7h2TMfYmPVf0
+!s100 1kOhhz5;oT;L6TPb;Fn5e0
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Elcd_controller_tb
+Z15 w1480794837
+R1
+R2
+R3
+R4
+Z16 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb.vhd
+Z17 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb.vhd
+l0
+L5
+V:P^21j7`f25c?>^[9jEUz2
+!s100 2@1:>ZHeD;K99WMK7g=Wd2
+R7
+32
+R8
+!i10b 1
+R9
+Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb.vhd|
+Z19 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb.vhd|
+!i113 1
+R12
+R13
+Abench
+R14
+R1
+R2
+R3
+Z20 DEx4 work 17 lcd_controller_tb 0 22 :P^21j7`f25c?>^[9jEUz2
+l71
+L8
+V1BWegZ3bGkBa66ao7<e?G3
+!s100 9aLSi;9fgQk0n`3G3VnLZ2
+R7
+32
+R8
+!i10b 1
+R9
+R18
+R19
+!i113 1
+R12
+R13
+Clcd_controller_tb_conf
+elcd_controller_tb
+abench
+R14
+DAx4 work 17 lcd_controller_tb 5 bench 22 1BWegZ3bGkBa66ao7<e?G3
+R1
+R2
+R3
+R20
+w1480794849
+R4
+8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb_conf.vhd
+FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb_conf.vhd
+l0
+L2
+VgZOMzh?6eH>Gce_`[oNif1
+!s100 IX=MXlDXcR_He4jNa]6Ej2
+R7
+32
+R8
+!i10b 0
+R9
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb_conf.vhd|
+!s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/lcd_controller_tb_conf.vhd|
+!i113 1
+R12
+R13
