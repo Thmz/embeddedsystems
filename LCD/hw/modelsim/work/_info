@@ -1,0 +1,246 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Programs/altera_lite/16.0
+Elcd_controller
+Z0 w1480884588
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim
+Z5 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_controller.vhd
+Z6 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_controller.vhd
+l0
+L5
+VUmJPB]i[a9XZPEHFhQJM[1
+!s100 MK_8g7>_^WeYAOVanSTmf0
+Z7 OV;C;10.4d;61
+32
+Z8 !s110 1480888905
+!i10b 1
+Z9 !s108 1480888905.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_controller.vhd|
+Z11 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_controller.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1
+Artl
+R1
+R2
+R3
+Z14 DEx4 work 14 lcd_controller 0 22 UmJPB]i[a9XZPEHFhQJM[1
+l44
+L39
+VOE6W9a6<23bB:z^<g0m;o3
+!s100 ^ONMH2O2K:lbjF<jg`7LE0
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Elcd_controller_tb
+Z15 w1480884764
+R1
+R2
+R3
+R4
+Z16 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb.vhd
+Z17 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb.vhd
+l0
+L5
+V:P^21j7`f25c?>^[9jEUz2
+!s100 2@1:>ZHeD;K99WMK7g=Wd2
+R7
+32
+R8
+!i10b 1
+R9
+Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb.vhd|
+Z19 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb.vhd|
+!i113 1
+R12
+R13
+Abench
+R14
+R1
+R2
+R3
+Z20 DEx4 work 17 lcd_controller_tb 0 22 :P^21j7`f25c?>^[9jEUz2
+l42
+L8
+VWH4]?S1FQOffJhld7MMoA2
+!s100 <`?WB561gOEeg<BSz4Za53
+R7
+32
+R8
+!i10b 1
+R9
+R18
+R19
+!i113 1
+R12
+R13
+Clcd_controller_tb_conf
+elcd_controller_tb
+abench
+R14
+DAx4 work 17 lcd_controller_tb 5 bench 22 WH4]?S1FQOffJhld7MMoA2
+R1
+R2
+R3
+R20
+w1480883785
+R4
+8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb_conf.vhd
+FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb_conf.vhd
+l0
+L2
+VgZOMzh?6eH>Gce_`[oNif1
+!s100 IX=MXlDXcR_He4jNa]6Ej2
+R7
+32
+R8
+!i10b 0
+R9
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb_conf.vhd|
+!s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/modelsim/lcd_controller_tb_conf.vhd|
+!i113 1
+R12
+R13
+Elcd_master
+Z21 w1480888664
+R1
+R2
+R3
+R4
+Z22 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_master.vhd
+Z23 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_master.vhd
+l0
+L5
+VoS`C]kn@MooOBHKVg;KAS3
+!s100 :a2U:HknOE>XS8LA?Ki:b2
+R7
+32
+Z24 !s110 1480888906
+!i10b 1
+R9
+Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_master.vhd|
+Z26 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_master.vhd|
+!i113 1
+R12
+R13
+Artl
+R1
+R2
+R3
+Z27 DEx4 work 10 lcd_master 0 22 oS`C]kn@MooOBHKVg;KAS3
+l46
+L34
+VkDknaDA1VJmlNlmSGnXl31
+!s100 8N;zEzMM=YVUFh=DnS?XW0
+R7
+32
+R24
+!i10b 1
+R9
+R25
+R26
+!i113 1
+R12
+R13
+Elcd_slave
+Z28 w1480888903
+R1
+R2
+R3
+R4
+Z29 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_slave.vhd
+Z30 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_slave.vhd
+l0
+L6
+VzGO1h_oSd7Leb9NOOR8VJ0
+!s100 F8I^kDBIW9LgJSeCnMlDa3
+R7
+32
+R8
+!i10b 1
+R9
+Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_slave.vhd|
+Z32 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_slave.vhd|
+!i113 1
+R12
+R13
+Artl
+R1
+R2
+R3
+Z33 DEx4 work 9 lcd_slave 0 22 zGO1h_oSd7Leb9NOOR8VJ0
+l39
+L35
+VZm0]:<?cUDzPiTUTR;T]?2
+!s100 cYeZ9bFB4A5lkj7jd2Fm;3
+R7
+32
+R8
+!i10b 1
+R9
+R31
+R32
+!i113 1
+R12
+R13
+Elcd_top
+Z34 w1480888843
+R1
+R2
+R3
+R4
+Z35 8D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_top.vhd
+Z36 FD:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_top.vhd
+l0
+L5
+VIQ:k9EKh9DbbU88ac@hn<3
+!s100 I^?K5k6Un^`YU^HDLeOm80
+R7
+32
+R24
+!i10b 1
+Z37 !s108 1480888906.000000
+Z38 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_top.vhd|
+Z39 !s107 D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/hdl/lcd_top.vhd|
+!i113 1
+R12
+R13
+Artl
+R33
+R27
+R14
+R1
+R2
+R3
+DEx4 work 7 lcd_top 0 22 IQ:k9EKh9DbbU88ac@hn<3
+l66
+L39
+V[RHGhS3JeR0m8eP6>5GH?1
+!s100 UGXJ5zhn9K`6jcIl=f0aW3
+R7
+32
+R24
+!i10b 1
+R37
+R38
+R39
+!i113 1
+R12
+R13
