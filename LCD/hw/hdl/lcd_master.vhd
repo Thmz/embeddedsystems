@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity LCD_Master is
 	port(	
 		clk                : in  std_logic;
-		rst_n                : in  std_logic;
+		rst_n              : in  std_logic;
 		
 		-- Avalon bus signals
 		AM_Address         : out std_logic_vector(31 downto 0);
@@ -61,7 +61,7 @@ begin
 	-- and remember, a comparison in vhdl is just a single =
 
 	-- I started with fixing these things, not everything is done yet
-	state_machine : process(state, MS_StartDMA) is
+	state_machine : process(clk, rst_n,  AM_RdDataValid, AM_RdData, AM_WaitRequest, MS_Address, MS_StartDMA, FIFO_Full, FIFO_Almost_Full, state) is
 	begin
 		-- avoid latches
 		next_state <= state;
