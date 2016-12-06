@@ -147,6 +147,19 @@ begin
 			    AS_IRQ => AS_IRQ,
 			    AS_WaitRequest => AS_WaitRequest
 
-			     );						
+			     );			
+
+
+	FIFO : entity work.lcd_fifo
+		port map(
+			clock		=> clk ;
+			data		=> FIFO_WrData;
+			rdreq		=> FIFO_Rd;
+			wrreq		=> FIFO_Wr;
+			almost_full		=> FIFO_Almost_Full;
+			empty		=> FIFO_Empty;
+			full		=> FIFO_Full;
+			q		=> FIFO_RdData;
+		);	
 				
 end architecture rtl;
