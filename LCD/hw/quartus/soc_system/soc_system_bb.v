@@ -65,7 +65,11 @@ module soc_system (
 	hps_0_io_hps_io_gpio_inst_GPIO53,
 	hps_0_io_hps_io_gpio_inst_GPIO54,
 	hps_0_io_hps_io_gpio_inst_GPIO61,
-	reset_reset_n);	
+	reset_reset_n,
+	lt24_0_conduit_end_1_readdata,
+	lt24_0_conduit_end_2_writeresponsevalid_n,
+	lt24_0_conduit_end_3_writeresponsevalid_n,
+	lt24_0_conduit_end_4_writeresponsevalid_n);	
 
 	input		clk_clk;
 	output	[14:0]	hps_0_ddr_mem_a;
@@ -133,4 +137,8 @@ module soc_system (
 	inout		hps_0_io_hps_io_gpio_inst_GPIO54;
 	inout		hps_0_io_hps_io_gpio_inst_GPIO61;
 	input		reset_reset_n;
+	output	[15:0]	lt24_0_conduit_end_1_readdata;
+	output		lt24_0_conduit_end_2_writeresponsevalid_n;
+	output		lt24_0_conduit_end_3_writeresponsevalid_n;
+	output		lt24_0_conduit_end_4_writeresponsevalid_n;
 endmodule
