@@ -18,6 +18,7 @@ entity LCD_Master is
 		
 		-- Slave signals
 		MS_Address         : in  std_logic_vector(31 downto 0);
+		MS_Length          : in  std_logic_vector(31 downto 0);
 		MS_StartDMA        : in  std_logic;
 		
 		-- LCD Controller signals
@@ -32,50 +33,50 @@ entity LCD_Master is
 end entity LCD_Master;
 
 architecture RTL of LCD_Master is
-	type state_type is (INIT, IDLE, READING, RECEIVING);
-	signal state, next_state             	: state_type;
-	signal addr_reg	    					: std_logic_vector(31 downto 0);
+	type state_type is (IDLE, READING, RECEIVING);
+	signal state, next_state             	: state_type := IDLE;
+	signal addr_reg	    					: std_logic_vector(31 downto 0) := (others => '0');
+	signal len_reg	    					: std_logic_vector(31 downto 0) := (others => '0'); --:= "00000000000000001001011000000000";
 	
-	signal burst_counter 					: integer;
-	signal word_counter						: integer;
+	signal burst_counter 					: integer := 0;
+	signal word_counter						: integer := 0;
 	
-	--  TOTAL_LENGTH		 (320/2)*240 = 38400
-	constant BURST_LENGTH					: integer := 16;	      --constant = 16
-	constant BURST_COUNT					: integer := 2400;	      --constant = TOTAL_LENGTH / BURST_LENGTH
+	--  len_reg       normally = (320/2)*240 = 38400
+	signal BURST_LENGTH				        : integer := 16;	      --constant = 16
+	signal BURST_COUNT		       			: integer := 0;	      -- = len_reg / BURST_LENGTH
 	
 begin
 	--Handle reset procedure and state changes
 	run_process : process(clk, rst_n) is
 	begin
 		if rst_n = '0' then
-			state           <= INIT;
+			state <= IDLE;
 		elsif rising_edge(clk) then
-			state           <= next_state;
+			state <= next_state;
 		end if;
 	end process run_process;
-	
-	--??? rising_edge to make it syncronous ??? -> nope, and don't drive signals from both processes (for example ML_Busy), since it will give problems in the output
-	-- I think to do what you want to do it is better to use an INIT state like I did (at least, that's the only solution I found after long long debugging what was going wrong...)
-	-- so only assign variables in one process
-	-- and add all inputs to the sensitivity list of state_machine process
-	-- and remember, a comparison in vhdl is just a single =
 
-	-- I started with fixing these things, not everything is done yet
-	state_machine : process(AM_RdDataValid, AM_RdData, AM_WaitRequest, MS_Address, MS_StartDMA, FIFO_Full, FIFO_Almost_Full, state) is
+	state_machine : process(AM_RdDataValid, AM_RdData, AM_WaitRequest, MS_Address, MS_Length, MS_StartDMA, FIFO_Full, FIFO_Almost_Full, state) is
 	begin
-		-- avoid latches
+		-- avoid latches 
 		next_state <= state;
-
+		BURST_COUNT <= to_integer(unsigned(len_reg))/BURST_LENGTH;
+		
 		case state is	
-			when INIT =>
-				ML_Busy <= '0';	
-				addr_reg        <= (others => '0');
-				next_state <= IDLE;	
-
 			when IDLE =>
+				--INIT
+				AM_Address <= (others => '0');
+				AM_ByteEnable <= (others => '0');
+				AM_Rd <= '0';
+				AM_Burstcount <= (others => '0');
 				ML_Busy <= '0';
+				FIFO_Wr <= '0';
+				FIFO_WrData <= (others => '0');
+				--END INIT
+				
 				if MS_StartDMA = '1' then
 					addr_reg <= MS_Address;
+					len_reg <= MS_Length;					
 					burst_counter <= 0;
 					next_state <= READING;				
 				end if;	
@@ -105,71 +106,10 @@ begin
 					if (AM_RdDataValid = '1') then
 						burst_counter <= burst_counter + 1;
 					end if;
-				end if;				
+				end if;	
+			when others => null;
 		end case;	
 	end process state_machine;
 end architecture RTL;
 
 	
---	address <= std_logic_vector(address_dma_reg);
---	address_master_debug <= std_logic_vector(address_dma_reg);
---	write_data <= write_data_reg;
-	
-	
-	-- state_machine_process : process(state_reg, address_dma, len_dma, start_dma, fifo_full, len_dma_reg, read_data, wait_request, address_dma_reg) is
-	-- begin
-		-- state_next       <= state_reg;
-		-- running          <= '1';
-		-- read             <= '0';
-		-- read_debug       <= '0';
-		
-		-- write_fifo       <= '0';
-		-- write_data_next  <= write_data_reg;
-		-- address_dma_next <= address_dma_reg;
-		-- len_dma_next     <= len_dma_reg;
-		-- case state_reg is
-			-- when IDLE =>
-				-- running <= '0';
-				-- if (start_dma = '1') then
-					-- running          <= '1';
-					-- address_dma_next <= unsigned(address_dma);
-					-- len_dma_next     <= unsigned(len_dma);
-					-- state_next       <= READ_REQUEST;
-				-- end if;
-			-- when READ_REQUEST =>
-				-- read <= '1';
-				-- read_debug <= '1';
-				-- if (wait_request = '0') then
-					-- state_next <= READ_AVAILABLE;
-				-- end if;
-				-- write_data_next       <=  read_data;
-			
-			-- when READ_AVAILABLE =>
-			-- if(fifo_full = '0') then
-				-- write_fifo <= '1';
-				-- state_next <= READ_REQUEST;
-				-- if (len_dma_reg = X"00000001") then
-					-- state_next <= IDLE;
-				-- end if;
-				-- len_dma_next <= len_dma_reg - 1;
-				-- address_dma_next <= address_dma_reg + 4;
-			-- end if;
-		-- end case;
-		
-		
-	-- end process state_machine_process;
-
-	-- rst_process : process(clk, Rst) is
-	-- begin
-		-- if reset_n = '0' then
-			-- state_reg       <= IDLE;
-			-- address_dma_reg <= (others => '0');
-			-- write_data_reg <= (others => '0');
-			-- len_dma_reg     <= (others => '0');
-		-- elsif rising_edge(clk) then
-			-- state_reg       <= state_next;
-			-- address_dma_reg <= address_dma_next;
-			-- len_dma_reg     <= len_dma_next;
-			-- write_data_reg <= write_data_next;
-		-- end if;
-	-- end process rst_process;

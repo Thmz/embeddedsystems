@@ -61,7 +61,8 @@ architecture rtl of lcd_top is
 	signal ML_Busy : std_logic;
 
 	-- Master <-> Slave
-	signal MS_Address : std_logic_vector(31 downto 0);
+	signal MS_Address  : std_logic_vector(31 downto 0);
+	signal MS_Length   : std_logic_vector(31 downto 0);
 	signal MS_StartDMA : std_logic;
 begin
 	CTRL : entity work.lcd_controller
@@ -127,8 +128,9 @@ begin
 			     
 			     -- Avalon slave
 			     MS_Address => MS_Address,
+				 MS_Length => MS_Length,
 			     MS_StartDMA => MS_StartDMA,
-
+	
 			     -- LCD controller
 			     LS_DC_n   => LS_DC_n,
 			     LS_Wr_n  => LS_Wr_n,

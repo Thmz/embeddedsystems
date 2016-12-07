@@ -25,7 +25,6 @@ architecture bench of lcd_master_tb is
 		
 		-- Slave signals
 	signal	MS_Address_tb         : std_logic_vector(31 downto 0);
-	signal	MS_Length_tb          : std_logic_vector(31 downto 0);
 	signal	MS_StartDMA_tb        : std_logic;
 		
 		-- LCD Controller signals
@@ -57,7 +56,6 @@ begin
 			AM_RdData          => AM_RdData_tb,
 			AM_WaitRequest     => AM_WaitRequest_tb,
 			MS_Address         => MS_Address_tb,
-			MS_Length          => MS_Length_tb,
 			MS_StartDMA        => MS_StartDMA_tb,
 			ML_Busy            => ML_Busy_tb, 
 			FIFO_Full          => FIFO_Full_tb,
@@ -78,28 +76,14 @@ begin
 		
 		
 		
-		procedure test_start( vMS_Address : in std_logic_vector(31 downto 0); vMS_Length: in std_logic_vector(31 downto 0)) is
+		procedure test_start( vMS_StartDMA : in std_logic; vMS_Address : in std_logic_vector(31 downto 0)) is
 		begin
-			MS_StartDMA_tb   <= '1';
+			MS_StartDMA_tb   <= vMS_StartDMA;
 			MS_Address_tb    <= vMS_Address;
-			MS_Length_tb     <= vMS_Length;
 			
 			wait until falling_edge(clk_tb);
-			MS_StartDMA_tb   <= '0';
 			wait until falling_edge(clk_tb);
 			assert(ML_Busy_tb = '1') report "assert 1";
-			wait until falling_edge(clk_tb);
-			
-		end procedure;
-		
-		procedure test_burst() is
-		begin
-		
-			AM_WaitRequest_tb <= '1';			
-			wait until falling_edge(clk_tb);
-			AM_WaitRequest_tb <= '0';			
-			wait until falling_edge(clk_tb);
-			assert(AM_Burstcount_tb = "00010000") report "assert 2";
 			wait until falling_edge(clk_tb);
 			
 		end procedure;
@@ -119,8 +103,7 @@ begin
 		rst_n_tb <= '1';
 
 		new_phase;
-		test_start('1', "11110000111100001111000011110000","00000000000000001001011000000000");
-		test_burst()
+		test_start('1', "11110000111100001111000011110000");
 		done <= true;
 		wait;
 	end process;
