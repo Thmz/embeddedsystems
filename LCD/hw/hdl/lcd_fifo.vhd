@@ -44,13 +44,13 @@ ENTITY lcd_fifo IS
 	PORT
 	(
 		clock		: IN STD_LOGIC ;
-		data		: IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+		data		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
 		rdreq		: IN STD_LOGIC ;
 		wrreq		: IN STD_LOGIC ;
 		almost_full		: OUT STD_LOGIC ;
 		empty		: OUT STD_LOGIC ;
 		full		: OUT STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (127 DOWNTO 0)
+		q		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 END lcd_fifo;
 
@@ -60,7 +60,7 @@ ARCHITECTURE SYN OF lcd_fifo IS
 	SIGNAL sub_wire0	: STD_LOGIC ;
 	SIGNAL sub_wire1	: STD_LOGIC ;
 	SIGNAL sub_wire2	: STD_LOGIC ;
-	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (127 DOWNTO 0);
+	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (31 DOWNTO 0);
 
 
 
@@ -80,13 +80,13 @@ ARCHITECTURE SYN OF lcd_fifo IS
 	);
 	PORT (
 			clock	: IN STD_LOGIC ;
-			data	: IN STD_LOGIC_VECTOR (127 DOWNTO 0);
+			data	: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
 			rdreq	: IN STD_LOGIC ;
 			wrreq	: IN STD_LOGIC ;
 			almost_full	: OUT STD_LOGIC ;
 			empty	: OUT STD_LOGIC ;
 			full	: OUT STD_LOGIC ;
-			q	: OUT STD_LOGIC_VECTOR (127 DOWNTO 0)
+			q	: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 	END COMPONENT;
 
@@ -94,7 +94,7 @@ BEGIN
 	almost_full    <= sub_wire0;
 	empty    <= sub_wire1;
 	full    <= sub_wire2;
-	q    <= sub_wire3(127 DOWNTO 0);
+	q    <= sub_wire3(31 DOWNTO 0);
 
 	scfifo_component : scfifo
 	GENERIC MAP (

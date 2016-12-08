@@ -206,23 +206,32 @@
  <interface name="hps_0_ddr" internal="hps_0.memory" type="conduit" dir="end" />
  <interface name="hps_0_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface
-   name="lt24_0_conduit_end_1"
-   internal="lt24_0.conduit_end_1"
+   name="lt24_0_conduit_cs_n"
+   internal="lt24_0.conduit_CS_n"
    type="conduit"
    dir="end" />
  <interface
-   name="lt24_0_conduit_end_2"
-   internal="lt24_0.conduit_end_2"
+   name="lt24_0_conduit_d"
+   internal="lt24_0.conduit_D"
    type="conduit"
    dir="end" />
  <interface
-   name="lt24_0_conduit_end_3"
-   internal="lt24_0.conduit_end_3"
+   name="lt24_0_conduit_dc_n"
+   internal="lt24_0.conduit_DC_n"
+   type="conduit"
+   dir="end" />
+ <interface name="lt24_0_conduit_end_1" internal="lt24_0.conduit_end_1" />
+ <interface name="lt24_0_conduit_end_2" internal="lt24_0.conduit_end_2" />
+ <interface name="lt24_0_conduit_end_3" internal="lt24_0.conduit_end_3" />
+ <interface name="lt24_0_conduit_end_4" internal="lt24_0.conduit_end_4" />
+ <interface
+   name="lt24_0_conduit_rd_n"
+   internal="lt24_0.conduit_Rd_n"
    type="conduit"
    dir="end" />
  <interface
-   name="lt24_0_conduit_end_4"
-   internal="lt24_0.conduit_end_4"
+   name="lt24_0_conduit_wr_n"
+   internal="lt24_0.conduit_Wr_n"
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
