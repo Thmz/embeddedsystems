@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity lcd_master_tb is
+entity lcd_slave_tb is
 end;
 
-architecture bench of lcd_master_tb is
+architecture bench of lcd_slave_tb is
 	constant CLK_PER     : time    := 20 ns;
 	constant DELAY_TESTS : integer := 3;
 
@@ -14,27 +14,28 @@ architecture bench of lcd_master_tb is
 	signal rst_n_tb    : std_logic := '0';
 
 	
-			-- Avalon bus signals
-	signal	AM_Address_tb         : std_logic_vector(31 downto 0);
-	signal	AM_ByteEnable_tb      : std_logic_vector(3 downto 0);		
-	signal	AM_Rd_tb              : std_logic;
-	signal	AM_RdDataValid_tb     : std_logic;
-	signal	AM_Burstcount_tb      : std_logic_vector(7 downto 0);	
-	signal	AM_RdData_tb          : std_logic_vector(31 downto 0);	
-	signal	AM_WaitRequest_tb     : std_logic;
+		-- Avalon bus signals
+	signal AS_Address_tb          : std_logic_vector(1 downto 0);
+	signal AS_ChipSelect_tb       : std_logic;		
+	signal AS_Wr_tb               : std_logic;
+	signal AS_WrData_tb           : std_logic_vector(31 downto 0);
+	signal AS_Rd_tb               : std_logic;
+	signal AS_RdData_tb           : std_logic_vector(31 downto 0);
+	signal AS_IRQ_tb     	      : std_logic;
+	signal AS_WaitRequest_tb      : std_logic;
 		
-		-- Slave signals
-	signal	MS_Address_tb         : std_logic_vector(31 downto 0);
-	signal	MS_StartDMA_tb        : std_logic;
+		-- Master signals
+	signal MS_Address_tb          : std_logic_vector(31 downto 0);
+	signal MS_Length_tb           : std_logic_vector(31 downto 0);
+	signal MS_StartDMA_tb         : std_logic;
 		
-		-- LCD Controller signals
-	signal	ML_Busy_tb            : std_logic;
-		
-		-- FIFO signals
-	signal	FIFO_Full_tb          : std_logic;
-	signal	FIFO_Wr_tb            : std_logic;
-	signal	FIFO_WrData_tb        : std_logic_vector(31 downto 0);
-	signal	FIFO_Almost_Full_tb   : std_logic;	
+		-- LT24 Controller signals
+	signal LS_Busy_tb             : std_logic;
+	signal LS_DC_n_tb             : std_logic;
+	signal LS_Wr_n_tb             : std_logic;
+	signal LS_Rd_n_tb             : std_logic;
+	signal LS_WrData_tb           : std_logic_vector(15 downto 0);
+	signal LS_RdData_tb           : std_logic_vector(15 downto 0);
 	
 	
 	signal phase_id: natural := 0;
@@ -45,23 +46,27 @@ begin
 	clk_tb <= not clk_tb after CLK_PER / 2 when not done;
 	
 --	
-	DUV : entity work.lcd_master
+	DUV : entity work.lcd_slave
 		port map(
 			clk                => clk_tb,
 			rst_n              => rst_n_tb,
-			AM_Address         => AM_Address_tb,
-			AM_ByteEnable      => AM_ByteEnable_tb,
-			AM_Rd              => AM_Rd_tb,
-			AM_RdDataValid     => AM_RdDataValid_tb,
-			AM_RdData          => AM_RdData_tb,
-			AM_WaitRequest     => AM_WaitRequest_tb,
-			MS_Address         => MS_Address_tb,
+			AS_Address         => AS_Address_tb,
+			AS_ChipSelect      => AS_ChipSelect_tb,
+			AS_Wr              => AS_Wr_tb,
+			AS_WrData          => AS_WrData_tb,
+			AS_Rd              => AS_Rd_tb,
+			AS_RdData          => AS_RdData_tb,
+			AS_IRQ             => AS_IRQ_tb,
+			AS_WaitRequest     => AS_WaitRequest_tb,
+			MS_Address         => MS_Address_tb, 
+			MS_Length          => MS_Length_tb,
 			MS_StartDMA        => MS_StartDMA_tb,
-			ML_Busy            => ML_Busy_tb, 
-			FIFO_Full          => FIFO_Full_tb,
-			FIFO_Wr            => FIFO_Wr_tb,
-			FIFO_WrData        => FIFO_WrData_tb,
-			FIFO_Almost_Full   => FIFO_Almost_Full_tb
+			LS_Busy            => LS_Busy_tb,
+			LS_DC_n            => LS_DC_n_tb,
+			LS_Wr_n            => LS_Wr_n_tb,
+			LS_Rd_n            => LS_Rd_n_tb,
+			LS_WrData          => LS_WrData_tb,
+			LS_RdData          => LS_RdData_tb
 		);
 
 	
@@ -76,14 +81,11 @@ begin
 		
 		
 		
-		procedure test_start( vMS_StartDMA : in std_logic; vMS_Address : in std_logic_vector(31 downto 0)) is
+		procedure test_empty is
 		begin
-			MS_StartDMA_tb   <= vMS_StartDMA;
-			MS_Address_tb    <= vMS_Address;
-			
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
-			assert(ML_Busy_tb = '1') report "assert 1";
+			assert(AS_WaitRequest_tb = '0') report "empty 1";
 			wait until falling_edge(clk_tb);
 			
 		end procedure;
@@ -103,7 +105,7 @@ begin
 		rst_n_tb <= '1';
 
 		new_phase;
-		test_start('1', "11110000111100001111000011110000");
+		test_empty;
 		done <= true;
 		wait;
 	end process;

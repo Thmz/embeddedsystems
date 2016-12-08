@@ -92,9 +92,9 @@ begin
 						AS_RdData <= addr_reg;
 						
 						when "11" => --len	
-						AS_RdData <= len_reg;
+						AS_RdData <= len_reg
 						
-						when others => null;						
+						when others => null						
 					end case;
 				elsif (AS_Wr = '1') then --write
 					case AS_Address is
@@ -157,9 +157,8 @@ begin
 			AS_WaitRequest <= '0';
 			next_state <= IDLE;
 		
-		when others => null;		
-		
-	end case;
+		when others => null;
+	end if;
 	
 	end process state_machine_process;
 	

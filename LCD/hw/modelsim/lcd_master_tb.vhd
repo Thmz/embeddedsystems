@@ -78,7 +78,7 @@ begin
 		
 		
 		
-		procedure test_start( vMS_Address : in std_logic_vector(31 downto 0); vMS_Length: in std_logic_vector(31 downto 0)) is
+		procedure test_start(vMS_StartDMA : in std_logic; vMS_Address : in std_logic_vector(31 downto 0); vMS_Length: in std_logic_vector(31 downto 0)) is
 		begin
 			MS_StartDMA_tb   <= '1';
 			MS_Address_tb    <= vMS_Address;
@@ -92,7 +92,7 @@ begin
 			
 		end procedure;
 		
-		procedure test_burst() is
+		procedure test_burst(vAM_RdData_0: in std_logic_vector(31 downto 0)) is
 		begin
 		
 			AM_WaitRequest_tb <= '1';			
@@ -101,6 +101,17 @@ begin
 			wait until falling_edge(clk_tb);
 			assert(AM_Burstcount_tb = "00010000") report "assert 2";
 			wait until falling_edge(clk_tb);
+			
+		end procedure;
+		
+		procedure test_reset is
+		begin
+		
+			wait for 2 ns;
+			rst_n_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait for 2 ns;
+			rst_n_tb <= '1';
 			
 		end procedure;
 		
@@ -120,7 +131,10 @@ begin
 
 		new_phase;
 		test_start('1', "11110000111100001111000011110000","00000000000000001001011000000000");
-		test_burst()
+		new_phase;
+		test_burst("11110000111100001111000011110000");
+		new_phase;
+		test_reset;
 		done <= true;
 		wait;
 	end process;
