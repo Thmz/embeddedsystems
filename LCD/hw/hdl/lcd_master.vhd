@@ -56,10 +56,10 @@ begin
 		end if;
 	end process run_process;
 
-	state_machine : process(AM_RdDataValid, AM_RdData, AM_WaitRequest, MS_Address, MS_Length, MS_StartDMA, FIFO_Full, FIFO_Almost_Full, state) is
+	state_machine : process(clk, AM_RdDataValid, MS_StartDMA, state) is
 	begin
 		-- avoid latches 
-		next_state <= state;
+		-- next_state <= state;
 		BURST_COUNT <= to_integer(unsigned(len_reg))/BURST_LENGTH;
 		
 		case state is	
@@ -78,11 +78,11 @@ begin
 					addr_reg <= MS_Address;
 					len_reg <= MS_Length;					
 					burst_counter <= 0;
+					ML_Busy <= '1';
 					next_state <= READING;				
 				end if;	
 				
-			when READING =>
-				ML_Busy <= '1';
+			when READING =>				
 				if (burst_counter = BURST_COUNT) then				
 					next_state <= IDLE;					
 				elsif (FIFO_Almost_Full = '0') then
@@ -96,15 +96,17 @@ begin
 				end if;	
 				
 			when RECEIVING =>
+				AM_Rd <= '0';
 				if (word_counter = BURST_LENGTH) then
+					word_counter <= 0;
 					burst_counter <= burst_counter + 1;
 					addr_reg <= std_logic_vector(to_unsigned(to_integer(unsigned(addr_reg)) + BURST_LENGTH, 32));
 					next_state <= READING;
-				else
+				elsif rising_edge(clk) then
 					FIFO_Wr <= AM_RdDataValid;
 					FIFO_WrData <= AM_RdData;
 					if (AM_RdDataValid = '1') then
-						burst_counter <= burst_counter + 1;
+						word_counter <= word_counter + 1;
 					end if;
 				end if;	
 			when others => null;

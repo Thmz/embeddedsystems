@@ -100,7 +100,10 @@ begin
 			AM_WaitRequest_tb <= '0';			
 			wait until falling_edge(clk_tb);
 			assert(AM_Burstcount_tb = "00010000") report "assert 2";
+			AM_RdData_tb <= vAM_RdData_0;
+			AM_RdDataValid_tb <= '1';			
 			wait until falling_edge(clk_tb);
+			assert(FIFO_Wr_tb = '1') report "assert 3";
 			
 		end procedure;
 		
@@ -121,6 +124,10 @@ begin
 
 	begin
 		report ("START TESTBENCH");
+		--INIT OUT SIGNAL--
+		FIFO_Almost_Full_tb <= '0';
+		
+		
 		done <= false;
 		new_phase;
 		wait for 2 ns;
@@ -134,7 +141,30 @@ begin
 		new_phase;
 		test_burst("11110000111100001111000011110000");
 		new_phase;
-		test_reset;
+		new_phase;
+		new_phase;
+		new_phase;		
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;		
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;		
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		new_phase;
+		
+		
+		--test_reset;
 		done <= true;
 		wait;
 	end process;
