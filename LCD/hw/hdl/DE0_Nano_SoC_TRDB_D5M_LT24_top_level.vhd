@@ -195,11 +195,13 @@ architecture rtl of DE0_Nano_SoC_TRDB_D5M_LT24_top_level is
             hps_0_io_hps_io_gpio_inst_GPIO61  : inout std_logic                     := 'X';
 				
 				
-				lt24_0_conduit_d_readdata                : out std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
-			lt24_0_conduit_dc_n_writeresponsevalid_n : out   std_logic;                                        -- writeresponsevalid_n
-			lt24_0_conduit_rd_n_writeresponsevalid_n : out   std_logic;                                        -- writeresponsevalid_n
-			lt24_0_conduit_wr_n_writeresponsevalid_n : out   std_logic;                                        -- writeresponsevalid_n
-			lt24_0_conduit_cs_n_writeresponsevalid_n : out   std_logic                                         -- writeresponsevalid_n
+				lt24_0_conduit_cs_n_stdlogic      : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_d_stdlogic_vector  : out   std_logic_vector(15 downto 0);                    -- stdlogic_vector
+			lt24_0_conduit_dc_n_stdlogic      : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_rd_n_stdlogic      : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_wr_n_stdlogic      : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_lcd_on_stdlogic    : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_reset_stdlogic     : out std_logic                     := 'X'              -- stdlogic
 				
         );
     end component soc_system;
@@ -274,12 +276,15 @@ begin
             hps_0_io_hps_io_gpio_inst_GPIO53  => HPS_LED,
             hps_0_io_hps_io_gpio_inst_GPIO54  => HPS_KEY_N,
             hps_0_io_hps_io_gpio_inst_GPIO61  => HPS_GSENSOR_INT,
-				
-				lt24_0_conduit_d_readdata               =>GPIO_0_LT24_D,
-			lt24_0_conduit_dc_n_writeresponsevalid_n => GPIO_0_LT24_RS,                               -- ?
-			lt24_0_conduit_rd_n_writeresponsevalid_n => GPIO_0_LT24_RD_N,
-			lt24_0_conduit_wr_n_writeresponsevalid_n => GPIO_0_LT24_WR_N,
-			lt24_0_conduit_cs_n_writeresponsevalid_n => GPIO_0_LT24_CS_N  
+			
+			
+			lt24_0_conduit_cs_n_stdlogic      => GPIO_0_LT24_CS_N,      --   lt24_0_conduit_cs_n.stdlogic
+			lt24_0_conduit_d_stdlogic_vector  => GPIO_0_LT24_D,  --      lt24_0_conduit_d.stdlogic_vector
+			lt24_0_conduit_dc_n_stdlogic      => GPIO_0_LT24_RS,      --   lt24_0_conduit_dc_n.stdlogic
+			lt24_0_conduit_rd_n_stdlogic      => GPIO_0_LT24_RD_N,      --   lt24_0_conduit_rd_n.stdlogic
+			lt24_0_conduit_wr_n_stdlogic      => GPIO_0_LT24_WR_N,      --   lt24_0_conduit_wr_n.stdlogic
+			lt24_0_conduit_lcd_on_stdlogic    => GPIO_0_LT24_LCD_ON,    -- lt24_0_conduit_lcd_on.stdlogic
+			lt24_0_conduit_reset_stdlogic     => GPIO_0_LT24_RESET_N      --  lt24_0_conduit_reset.stdlogic
         );
 
 end;

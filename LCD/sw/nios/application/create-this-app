@@ -3,9 +3,9 @@
 # This script creates the hello_world application in this directory.
 
 
-BSP_DIR=D:/Skydrive/Documenten/Univ/ES/GIT/LCD/sw/nios/fpga_lt24_bsp/
+BSP_DIR=D:/Skydrive/Documenten/Univ/ES/GIT/LCD/sw/nios/LCD_LT24_bsp/
 QUARTUS_PROJECT_DIR=D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/quartus/
-NIOS2_APP_GEN_ARGS="--elf-name fpga_lt24.elf --set OBJDUMP_INCLUDE_SOURCE 1 --src-files hello_world.c"
+NIOS2_APP_GEN_ARGS="--elf-name LCD_LT24.elf --set OBJDUMP_INCLUDE_SOURCE 1 --src-files hello_world.c"
 
 
 # First, check to see if $SOPC_KIT_NIOS2 environmental variable is set.

@@ -181,6 +181,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -225,8 +233,18 @@
  <interface name="lt24_0_conduit_end_3" internal="lt24_0.conduit_end_3" />
  <interface name="lt24_0_conduit_end_4" internal="lt24_0.conduit_end_4" />
  <interface
+   name="lt24_0_conduit_lcd_on"
+   internal="lt24_0.conduit_LCD_ON"
+   type="conduit"
+   dir="end" />
+ <interface
    name="lt24_0_conduit_rd_n"
    internal="lt24_0.conduit_Rd_n"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="lt24_0_conduit_reset"
+   internal="lt24_0.conduit_Reset"
    type="conduit"
    dir="end" />
  <interface

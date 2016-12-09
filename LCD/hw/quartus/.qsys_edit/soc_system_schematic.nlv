@@ -61,14 +61,21 @@ preplace inst soc_system.hps_0.f2s_periph_ref_clk -pg 1
 preplace inst soc_system.hps_0.fpga_interfaces -pg 1
 preplace inst soc_system.jtag_uart_0 -pg 1 -lvl 3 -y 110
 preplace inst soc_system.hps_0.axi_sdram -pg 1
+preplace netloc INTERCONNECT<net_container>soc_system</net_container>(SLAVE)lt24_0.reset_sink,(SLAVE)nios2_gen2_0.reset,(SLAVE)jtag_uart_0.reset,(MASTER)hps_0.h2f_reset,(MASTER)nios2_gen2_0.debug_reset_request,(SLAVE)address_span_extender_0.reset,(SLAVE)onchip_memory2_0.reset1,(MASTER)clk_0.clk_reset) 1 1 2 370 320 790
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)lt24_0.conduit_Wr_n,(SLAVE)soc_system.lt24_0_conduit_wr_n) 1 0 3 NJ 580 NJ 580 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.lt24_0_conduit_lcd_on,(SLAVE)lt24_0.conduit_LCD_ON) 1 0 3 NJ 520 NJ 520 NJ
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_ddr,(SLAVE)hps_0.memory) 1 0 2 NJ 430 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc INTERCONNECT<net_container>soc_system</net_container>(MASTER)nios2_gen2_0.debug_reset_request,(SLAVE)jtag_uart_0.reset,(SLAVE)address_span_extender_0.reset,(SLAVE)nios2_gen2_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)lt24_0.reset_sink,(SLAVE)onchip_memory2_0.reset1,(MASTER)hps_0.h2f_reset) 1 1 2 300 240 680
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)address_span_extender_0.expanded_master,(SLAVE)hps_0.f2h_sdram0_data) 1 1 3 320 320 NJ 320 1010
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.hps_io,(SLAVE)soc_system.hps_0_io) 1 0 2 NJ 410 NJ
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(MASTER)nios2_gen2_0.irq,(SLAVE)lt24_0.interrupt_sender,(SLAVE)jtag_uart_0.irq) 1 2 1 740
-preplace netloc INTERCONNECT<net_container>soc_system</net_container>(MASTER)lt24_0.avalon_master,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)onchip_memory2_0.s1,(SLAVE)address_span_extender_0.windowed_slave,(SLAVE)nios2_gen2_0.debug_mem_slave,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)lt24_0.avalon_slave_0,(MASTER)nios2_gen2_0.data_master) 1 1 3 320 260 700 300 990
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)lt24_0.clock,(MASTER)clk_0.clk,(SLAVE)hps_0.f2h_sdram0_clock,(SLAVE)jtag_uart_0.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)nios2_gen2_0.clk,(SLAVE)address_span_extender_0.clock) 1 1 2 280 220 720
-levelinfo -pg 1 0 70 1050
-levelinfo -hier soc_system 80 110 440 790 1030
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)jtag_uart_0.clk,(SLAVE)onchip_memory2_0.clk1,(MASTER)clk_0.clk,(SLAVE)lt24_0.clock,(SLAVE)address_span_extender_0.clock,(SLAVE)nios2_gen2_0.clk,(SLAVE)hps_0.f2h_sdram0_clock) 1 1 2 350 280 850
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)lt24_0.conduit_D,(SLAVE)soc_system.lt24_0_conduit_d) 1 0 3 NJ 480 NJ 480 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)soc_system.clk) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(MASTER)nios2_gen2_0.irq,(SLAVE)jtag_uart_0.irq,(SLAVE)lt24_0.interrupt_sender) 1 2 1 870
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.lt24_0_conduit_reset,(SLAVE)lt24_0.conduit_Reset) 1 0 3 NJ 560 NJ 560 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)lt24_0.conduit_Rd_n,(SLAVE)soc_system.lt24_0_conduit_rd_n) 1 0 3 NJ 540 NJ 540 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.lt24_0_conduit_cs_n,(SLAVE)lt24_0.conduit_CS_n) 1 0 3 NJ 300 NJ 300 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_io,(SLAVE)hps_0.hps_io) 1 0 2 NJ 410 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)lt24_0.conduit_DC_n,(SLAVE)soc_system.lt24_0_conduit_dc_n) 1 0 3 NJ 500 NJ 500 NJ
+preplace netloc INTERCONNECT<net_container>soc_system</net_container>(MASTER)lt24_0.avalon_master,(MASTER)nios2_gen2_0.data_master,(SLAVE)onchip_memory2_0.s1,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)nios2_gen2_0.debug_mem_slave,(SLAVE)address_span_extender_0.windowed_slave,(SLAVE)lt24_0.avalon_slave_0,(SLAVE)jtag_uart_0.avalon_jtag_slave) 1 1 3 390 260 830 300 1170
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_sdram0_data,(MASTER)address_span_extender_0.expanded_master) 1 1 3 410 240 NJ 320 1190
+levelinfo -pg 1 0 140 1230
+levelinfo -hier soc_system 150 180 530 960 1210

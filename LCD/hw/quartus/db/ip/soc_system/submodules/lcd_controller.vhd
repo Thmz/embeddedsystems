@@ -13,6 +13,8 @@ entity lcd_controller is
 		Wr_n        : out std_logic;
 		Rd_n        : out std_logic;
 		D           : out std_logic_vector(15 downto 0) := (others => '0'); -- should become inout!
+		LCD_ON : out std_logic := '1';
+		RESET_N : out std_logic;
 
 		-- Avalon Slave
 		LS_DC_n     : in  std_logic;
@@ -37,7 +39,7 @@ entity lcd_controller is
 end entity lcd_controller;
 
 architecture rtl of lcd_controller is
-	type state_type is (IDLE, WRITE_CMD, READ_CMD_DUMMY, READ_CMD, NEW_FRAME, WAIT_FIFO, WRITE_PIXEL, WRITE_PIXEL_SECOND);
+	type state_type is (RESET_LCD, IDLE, WRITE_CMD, READ_CMD_DUMMY, READ_CMD, NEW_FRAME, WAIT_FIFO, WRITE_PIXEL, WRITE_PIXEL_SECOND);
 	signal state_reg, state_next : state_type;
 	signal phase_reg, phase_next : natural;
 
@@ -58,7 +60,6 @@ begin
 	end process;
 
 	process(state_reg, phase_reg, LS_Wr_n, LS_Rd_n, LS_WrData, ML_Busy, FIFO_RdData, FIFO_Empty, LS_DC_n) is
-		variable curr_word : std_logic_vector(31 downto 0);
 
 		procedure do_write(vDC_n : in std_logic; vData : in std_logic_vector(15 downto 0); state_target : in state_type) is
 		begin
@@ -106,15 +107,22 @@ begin
 		phase_next <= phase_reg;
 
 		FIFO_Rd    <= '0';
-		CS_n       <= '0';
-		DC_n       <= '0';
-		Wr_n       <= '0';
-		Rd_n       <= '0';
+		CS_n       <= '1';
+		DC_n       <= '1';
+		Wr_n       <= '1';
+		Rd_n       <= '1';
+		RESET_N <= '1';
 		D          <= (others => '0');
 		LS_RdData  <= (others => '0');
 		
 		
 		case state_reg is
+
+			-- reset LCD
+			when RESET_LCD =>
+				RESET_N <= '0';
+				state_next <= IDLE;
+
 			-- idle
 			when IDLE =>
 				if LS_Wr_n = '0' then
@@ -131,7 +139,11 @@ begin
 
 			-- write command
 			when WRITE_CMD =>
-				do_write(LS_DC_n, LS_WrData, IDLE);
+				if LS_WrData = "1000000000000000" then
+					state_next <= RESET_LCD;
+				else
+					do_write(LS_DC_n, LS_WrData, IDLE);
+				end if;
 
 			-- read command (dummy)
 			when READ_CMD_DUMMY =>
@@ -164,7 +176,7 @@ begin
 
 			-- write SECOND pixel
 			when WRITE_PIXEL_SECOND =>
-				do_write('0', curr_word(31 downto 16), WAIT_FIFO);
+				do_write('0', curr_word_reg(31 downto 16), WAIT_FIFO);
 
 		end case;
 	end process;

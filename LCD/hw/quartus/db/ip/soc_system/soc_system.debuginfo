@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="system" version="16.0" fabric="QSYS">
  <!-- Format version 16.0 211 (Future versions may contain additional information.) -->
- <!-- 2016.12.09.09:18:43 -->
+ <!-- 2016.12.09.10:53:22 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1481271454</value>
+  <value>1481277134</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -43198,7 +43198,7 @@ parameters are a RESULT of the module parameters. -->
     <name>D</name>
     <direction>Output</direction>
     <width>16</width>
-    <role>readdata</role>
+    <role>stdlogic_vector</role>
    </port>
   </interface>
   <interface name="conduit_DC_n" kind="conduit_end" version="16.0">
@@ -43243,7 +43243,7 @@ parameters are a RESULT of the module parameters. -->
     <name>DC_n</name>
     <direction>Output</direction>
     <width>1</width>
-    <role>writeresponsevalid_n</role>
+    <role>stdlogic</role>
    </port>
   </interface>
   <interface name="conduit_Rd_n" kind="conduit_end" version="16.0">
@@ -43288,7 +43288,7 @@ parameters are a RESULT of the module parameters. -->
     <name>Rd_n</name>
     <direction>Output</direction>
     <width>1</width>
-    <role>writeresponsevalid_n</role>
+    <role>stdlogic</role>
    </port>
   </interface>
   <interface name="conduit_Wr_n" kind="conduit_end" version="16.0">
@@ -43333,7 +43333,7 @@ parameters are a RESULT of the module parameters. -->
     <name>Wr_n</name>
     <direction>Output</direction>
     <width>1</width>
-    <role>writeresponsevalid_n</role>
+    <role>stdlogic</role>
    </port>
   </interface>
   <interface name="conduit_CS_n" kind="conduit_end" version="16.0">
@@ -43378,7 +43378,97 @@ parameters are a RESULT of the module parameters. -->
     <name>CS_n</name>
     <direction>Output</direction>
     <width>1</width>
-    <role>writeresponsevalid_n</role>
+    <role>stdlogic</role>
+   </port>
+  </interface>
+  <interface name="conduit_LCD_ON" kind="conduit_end" version="16.0">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>LCD_ON</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>stdlogic</role>
+   </port>
+  </interface>
+  <interface name="conduit_Reset" kind="conduit_end" version="16.0">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>Reset_n</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>stdlogic</role>
    </port>
   </interface>
  </module>
@@ -54353,7 +54443,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.0</version>
  </plugin>
  <plugin>
-  <instanceCount>9</instanceCount>
+  <instanceCount>11</instanceCount>
   <name>conduit_end</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -54505,5 +54595,5 @@ parameters are a RESULT of the module parameters. -->
   <version>16.0</version>
  </plugin>
  <reportVersion>16.0 211</reportVersion>
- <uniqueIdentifier>C8F733B7FB7A00000158E2A8D022</uniqueIdentifier>
+ <uniqueIdentifier>C8F733B7FB7A00000158E2FF7AFF</uniqueIdentifier>
 </EnsembleReport>

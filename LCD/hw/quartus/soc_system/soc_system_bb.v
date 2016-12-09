@@ -65,12 +65,14 @@ module soc_system (
 	hps_0_io_hps_io_gpio_inst_GPIO53,
 	hps_0_io_hps_io_gpio_inst_GPIO54,
 	hps_0_io_hps_io_gpio_inst_GPIO61,
-	reset_reset_n,
-	lt24_0_conduit_d_readdata,
-	lt24_0_conduit_dc_n_writeresponsevalid_n,
-	lt24_0_conduit_rd_n_writeresponsevalid_n,
-	lt24_0_conduit_wr_n_writeresponsevalid_n,
-	lt24_0_conduit_cs_n_writeresponsevalid_n);	
+	lt24_0_conduit_cs_n_stdlogic,
+	lt24_0_conduit_d_stdlogic_vector,
+	lt24_0_conduit_dc_n_stdlogic,
+	lt24_0_conduit_lcd_on_stdlogic,
+	lt24_0_conduit_rd_n_stdlogic,
+	lt24_0_conduit_reset_stdlogic,
+	lt24_0_conduit_wr_n_stdlogic,
+	reset_reset_n);	
 
 	input		clk_clk;
 	output	[14:0]	hps_0_ddr_mem_a;
@@ -137,10 +139,12 @@ module soc_system (
 	inout		hps_0_io_hps_io_gpio_inst_GPIO53;
 	inout		hps_0_io_hps_io_gpio_inst_GPIO54;
 	inout		hps_0_io_hps_io_gpio_inst_GPIO61;
+	output		lt24_0_conduit_cs_n_stdlogic;
+	output	[15:0]	lt24_0_conduit_d_stdlogic_vector;
+	output		lt24_0_conduit_dc_n_stdlogic;
+	output		lt24_0_conduit_lcd_on_stdlogic;
+	output		lt24_0_conduit_rd_n_stdlogic;
+	inout		lt24_0_conduit_reset_stdlogic;
+	output		lt24_0_conduit_wr_n_stdlogic;
 	input		reset_reset_n;
-	inout	[15:0]	lt24_0_conduit_d_readdata;
-	output		lt24_0_conduit_dc_n_writeresponsevalid_n;
-	output		lt24_0_conduit_rd_n_writeresponsevalid_n;
-	output		lt24_0_conduit_wr_n_writeresponsevalid_n;
-	output		lt24_0_conduit_cs_n_writeresponsevalid_n;
 endmodule

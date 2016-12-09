@@ -139,7 +139,7 @@ ACDS_VERSION := 16.0
 # Define path to the application ELF. 
 # It may be used by the makefile fragments so is defined before including them. 
 # 
-ELF := fpga_lt24.elf
+ELF := LCD_LT24.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS := hello_world.c
@@ -177,7 +177,7 @@ CRT0 :=
 SYS_LIB :=
 
 # Define path to the root of the BSP.
-BSP_ROOT_DIR := D:/Skydrive/Documenten/Univ/ES/GIT/LCD/sw/nios/fpga_lt24_bsp/
+BSP_ROOT_DIR := D:/Skydrive/Documenten/Univ/ES/GIT/LCD/sw/nios/LCD_LT24_bsp/
 
 # List of application specific include directories, library directories and library names
 APP_INCLUDE_DIRS :=
