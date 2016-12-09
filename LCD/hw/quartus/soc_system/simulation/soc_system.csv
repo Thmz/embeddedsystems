@@ -1,0 +1,36 @@
+# system info soc_system on 2016.12.09.20:39:21
+system_info:
+name,value
+DEVICE,5CSEMA4U23C6
+DEVICE_FAMILY,Cyclone V
+GENERATION_ID,1481312338
+#
+#
+# Files generated for soc_system on 2016.12.09.20:39:21
+files:
+filepath,kind,attributes,module,is_top
+simulation/soc_system.vhd,VHDL,,soc_system,true
+simulation/soc_system_rst_controller.vhd,VHDL,,soc_system,false
+simulation/soc_system_rst_controller_001.vhd,VHDL,,soc_system,false
+simulation/submodules/altera_address_span_extender.sv,SYSTEM_VERILOG,,altera_address_span_extender,false
+simulation/submodules/soc_system_hps_0.v,VERILOG,,soc_system_hps_0,false
+simulation/submodules/soc_system_jtag_uart_0.v,VERILOG,,soc_system_jtag_uart_0,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+soc_system.address_span_extender_0,altera_address_span_extender
+soc_system.hps_0,soc_system_hps_0
+soc_system.hps_0.fpga_interfaces,soc_system_hps_0_fpga_interfaces
+soc_system.hps_0.hps_io,soc_system_hps_0_hps_io
+soc_system.jtag_uart_0,soc_system_jtag_uart_0
+soc_system.lt24_0,soc_system_lt24_0
+soc_system.nios2_gen2_0,soc_system_nios2_gen2_0
+soc_system.onchip_memory2_0,soc_system_onchip_memory2_0
+soc_system.mm_interconnect_0,soc_system_mm_interconnect_0
+soc_system.mm_interconnect_1,soc_system_mm_interconnect_1
+soc_system.irq_mapper,soc_system_irq_mapper
+soc_system.rst_controller,altera_reset_controller
+soc_system.rst_controller_001,altera_reset_controller
+soc_system.rst_controller,altera_reset_controller
+soc_system.rst_controller_001,altera_reset_controller

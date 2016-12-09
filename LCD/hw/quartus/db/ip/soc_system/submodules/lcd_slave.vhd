@@ -54,6 +54,12 @@ begin
 		end if;
 	end process run_process;
 	
+
+	AS_WaitRequest <= '1' when (LS_Busy = '1' or AS_Rd = '1' or AS_Wr='1') else '0';
+
+
+
+
 	state_machine_process : process(AS_Address, AS_ChipSelect, AS_Wr, AS_WrData, AS_Rd, LS_Busy, LS_RdData, 
 									state_reg, addr_reg, len_reg) is
 	begin	
@@ -65,7 +71,6 @@ begin
 	--INIT
 	AS_RdData <= (others => '0');
 	AS_IRQ <= '0';
-	AS_WaitRequest <= '0';
 	LS_DC_n <= '1';
 	LS_Wr_n <= '1';
 	LS_Rd_n <= '1';
@@ -81,13 +86,11 @@ begin
 				if (AS_Rd = '1') then --read
 					case AS_Address is
 						when "00" => --cmd
-						AS_WaitRequest <= '1';
 						LS_Rd_n <= '0';
 						LS_DC_n <= '0';
 						state_next <= READ;
 						
 						when "01" => --data
-						AS_WaitRequest <= '1';
 						LS_Rd_n <= '0';
 						LS_DC_n <= '1';
 						state_next <= READ;
@@ -103,13 +106,11 @@ begin
 				elsif (AS_Wr = '1') then --write
 					case AS_Address is
 						when "00" => --cmd
-						AS_WaitRequest <= '1';
 						LS_Wr_n <= '0';
 						LS_DC_n <= '0';
 						state_next <= WRITE;
 						
 						when "01" => --data
-						AS_WaitRequest <= '1';
 						LS_Wr_n <= '0';
 						LS_DC_n <= '1';
 						state_next <= WRITE;
@@ -117,7 +118,6 @@ begin
 						when "10" => --addr
 						addr_next <= AS_WrData;
 						MS_Address <= AS_WrData;
-						AS_WaitRequest <= '1';
 						MS_StartDMA <= '1';
 						state_next <= ADDRESS;
 						
@@ -134,7 +134,6 @@ begin
 			if(LS_Busy = '1') then
 				LS_Rd_n <= '1';
 			else 
-				AS_WaitRequest <= '0';
 				state_next <= IDLE;
 			end if;
 		
@@ -143,13 +142,13 @@ begin
 			if(LS_Busy = '1') then
 				LS_Wr_n <= '1';
 			else 
-				AS_WaitRequest <= '0';
 				state_next <= IDLE;
 			end if;
 		
 		-- ??? DOES LS_Busy go high soon enough
 		when ADDRESS =>
 			if(LS_Busy = '1') then
+
 				MS_StartDMA <= '0';
 			else 
 				AS_IRQ <= '1';
@@ -158,7 +157,6 @@ begin
 			
 		when IRQ =>		
 			AS_IRQ <= '0';
-			AS_WaitRequest <= '0';
 			state_next <= IDLE;
 		
 		when others => null;		

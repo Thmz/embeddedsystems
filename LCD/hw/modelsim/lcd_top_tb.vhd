@@ -95,22 +95,107 @@ begin
 		end procedure;
 		
 
+		procedure test_new_cmd(vAS_Address : in std_logic_vector(1 downto 0); vAS_WrData : in std_logic_vector(31 downto 0)) is
+		begin
+			AS_Address_tb <= vAS_Address;
+			AS_WrData_tb <= vAS_WrData;
 
+
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Wr_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			assert(AS_WaitRequest_tb = '0') report "empty 1";
+			wait until falling_edge(clk_tb);			
+			
+			--wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
+			--assert(Wr_n_tb = '0') report "assert 1";
+			--assert(Rd_n_tb = '1') report "assert 2";
+			--assert(D_tb = vWrData) report "assert 2.1";
+			
+			
+			--wait until falling_edge(clk_tb);
+			--wait until falling_edge(clk_tb);
+			--assert(Wr_n_tb = '1') report "assert 3";
+		--	assert(Rd_n_tb = '1') report "assert 4";
+		--	assert(D_tb = vWrData) report "assert 5";
+
+		--	wait until falling_edge(clk_tb) and LS_Busy_tb = '0';
+			
+		--	wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
+
+		procedure test_avalon_read(vAS_Address : in std_logic_vector(1 downto 0)) is
+		begin
+			AS_Address_tb <= vAS_Address;
+			AS_ChipSelect_tb <= '1';			
+			AS_Rd_tb <= '1';
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Rd_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			assert(AS_WaitRequest_tb = '0') report "empty 1";
+			wait until falling_edge(clk_tb);			
+			
+			--wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
+			--assert(Wr_n_tb = '0') report "assert 1";
+			--assert(Rd_n_tb = '1') report "assert 2";
+			--assert(D_tb = vWrData) report "assert 2.1";
+			
+			
+			--wait until falling_edge(clk_tb);
+			--wait until falling_edge(clk_tb);
+			--assert(Wr_n_tb = '1') report "assert 3";
+		--	assert(Rd_n_tb = '1') report "assert 4";
+		--	assert(D_tb = vWrData) report "assert 5";
+
+		--	wait until falling_edge(clk_tb) and LS_Busy_tb = '0';
+			
+		--	wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
 		
 
 
 	begin
 		report ("START TESTBENCH");
 		done <= false;
-		new_phase;
+		new_phase;--1
 		wait for 2 ns;
 		rst_n_tb <= '0';
 		wait until falling_edge(clk_tb);
 		wait for 2 ns;
 		rst_n_tb <= '1';
 
-		new_phase;
+		new_phase;--2
 		test_empty;
+
+		new_phase;--3
+		--random command
+		test_new_cmd("00", "00000000000000001111000000000000");
+
+		new_phase;--4
+		-- new length
+		test_new_cmd("11", "00000000000000001111000000000000");
+
+		new_phase;--5
+		-- read_length
+		test_avalon_read("11");
+
+		new_phase;--6
+		-- new data adress
+		test_new_cmd("10", "00000000000000001111000000000000");
 		
 		done <= true;
 		wait;

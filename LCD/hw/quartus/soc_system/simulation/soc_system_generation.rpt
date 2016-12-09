@@ -1,0 +1,59 @@
+Info: Starting: Create simulation model
+Info: qsys-generate D:\Skydrive\Documenten\Univ\ES\GIT\LCD\hw\quartus\soc_system.qsys --simulation=VHDL --allow-mixed-language-simulation --output-directory=D:\Skydrive\Documenten\Univ\ES\GIT\LCD\hw\quartus\soc_system\simulation\simulation --family="Cyclone V" --part=5CSEMA4U23C6
+Progress: Loading quartus/soc_system.qsys
+Progress: Reading input file
+Progress: Adding address_span_extender_0 [altera_address_span_extender 16.0]
+Progress: Parameterizing module address_span_extender_0
+Progress: Adding clk_0 [clock_source 16.0]
+Progress: Parameterizing module clk_0
+Progress: Adding hps_0 [altera_hps 16.0]
+Progress: Parameterizing module hps_0
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 16.0]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding lt24_0 [lt24 1.0]
+Progress: Parameterizing module lt24_0
+Progress: Adding nios2_gen2_0 [altera_nios2_gen2 16.0]
+Progress: Parameterizing module nios2_gen2_0
+Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 16.0]
+Progress: Parameterizing module onchip_memory2_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: soc_system.hps_0: Setting the slave port width of interface f2h_sdram0 to 32 results in bandwidth under-utilization.  Altera recommends you set the interface data width to 64-bit or greater.
+Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: soc_system.hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
+Warning: soc_system.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: soc_system.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: soc_system: Generating soc_system "soc_system" for SIM_VHDL
+Info: Interconnect is inserted between master address_span_extender_0.expanded_master and slave hps_0.f2h_sdram0_data because the master has address signal 32 bit wide, but the slave is 30 bit wide.
+Info: Interconnect is inserted between master address_span_extender_0.expanded_master and slave hps_0.f2h_sdram0_data because the master has burstcount signal 1 bit wide, but the slave is 8 bit wide.
+Info: address_span_extender_0: "soc_system" instantiated altera_address_span_extender "address_span_extender_0"
+Info: hps_0: "Running  for module: hps_0"
+Warning: hps_0: Setting the slave port width of interface f2h_sdram0 to 32 results in bandwidth under-utilization.  Altera recommends you set the interface data width to 64-bit or greater.
+Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
+Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: jtag_uart_0: Starting RTL generation for module 'soc_system_jtag_uart_0'
+Info: jtag_uart_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart_0 --dir=C:/TEMP/alt7144_4681204887115726414.dir/0005_jtag_uart_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7144_4681204887115726414.dir/0005_jtag_uart_0_gen//soc_system_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/TEMP/alt7144_4681204887115726414.dir/0005_jtag_uart_0_gen/  ]
+Info: jtag_uart_0: Done RTL generation for module 'soc_system_jtag_uart_0'
+Info: jtag_uart_0: "soc_system" instantiated altera_avalon_jtag_uart "jtag_uart_0"
+Info: lt24_0: "soc_system" instantiated lt24 "lt24_0"
+Info: nios2_gen2_0: "soc_system" instantiated altera_nios2_gen2 "nios2_gen2_0"
+Info: onchip_memory2_0: Starting RTL generation for module 'soc_system_onchip_memory2_0'
+Info: onchip_memory2_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_onchip_memory2_0 --dir=C:/TEMP/alt7144_4681204887115726414.dir/0007_onchip_memory2_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7144_4681204887115726414.dir/0007_onchip_memory2_0_gen//soc_system_onchip_memory2_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/TEMP/alt7144_4681204887115726414.dir/0007_onchip_memory2_0_gen/  ]
+Info: onchip_memory2_0: Done RTL generation for module 'soc_system_onchip_memory2_0'
+Info: onchip_memory2_0: "soc_system" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
+Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"

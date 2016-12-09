@@ -191,9 +191,11 @@ printf("HERE");
   while(1){
 	  printf("lOop");
 	  IOWR_32DIRECT(LCD_BASE, 3, 0x8765);
+
 	  printf("send");
+
 	  int test = IORD_32DIRECT(LCD_BASE, 3);
-	  printf("sendddd");
+	  printf("received");
 	  printf("%d", test);
 
   }

@@ -105,6 +105,7 @@ begin
 		-- prevent latches
 		state_next <= state_reg;
 		phase_next <= phase_reg;
+		curr_word_next <= curr_word_reg;
 
 		FIFO_Rd    <= '0';
 		CS_n       <= '1';

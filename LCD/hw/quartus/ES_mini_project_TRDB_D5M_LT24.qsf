@@ -759,7 +759,6 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VHDL_FILE ../hdl/lcd_top.vhd
 set_global_assignment -name VHDL_FILE ../hdl/lcd_slave.vhd
 set_global_assignment -name VHDL_FILE ../hdl/lcd_master.vhd
-set_global_assignment -name VHDL_FILE ../hdl/lcd_fifo_inst.vhd
 set_global_assignment -name VHDL_FILE ../hdl/lcd_controller.vhd
 set_global_assignment -name VHDL_FILE ../hdl/DE0_Nano_SoC_TRDB_D5M_LT24_top_level.vhd
 set_global_assignment -name QSYS_FILE soc_system.qsys
