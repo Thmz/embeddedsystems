@@ -1,0 +1,25 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "GPIO_0_LT24_CS_N",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_LT24_RD_N",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_LT24_WR_N",
+					"strict" : false
+				},
+				{
+					"name" : "FPGA_CLK1_50",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
