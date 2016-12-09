@@ -87,7 +87,7 @@ begin
 			wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
 			assert(Wr_n_tb = '0') report "assert 1";
 			assert(Rd_n_tb = '1') report "assert 2";
-			assert(D_tb = vWrData);
+			assert(D_tb = vWrData) report "assert 2.1";
 			
 			LS_Wr_n_tb     <= '1';
 			LS_Rd_n_tb     <= '1';
@@ -111,7 +111,7 @@ begin
 			ML_Busy_tb <= '1';
 			wait until falling_edge(clk_tb);
 			assert(LS_Busy_tb = '1') report "assert 6";
-			assert( D_tb = "0000000000101100"); -- 0x2C command
+			assert( D_tb = "0000000000101100") report "assert 6.1"; -- 0x2C command
 			assert(Wr_n_tb = '0') report "assert 7";
 			assert(Rd_n_tb = '1') report "assert 8";
 			
@@ -134,31 +134,32 @@ begin
 			FIFO_RdData_tb <= "00110100011010011001011100101000";
 			FIFO_Empty_tb <= '0';
 			
-			wait until FIFO_Rd_tb = '1' and  falling_edge(clk_tb);
+			wait until FIFO_Rd_tb = '1' and  rising_edge(clk_tb);
 			FIFO_Empty_tb <= '1';
 			wait until falling_edge(clk_tb);
 			
 			-- test first pixel
 			wait until falling_edge(clk_tb);
-			assert(Wr_n_tb = '0');
-			assert(Rd_n_tb = '1');
-			assert(D_tb = "1001011100101000");		
+			assert(Wr_n_tb = '0') report "assert 11";
+			assert(Rd_n_tb = '1') report "assert 12";
+			assert(D_tb = "1001011100101000") report "assert 12.1";		
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
-			assert(Wr_n_tb = '1');
-			assert(Rd_n_tb = '1');
-			assert(D_tb = "1001011100101000");
+			assert(Wr_n_tb = '1') report "assert 13";
+			assert(Rd_n_tb = '1') report "assert 14";
+			assert(D_tb = "1001011100101000") report "assert 14.1";
 			
 			--test second pixel
 			wait until falling_edge(clk_tb);
-			assert(Wr_n_tb = '0');
-			assert(Rd_n_tb = '1');
-			assert(D_tb = "0011010001101001");		
+			wait until falling_edge(clk_tb);
+			assert(Wr_n_tb = '0') report "assert 15";
+			assert(Rd_n_tb = '1') report "assert 16";
+			assert(D_tb = "0011010001101001") report "assert 16.2";		
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
-			assert(Wr_n_tb = '1');
-			assert(Rd_n_tb = '1');
-			assert(D_tb = "0011010001101001");
+			assert(Wr_n_tb = '1') report "assert 17";
+			assert(Rd_n_tb = '1') report "assert 18";
+			assert(D_tb = "0011010001101001") report "assert 18.2";
 			
 			
 			
@@ -187,6 +188,12 @@ begin
 		new_phase;
 		test_new_pixel;
 		--test_read('0'); -- not implemented in lcd_controller yet
+
+
+		wait until falling_edge(clk_tb);
+		wait until falling_edge(clk_tb);
+		wait until falling_edge(clk_tb);
+		wait until falling_edge(clk_tb);
 		done <= true;
 		wait;
 	end process;

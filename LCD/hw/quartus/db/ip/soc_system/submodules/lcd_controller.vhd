@@ -33,11 +33,11 @@ entity lcd_controller is
 
 	constant NEW_FRAME_CMD : std_logic_vector(15 downto 0) := "0000000000101100"; -- 0x2C
 
---signal curr_word : std_logic_vector(31 downto 0) := (others => '0');
+	signal curr_word_reg, curr_word_next : std_logic_vector(31 downto 0);
 end entity lcd_controller;
 
 architecture rtl of lcd_controller is
-	type state_type is (INIT, IDLE, WRITE_CMD, READ_CMD_DUMMY, READ_CMD, NEW_FRAME, WAIT_FIFO, WRITE_PIXEL, WRITE_PIXEL_SECOND);
+	type state_type is (IDLE, WRITE_CMD, READ_CMD_DUMMY, READ_CMD, NEW_FRAME, WAIT_FIFO, WRITE_PIXEL, WRITE_PIXEL_SECOND);
 	signal state_reg, state_next : state_type;
 	signal phase_reg, phase_next : natural;
 
@@ -47,12 +47,13 @@ begin
 	update_state : process(clk, rst_n) is
 	begin
 		if rst_n = '0' then
-			state_reg <= INIT;
+			state_reg <= IDLE;
 			phase_reg <= 0;
 
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
 			phase_reg <= phase_next;
+			curr_word_reg <= curr_word_next;
 		end if;
 	end process;
 
@@ -70,11 +71,27 @@ begin
 					Wr_n <= '0';
 					Rd_n <= '1';
 				when 1 =>
+					DC_n <= vDC_n;
+					D    <= vData;
+					CS_n <= '0';
+					Wr_n <= '0';
+					Rd_n <= '1';
 				when 2 =>
+					DC_n <= vDC_n;
+					D    <= vData;
+					CS_n <= '0';
 					Wr_n <= '1';
+					Rd_n <= '1';
 				when 3      =>
+					DC_n <= vDC_n;
+					D    <= vData;
+					CS_n <= '0';
+					Wr_n <= '1';
+					Rd_n <= '1';
+
 				when others =>          -- when 4 or more
 					--d          <= (others => '0');
+					DC_n	   <= vDC_n;
 					CS_n       <= '1';
 					Wr_n       <= '1';
 					Rd_n       <= '1';
@@ -88,18 +105,16 @@ begin
 		state_next <= state_reg;
 		phase_next <= phase_reg;
 
+		FIFO_Rd    <= '0';
+		CS_n       <= '0';
+		DC_n       <= '0';
+		Wr_n       <= '0';
+		Rd_n       <= '0';
+		D          <= (others => '0');
+		LS_RdData  <= (others => '0');
+		
+		
 		case state_reg is
-			-- init
-
-			when INIT =>
-				FIFO_Rd    <= '0';
-				CS_n       <= '0';
-				DC_n       <= '0';
-				Wr_n       <= '0';
-				Rd_n       <= '0';
-				D          <= (others => '0');
-				LS_RdData  <= (others => '0');
-				state_next <= IDLE;
 			-- idle
 			when IDLE =>
 				if LS_Wr_n = '0' then
@@ -144,8 +159,8 @@ begin
 			-- Write Pixel
 			when WRITE_PIXEL =>
 				FIFO_Rd   <= '0';
-				curr_word := FIFO_RdData;
-				do_write('0', curr_word(15 downto 0), WRITE_PIXEL_SECOND);
+				curr_word_next <= FIFO_RdData;
+				do_write('0', FIFO_RdData(15 downto 0), WRITE_PIXEL_SECOND);
 
 			-- write SECOND pixel
 			when WRITE_PIXEL_SECOND =>

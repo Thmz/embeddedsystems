@@ -17,7 +17,7 @@
 FUNCTION lcd_fifo 
 (
 	clock,
-	data[127..0],
+	data[31..0],
 	rdreq,
 	wrreq
 )
@@ -26,5 +26,5 @@ RETURNS (
 	almost_full,
 	empty,
 	full,
-	q[127..0]
+	q[31..0]
 );

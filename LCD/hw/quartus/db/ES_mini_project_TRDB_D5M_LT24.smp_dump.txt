@@ -1,0 +1,41 @@
+
+State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:address_span_extender_0_windowed_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
+Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
+state.ST_IDLE 0 0 0 0 
+state.ST_COMP_TRANS 1 0 0 1 
+state.ST_UNCOMP_TRANS 1 0 1 0 
+state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
+
+State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|lcd_top:lt24_0|LCD_Slave:SLAV|state
+Name state.IRQ state.ADDRESS state.WRITE state.READ state.IDLE 
+state.IDLE 0 0 0 0 0 
+state.READ 0 0 0 1 1 
+state.WRITE 0 0 1 0 1 
+state.ADDRESS 0 1 0 0 1 
+state.IRQ 1 0 0 0 1 
+
+State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|lcd_top:lt24_0|LCD_Master:MAST|state
+Name state.RECEIVING state.READING state.IDLE 
+state.IDLE 0 0 0 
+state.READING 0 1 1 
+state.RECEIVING 1 0 1 
+
+State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|lcd_top:lt24_0|lcd_controller:CTRL|state_reg
+Name state_reg.WRITE_PIXEL_SECOND state_reg.WRITE_PIXEL state_reg.WAIT_FIFO state_reg.NEW_FRAME state_reg.READ_CMD state_reg.READ_CMD_DUMMY state_reg.WRITE_CMD state_reg.IDLE 
+state_reg.IDLE 0 0 0 0 0 0 0 0 
+state_reg.WRITE_CMD 0 0 0 0 0 0 1 1 
+state_reg.READ_CMD_DUMMY 0 0 0 0 0 1 0 1 
+state_reg.READ_CMD 0 0 0 0 1 0 0 1 
+state_reg.NEW_FRAME 0 0 0 1 0 0 0 1 
+state_reg.WAIT_FIFO 0 0 1 0 0 0 0 1 
+state_reg.WRITE_PIXEL 0 1 0 0 0 0 0 1 
+state_reg.WRITE_PIXEL_SECOND 1 0 0 0 0 0 0 1 
+
+State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|soc_system_nios2_gen2_0:nios2_gen2_0|soc_system_nios2_gen2_0_cpu:cpu|soc_system_nios2_gen2_0_cpu_nios2_oci:the_soc_system_nios2_gen2_0_cpu_nios2_oci|soc_system_nios2_gen2_0_cpu_debug_slave_wrapper:the_soc_system_nios2_gen2_0_cpu_debug_slave_wrapper|soc_system_nios2_gen2_0_cpu_debug_slave_tck:the_soc_system_nios2_gen2_0_cpu_debug_slave_tck|DRsize
+Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
+DRsize.000 0 0 0 0 0 0 
+DRsize.001 0 0 0 0 1 1 
+DRsize.010 0 0 0 1 0 1 
+DRsize.011 0 0 1 0 0 1 
+DRsize.100 0 1 0 0 0 1 
+DRsize.101 1 0 0 0 0 1 
