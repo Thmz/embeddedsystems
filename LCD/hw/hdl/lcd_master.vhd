@@ -68,7 +68,7 @@ begin
 	end process run_process;
 
 	state_machine_process : process(AM_RdDataValid, AM_RdData, AM_WaitRequest, MS_Address, MS_Length, MS_StartDMA, FIFO_Full, FIFO_Almost_Full, 
-									state_reg, addr_reg, len_reg, burst_counter_reg, word_counter_reg) is
+									state_reg, addr_reg, len_reg, burst_counter_reg, word_counter_reg, BURST_COUNT, BURST_LENGTH) is
 	begin
 		-- avoid latches 
 		state_next <= state_reg;

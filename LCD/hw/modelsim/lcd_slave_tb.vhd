@@ -90,6 +90,40 @@ begin
 			
 		end procedure;
 		
+		procedure test_write_len is
+		begin
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';			
+			AS_Address_tb <= "11";
+			AS_WrData_tb <= "11001100110011001100110011001100";
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Wr_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			assert(AS_WaitRequest_tb = '0') report "empty 1";
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
+	
+		procedure test_write_addr is
+		begin
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';			
+			AS_Address_tb <= "10";
+			AS_WrData_tb <= "11001100110011001100110011001100";
+			wait until falling_edge(clk_tb);
+			
+			AS_ChipSelect_tb <= '0';			
+			AS_Wr_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			assert(AS_WaitRequest_tb = '0') report "empty 1";
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
 
 		
 
@@ -106,6 +140,10 @@ begin
 
 		new_phase;
 		test_empty;
+		
+		test_write_len;
+		
+		test_write_addr;
 		done <= true;
 		wait;
 	end process;
