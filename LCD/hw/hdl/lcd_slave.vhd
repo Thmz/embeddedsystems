@@ -49,7 +49,7 @@ begin
 			len_reg <= "00000000000000001001011000000000";	--38400 160*240
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
-			addr_reg <= addr_reg;
+			addr_reg <= addr_next;
 			len_reg <= len_next;
 		end if;
 	end process run_process;

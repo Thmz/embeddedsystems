@@ -153,8 +153,10 @@ begin
 		new_phase;
 		new_phase;
 		new_phase;		
+		AM_RdDataValid_tb <= '0';
 		new_phase;
 		new_phase;
+		AM_RdDataValid_tb <= '1';
 		new_phase;
 		new_phase;
 		new_phase;

@@ -10,8 +10,8 @@ architecture bench of lcd_slave_tb is
 	constant DELAY_TESTS : integer := 3;
 
 	-- subtype data is std_logic_vector(7 downto 0);
-	signal clk_tb : std_logic := '0';
-	signal rst_n_tb    : std_logic := '0';
+	signal clk_tb        : std_logic := '0';
+	signal rst_n_tb      : std_logic := '0';
 
 	
 		-- Avalon bus signals
@@ -68,7 +68,6 @@ begin
 			LS_WrData          => LS_WrData_tb,
 			LS_RdData          => LS_RdData_tb
 		);
-
 	
 
 	process
@@ -76,9 +75,7 @@ begin
 		begin
 			phase_id     <= phase_id + 1;
 			wait until falling_edge(clk_tb);
-		end procedure new_phase;
-		
-		
+		end procedure new_phase;		
 		
 		
 		procedure test_empty is
@@ -115,7 +112,7 @@ begin
 			AS_Address_tb <= "10";
 			AS_WrData_tb <= "11001100110011001100110011001100";
 			wait until falling_edge(clk_tb);
-			
+			LS_Busy_tb <= '1';
 			AS_ChipSelect_tb <= '0';			
 			AS_Wr_tb <= '0';
 			wait until falling_edge(clk_tb);
