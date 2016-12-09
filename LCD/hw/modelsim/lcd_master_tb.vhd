@@ -54,6 +54,7 @@ begin
 			AM_ByteEnable      => AM_ByteEnable_tb,
 			AM_Rd              => AM_Rd_tb,
 			AM_RdDataValid     => AM_RdDataValid_tb,
+			AM_Burstcount      => AM_Burstcount_tb, 
 			AM_RdData          => AM_RdData_tb,
 			AM_WaitRequest     => AM_WaitRequest_tb,
 			MS_Address         => MS_Address_tb,
