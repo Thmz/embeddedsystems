@@ -14,22 +14,22 @@ entity LCD_Slave is
 		AS_Wr           : in  std_logic;
 		AS_WrData       : in  std_logic_vector(31 downto 0);
 		AS_Rd           : in std_logic;
-		AS_RdData       : out std_logic_vector(31 downto 0);
-		AS_IRQ			: out std_logic;
-		AS_WaitRequest  : out std_logic;
+		AS_RdData       : out std_logic_vector(31 downto 0) := (others => '0');
+		AS_IRQ			: out std_logic := '0';
+		AS_WaitRequest  : out std_logic := '0';
 		
 		-- LT24 Controller signals
 		LS_Busy         : in  std_logic;
-		LS_DC_n         : out std_logic;
-		LS_Wr_n         : out std_logic;
-		LS_Rd_n         : out std_logic;
-		LS_WrData       : out std_logic_vector(15 downto 0);
+		LS_DC_n         : out std_logic := '1';
+		LS_Wr_n         : out std_logic := '1';
+		LS_Rd_n         : out std_logic := '1';
+		LS_WrData       : out std_logic_vector(15 downto 0) := (others => '0');
 		LS_RdData       : in  std_logic_vector(15 downto 0);		
 		
 		-- Master signals		
-		MS_Address      : out std_logic_vector(31 downto 0);		
-		MS_Length       : out std_logic_vector(31 downto 0);
-		MS_StartDMA     : out std_logic
+		MS_Address      : out std_logic_vector(31 downto 0) := (others => '0');		
+		MS_Length       : out std_logic_vector(31 downto 0) := (others => '0');
+		MS_StartDMA     : out std_logic := '0'
 	);
 end entity LCD_Slave;
 
@@ -55,7 +55,7 @@ begin
 	end process run_process;
 	
 
-	AS_WaitRequest <= '1' when (LS_Busy = '1' or AS_Rd = '1' or AS_Wr='1') else '0';
+	AS_WaitRequest <= '1' when (LS_Busy = '1') else '0';
 
 
 

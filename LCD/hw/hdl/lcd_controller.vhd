@@ -8,27 +8,27 @@ entity lcd_controller is
 		rst_n         : in  std_logic;
 
 		-- LCD
-		CS_n        : out std_logic;
-		DC_n        : out std_logic;
-		Wr_n        : out std_logic;
-		Rd_n        : out std_logic;
+		CS_n        : out std_logic := '1';
+		DC_n        : out std_logic := '1';
+		Wr_n        : out std_logic := '1';
+		Rd_n        : out std_logic := '1';
 		D           : out std_logic_vector(15 downto 0) := (others => '0'); -- should become inout!
 		LCD_ON : out std_logic := '1';
-		RESET_N : out std_logic;
+		RESET_N : out std_logic := '1';
 
 		-- Avalon Slave
 		LS_DC_n     : in  std_logic;
 		LS_Wr_n       : in  std_logic;
 		LS_WrData   : in  std_logic_vector(15 downto 0);
-		LS_RdData   : out std_logic_vector(15 downto 0);
+		LS_RdData   : out std_logic_vector(15 downto 0) := (others => '0');
 		LS_Rd_n       : in  std_logic;
-		LS_Busy     : out std_logic;
+		LS_Busy     : out std_logic := '0';
 
 		-- Master
 		ML_Busy     : in  std_logic;
 
 		-- FIFO 
-		FIFO_Rd     : out std_logic;
+		FIFO_Rd     : out std_logic := '0';
 		FIFO_RdData : in  std_logic_vector(31 downto 0);
 		FIFO_Empty  : in  std_logic
 	);
@@ -44,7 +44,7 @@ architecture rtl of lcd_controller is
 	signal phase_reg, phase_next : natural;
 
 begin
-	LS_Busy <= '0' when state_reg = IDLE else '1';
+	LS_Busy <= '1' when state_reg = IDLE else '1';
 
 	update_state : process(clk, rst_n) is
 	begin
@@ -111,7 +111,7 @@ begin
 		CS_n       <= '1';
 		DC_n       <= '1';
 		Wr_n       <= '1';
-		Rd_n       <= '1';
+		Rd_n       <= not Rd_n; -- FOR TESTING, SHOULD BE LIKE CLOCK
 		RESET_N <= '1';
 		D          <= (others => '0');
 		LS_RdData  <= (others => '0');

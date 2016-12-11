@@ -18,23 +18,21 @@
 #include <stdio.h>
 //#include "altera_avalon_pio_regs.h"
 #include "io.h"
-#include "system.h";
+#include "system.h"
 
-
-LCD_BASE = 0x0000;
 
 void LCD_WR_REG(int cmd) {
 
-	IOWR_32DIRECT(LCD_BASE, 0, cmd);
+	IOWR_32DIRECT(LT24_0_BASE, 0, cmd);
 
 }
 
 void LCD_WR_DATA(int data) {
-	IOWR_32DIRECT(LCD_BASE, 1, data);
+	IOWR_32DIRECT(LT24_0_BASE, 1, data);
 }
 
 void LCD_RST(){
-	IOWR_32DIRECT(LCD_BASE, 2, '0x0080');
+	IOWR_32DIRECT(LT24_0_BASE, 2, '0x0080');
 }
 
 
@@ -189,13 +187,25 @@ printf("HERE");
 
 
   while(1){
-	  printf("lOop");
-	  IOWR_32DIRECT(LCD_BASE, 3, 0x8765);
+	  //printf("floopooop");
+	  IOWR_32DIRECT(LT24_0_BASE, 0*4, 0xFFFF);
 
 	  printf("send");
+	  int delay = 0;
+	 // printf("looping");
+	  while(delay < 100){
+		//  printf("looping");
+		  delay++;
+	  }
+	  printf("poll");
+	  int test = IORD_32DIRECT(LT24_0_BASE, 3*4);
+	  printf("received \n");
 
-	  int test = IORD_32DIRECT(LCD_BASE, 3);
-	  printf("received");
+	   delay = 0;
+	  while(delay < 100){
+	  		//  printf("looping");
+	  		  delay++;
+	  	  }
 	  printf("%d", test);
 
   }

@@ -116,6 +116,13 @@ module soc_system (
 	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read;                   // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_read -> jtag_uart_0:av_read_n
 	wire         mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write;                  // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_write -> jtag_uart_0:av_write_n
 	wire  [31:0] mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata;              // mm_interconnect_0:jtag_uart_0_avalon_jtag_slave_writedata -> jtag_uart_0:av_writedata
+	wire         mm_interconnect_0_lt24_0_avalon_slave_0_chipselect;                     // mm_interconnect_0:lt24_0_avalon_slave_0_chipselect -> lt24_0:AS_ChipSelect
+	wire  [31:0] mm_interconnect_0_lt24_0_avalon_slave_0_readdata;                       // lt24_0:AS_RdData -> mm_interconnect_0:lt24_0_avalon_slave_0_readdata
+	wire         mm_interconnect_0_lt24_0_avalon_slave_0_waitrequest;                    // lt24_0:AS_WaitRequest -> mm_interconnect_0:lt24_0_avalon_slave_0_waitrequest
+	wire   [1:0] mm_interconnect_0_lt24_0_avalon_slave_0_address;                        // mm_interconnect_0:lt24_0_avalon_slave_0_address -> lt24_0:AS_Address
+	wire         mm_interconnect_0_lt24_0_avalon_slave_0_read;                           // mm_interconnect_0:lt24_0_avalon_slave_0_read -> lt24_0:AS_Rd
+	wire         mm_interconnect_0_lt24_0_avalon_slave_0_write;                          // mm_interconnect_0:lt24_0_avalon_slave_0_write -> lt24_0:AS_Wr
+	wire  [31:0] mm_interconnect_0_lt24_0_avalon_slave_0_writedata;                      // mm_interconnect_0:lt24_0_avalon_slave_0_writedata -> lt24_0:AS_WrData
 	wire  [31:0] mm_interconnect_0_nios2_gen2_0_debug_mem_slave_readdata;                // nios2_gen2_0:debug_mem_slave_readdata -> mm_interconnect_0:nios2_gen2_0_debug_mem_slave_readdata
 	wire         mm_interconnect_0_nios2_gen2_0_debug_mem_slave_waitrequest;             // nios2_gen2_0:debug_mem_slave_waitrequest -> mm_interconnect_0:nios2_gen2_0_debug_mem_slave_waitrequest
 	wire         mm_interconnect_0_nios2_gen2_0_debug_mem_slave_debugaccess;             // mm_interconnect_0:nios2_gen2_0_debug_mem_slave_debugaccess -> nios2_gen2_0:debug_mem_slave_debugaccess
@@ -131,13 +138,6 @@ module soc_system (
 	wire         mm_interconnect_0_onchip_memory2_0_s1_write;                            // mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
 	wire  [31:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;                        // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
 	wire         mm_interconnect_0_onchip_memory2_0_s1_clken;                            // mm_interconnect_0:onchip_memory2_0_s1_clken -> onchip_memory2_0:clken
-	wire         mm_interconnect_0_lt24_0_avalon_slave_0_chipselect;                     // mm_interconnect_0:lt24_0_avalon_slave_0_chipselect -> lt24_0:AS_ChipSelect
-	wire  [31:0] mm_interconnect_0_lt24_0_avalon_slave_0_readdata;                       // lt24_0:AS_RdData -> mm_interconnect_0:lt24_0_avalon_slave_0_readdata
-	wire         mm_interconnect_0_lt24_0_avalon_slave_0_waitrequest;                    // lt24_0:AS_WaitRequest -> mm_interconnect_0:lt24_0_avalon_slave_0_waitrequest
-	wire   [1:0] mm_interconnect_0_lt24_0_avalon_slave_0_address;                        // mm_interconnect_0:lt24_0_avalon_slave_0_address -> lt24_0:AS_Address
-	wire         mm_interconnect_0_lt24_0_avalon_slave_0_read;                           // mm_interconnect_0:lt24_0_avalon_slave_0_read -> lt24_0:AS_Rd
-	wire         mm_interconnect_0_lt24_0_avalon_slave_0_write;                          // mm_interconnect_0:lt24_0_avalon_slave_0_write -> lt24_0:AS_Wr
-	wire  [31:0] mm_interconnect_0_lt24_0_avalon_slave_0_writedata;                      // mm_interconnect_0:lt24_0_avalon_slave_0_writedata -> lt24_0:AS_WrData
 	wire         address_span_extender_0_expanded_master_waitrequest;                    // mm_interconnect_1:address_span_extender_0_expanded_master_waitrequest -> address_span_extender_0:avm_m0_waitrequest
 	wire  [31:0] address_span_extender_0_expanded_master_readdata;                       // mm_interconnect_1:address_span_extender_0_expanded_master_readdata -> address_span_extender_0:avm_m0_readdata
 	wire  [31:0] address_span_extender_0_expanded_master_address;                        // address_span_extender_0:avm_m0_address -> mm_interconnect_1:address_span_extender_0_expanded_master_address
