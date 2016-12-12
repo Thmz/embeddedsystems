@@ -57,7 +57,7 @@ begin
 	end process run_process;
 	
 
-	AS_WaitRequest <= '1' when (LS_Busy = '1') else '0';
+	--AS_WaitRequest <= '1' when (LS_Busy = '1') else '0';
 
 
 	state_machine_process : process(AS_Address, AS_ChipSelect, AS_Wr, AS_WrData, AS_Rd, LS_Busy, LS_RdData, 

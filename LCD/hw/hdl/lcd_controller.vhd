@@ -111,7 +111,7 @@ begin
 		CS_n       <= '1';
 		DC_n       <= '1';
 		Wr_n       <= '1';
-		Rd_n       <= not Rd_n; -- FOR TESTING, SHOULD BE LIKE CLOCK
+		Rd_n       <= '1';
 		RESET_N <= '1';
 		D          <= (others => '0');
 		LS_RdData  <= (others => '0');
