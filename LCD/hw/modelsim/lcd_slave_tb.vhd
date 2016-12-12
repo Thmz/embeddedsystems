@@ -121,6 +121,18 @@ begin
 			wait until falling_edge(clk_tb);
 			
 		end procedure;
+		
+		procedure test_read_len is
+		begin
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '1';			
+			AS_Rd_tb <= '1';			
+			AS_Address_tb <= "11";
+			wait until falling_edge(clk_tb);
+			assert(AS_RdData_tb = "11001100110011001100110011001100") report "len= previous len";
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
 
 		
 
@@ -138,9 +150,9 @@ begin
 		new_phase;
 		test_empty;
 		
-		test_write_len;
+		test_write_len;		
+		test_read_len;
 		
-		test_write_addr;
 		done <= true;
 		wait;
 	end process;

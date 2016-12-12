@@ -35,9 +35,10 @@ end entity LCD_Slave;
 
 architecture RTL of LCD_Slave is
 	type state_type is (IDLE, READ, WRITE, ADDRESS, IRQ);
-	signal state_reg, state_next     : state_type := IDLE;
-	signal addr_reg, addr_next       : std_logic_vector(31 downto 0) := (others => '0');
-	signal len_reg, len_next         : std_logic_vector(31 downto 0) := "00000000000000001001011000000000";	--38400 160*240
+	signal state_reg, state_next        : state_type := IDLE;
+	signal waitbusy_reg, waitbusy_next  : std_logic := '1';
+	signal addr_reg, addr_next          : std_logic_vector(31 downto 0) := (others => '0');
+	signal len_reg, len_next            : std_logic_vector(31 downto 0) := "00000000000000001001011000000000";	--38400 160*240
 	
 begin	
 	--Handle reset procedure and state_reg changes
@@ -45,6 +46,7 @@ begin
 	begin
 		if rst_n = '0' then
 			state_reg <= IDLE;
+			waitbusy_reg <= '1'; 
 			addr_reg <= (others => '0');
 			len_reg <= "00000000000000001001011000000000";	--38400 160*240
 		elsif rising_edge(clk) then
@@ -58,13 +60,12 @@ begin
 	AS_WaitRequest <= '1' when (LS_Busy = '1') else '0';
 
 
-
-
 	state_machine_process : process(AS_Address, AS_ChipSelect, AS_Wr, AS_WrData, AS_Rd, LS_Busy, LS_RdData, 
 									state_reg, addr_reg, len_reg) is
 	begin	
 	-- avoid latches 
 	state_next <= state_reg;
+	waitbusy_next <= waitbusy_reg;
 	addr_next <= addr_reg;
 	len_next <= len_reg;
 	
@@ -129,28 +130,28 @@ begin
 				end if;
 			end if;
 		
-		-- ??? DOES LS_Busy go high soon enough
+		-- ??? DOES LS_Busy go high soon enough  ->  solved with waitbusy signal ( wait that LS_Busy goes high at least once before check if it's low)
 		when READ =>
 			if(LS_Busy = '1') then
+				waitbusy_next <= '0';
 				LS_Rd_n <= '1';
-			else 
+			elsif (waitbusy_reg = '0') then
 				state_next <= IDLE;
 			end if;
 		
-		-- ??? DOES LS_Busy go high soon enough
 		when WRITE =>
 			if(LS_Busy = '1') then
+				waitbusy_next <= '0';
 				LS_Wr_n <= '1';
-			else 
+			elsif (waitbusy_reg = '0') then 
 				state_next <= IDLE;
 			end if;
 		
-		-- ??? DOES LS_Busy go high soon enough
 		when ADDRESS =>
 			if(LS_Busy = '1') then
-
+				waitbusy_next <= '0';
 				MS_StartDMA <= '0';
-			else 
+			elsif (waitbusy_reg = '0') then 
 				AS_IRQ <= '1';
 				state_next <= IRQ;
 			end if;
