@@ -31,9 +31,9 @@ void LCD_WR_DATA(int data) {
 	IOWR_32DIRECT(LT24_0_BASE, 1, data);
 }
 
-void LCD_RST(){
-	IOWR_32DIRECT(LT24_0_BASE, 2, '0x0080');
-}
+//void LCD_RST(){
+	%//IOWR_32DIRECT(LT24_0_BASE, 2, '0x0080');
+//}
 
 
 
@@ -188,17 +188,18 @@ printf("HERE");
 
   while(1){
 	  //printf("floopooop");
-	  IOWR_32DIRECT(LT24_0_BASE, 0*4, 0xFFFF);
+	  IOWR_32DIRECT(LT24_0_BASE, 3*4, 0x5678);
 
 	  printf("send");
 	  int delay = 0;
 	 // printf("looping");
-	  while(delay < 100){
+	  while(delay < 10000){
 		//  printf("looping");
 		  delay++;
 	  }
 	  printf("poll");
-	  int test = IORD_32DIRECT(LT24_0_BASE, 3*4);
+	  //IOWR_32DIRECT(LT24_0_BASE, 3*4, 0x5678);
+	  int test = IORD_32DIRECT(LT24_0_BASE, 3*4)+1;
 	  printf("received \n");
 
 	   delay = 0;

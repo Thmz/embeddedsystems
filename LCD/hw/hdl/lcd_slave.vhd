@@ -41,6 +41,7 @@ architecture RTL of LCD_Slave is
 	signal len_reg, len_next            : std_logic_vector(31 downto 0) := "00000000000000001001011000000000";	--38400 160*240
 	
 begin	
+	
 	--Handle reset procedure and state_reg changes
 	run_process : process(clk, rst_n) is
 	begin
@@ -52,7 +53,7 @@ begin
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
 			addr_reg <= addr_next;
-			len_reg <= len_next;
+			len_reg <=  LS_Busy & len_next(30 downto 0);
 		end if;
 	end process run_process;
 	

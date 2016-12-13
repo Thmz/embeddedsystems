@@ -165,8 +165,16 @@ begin
 			
 		end procedure;
 
-		procedure test_burst_data() is
+		procedure test_burst_data is
 		begin
+			wait until falling_edge(clk_tb);
+			AM_RdData_tb <= '00000000000000001111000000000000'
+			AM_RdDataValid <= '1';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AM_RdDataValid <= '0';
+
+			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
 			
 		end procedure;
@@ -203,7 +211,8 @@ begin
 		-- new data adress
 		test_avalon_write("10", "00000000000000001111000000000000");
 
-
+		new_phase;
+		test_burst_data;
 		
 		done <= true;
 		wait;
