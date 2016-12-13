@@ -77,6 +77,8 @@ begin
 			     Wr_n         => Wr_n,
 			     Rd_n        => Rd_n,
 			     D    => D,
+			     LCD_ON => LCD_ON,
+			     RESET_N =>RESET_N,
 
 			     -- Slave
 			     LS_DC_n   => LS_DC_n,

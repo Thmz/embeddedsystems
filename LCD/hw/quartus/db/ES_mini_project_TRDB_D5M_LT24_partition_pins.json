@@ -72,6 +72,14 @@
 					"strict" : false
 				},
 				{
+					"name" : "GPIO_0_LT24_LCD_ON",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_LT24_RESET_N",
+					"strict" : false
+				},
+				{
 					"name" : "GPIO_0_LT24_RS",
 					"strict" : false
 				},
