@@ -68,7 +68,7 @@ begin
 	state_next <= state_reg;
 	waitbusy_next <= waitbusy_reg;
 	addr_next <= addr_reg;
-	len_next <= len_reg;
+	len_next <= LS_Busy & len_reg(30 downto 0);
 	
 	--INIT
 	AS_RdData <= (others => '0');
