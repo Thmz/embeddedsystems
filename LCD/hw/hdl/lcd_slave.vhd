@@ -53,6 +53,7 @@ begin
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
 			addr_reg <= addr_next;
+			waitbusy_reg <= waitbusy_next;
 			len_reg <=  LS_Busy & len_next(30 downto 0);
 		end if;
 	end process run_process;
@@ -73,6 +74,7 @@ begin
 	--INIT
 	AS_RdData <= (others => '0');
 	AS_IRQ <= '0';
+	AS_WaitRequest <= '0';
 	LS_DC_n <= '1';
 	LS_Wr_n <= '1';
 	LS_Rd_n <= '1';
@@ -133,6 +135,7 @@ begin
 		
 		-- ??? DOES LS_Busy go high soon enough  ->  solved with waitbusy signal ( wait that LS_Busy goes high at least once before check if it's low)
 		when READ =>
+			AS_RdData <= "0000000000000000" & LS_RdData;
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';
 				LS_Rd_n <= '1';
@@ -141,8 +144,9 @@ begin
 			end if;
 		
 		when WRITE =>
+			LS_WrData <= AS_WrData(15 downto 0);
 			if(LS_Busy = '1') then
-				waitbusy_next <= '0';
+				waitbusy_next <= '0';				
 				LS_Wr_n <= '1';
 			elsif (waitbusy_reg = '0') then 
 				state_next <= IDLE;
