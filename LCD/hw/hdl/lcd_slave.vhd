@@ -140,6 +140,7 @@ begin
 				waitbusy_next <= '0';
 				LS_Rd_n <= '1';
 			elsif (waitbusy_reg = '0') then
+				waitbusy_next <= '1';
 				state_next <= IDLE;
 			end if;
 		
@@ -148,7 +149,8 @@ begin
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';				
 				LS_Wr_n <= '1';
-			elsif (waitbusy_reg = '0') then 
+			elsif (waitbusy_reg = '0') then
+				waitbusy_next <= '1';
 				state_next <= IDLE;
 			end if;
 		
@@ -157,12 +159,12 @@ begin
 				waitbusy_next <= '0';
 				MS_StartDMA <= '0';
 			elsif (waitbusy_reg = '0') then 
+				waitbusy_next <= '1';
 				AS_IRQ <= '1';
 				state_next <= IRQ;
 			end if;
 			
 		when IRQ =>		
-			AS_IRQ <= '0';
 			state_next <= IDLE;
 		
 		when others => null;		
