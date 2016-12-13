@@ -44,7 +44,7 @@ architecture rtl of lcd_controller is
 	signal phase_reg, phase_next : natural;
 	signal flipper: std_logic := '0';
 begin
-	LS_Busy <= '1' when state_reg = IDLE else '1';
+	LS_Busy <= '0' when state_reg = IDLE else '1';
 	
 	LCD_ON <= flipper;
 	RESET_N <= flipper;

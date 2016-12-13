@@ -93,9 +93,8 @@ begin
 			wait until falling_edge(clk_tb);
 			
 		end procedure;
-		
 
-		procedure test_new_cmd(vAS_Address : in std_logic_vector(1 downto 0); vAS_WrData : in std_logic_vector(31 downto 0)) is
+		procedure test_avalon_write(vAS_Address : in std_logic_vector(1 downto 0); vAS_WrData : in std_logic_vector(31 downto 0)) is
 		begin
 			AS_Address_tb <= vAS_Address;
 			AS_WrData_tb <= vAS_WrData;
@@ -165,6 +164,20 @@ begin
 			wait until falling_edge(clk_tb);
 			
 		end procedure;
+
+		procedure test_burst_data is
+		begin
+			wait until falling_edge(clk_tb);
+			AM_RdData_tb <= "00000000000000001111000000000000";
+			AM_RdDataValid_tb <= '1';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AM_RdDataValid_tb <= '0';
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
 		
 
 
@@ -183,19 +196,23 @@ begin
 
 		new_phase;--3
 		--random command
-		test_new_cmd("00", "00000000000000001111000000000000");
+		test_avalon_write("00", "00000000000000001111000000000000");
 
 		new_phase;--4
 		-- new length
-		test_new_cmd("11", "00000000000000001111000000000000");
+		test_avalon_write("11", "00000000000000001111000000001111");
 
 		new_phase;--5
 		-- read_length
 		test_avalon_read("11");
 
 		new_phase;--6
+		
 		-- new data adress
-		test_new_cmd("10", "00000000000000001111000000000000");
+		test_avalon_write("10", "00000000000000001111000001100000");
+
+		new_phase;
+		test_burst_data;
 		
 		done <= true;
 		wait;
