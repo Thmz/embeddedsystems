@@ -92,13 +92,13 @@ begin
 						when "00" => --cmd
 						LS_Rd_n <= '0';
 						LS_DC_n <= '0';
-						AS_WaitRequest <= '1';
+						--AS_WaitRequest <= '1';
 						state_next <= READ;
 						
 						when "01" => --data
 						LS_Rd_n <= '0';
 						LS_DC_n <= '1';
-						AS_WaitRequest <= '1';
+						--AS_WaitRequest <= '1';
 						state_next <= READ;
 						
 						when "10" => --addr
@@ -115,13 +115,13 @@ begin
 						LS_Wr_n <= '0';
 						LS_DC_n <= '0';
 						LS_WrData <= AS_WrData(15 downto 0);
-						AS_WaitRequest <= '1';
+						--AS_WaitRequest <= '1';
 						state_next <= WRITE;
 						
 						when "01" => --data
 						LS_Wr_n <= '0';
 						LS_DC_n <= '1';
-						AS_WaitRequest <= '1';
+						--AS_WaitRequest <= '1';
 						LS_WrData <= AS_WrData(15 downto 0);
 						state_next <= WRITE;
 						
@@ -141,9 +141,10 @@ begin
 			end if;
 		
 		-- ??? DOES LS_Busy go high soon enough  ->  solved with waitbusy signal ( wait that LS_Busy goes high at least once before check if it's low)
+		-- we're keeping data lines open until LS_Busy goes high
 		when READ =>
 			AS_RdData <= "0000000000000000" & LS_RdData;
-			AS_WaitRequest <= '1';
+			--AS_WaitRequest <= '1';
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';
 				LS_Rd_n <= '1';
@@ -155,7 +156,7 @@ begin
 		
 		when WRITE =>
 			LS_WrData <= AS_WrData(15 downto 0);
-			AS_WaitRequest <= '1';
+			--AS_WaitRequest <= '1';
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';				
 				LS_Wr_n <= '1';
@@ -166,8 +167,12 @@ begin
 			end if;
 		
 		when ADDRESS =>
-			if(LS_Busy = '1') then
+			MS_Address <= AS_WrData;
+			MS_Length <= len_reg;
+			if (LS_Busy = '1') then
 				waitbusy_next <= '0';
+				MS_Address_tb <= (others => '0');
+				MS_Length_tb <= (others => '0');
 				MS_StartDMA <= '0';
 			elsif (waitbusy_reg = '0') then 
 				waitbusy_next <= '1';

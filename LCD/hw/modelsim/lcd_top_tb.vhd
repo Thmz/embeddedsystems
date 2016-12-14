@@ -12,7 +12,7 @@ architecture bench of lcd_top_tb is
 	-- subtype data is std_logic_vector(7 downto 0);
 	signal clk_tb        : std_logic := '0';
 	signal rst_n_tb      : std_logic := '0';
-
+	
 	
 		-- Avalon slave bus signals
 	signal AS_Address_tb          : std_logic_vector(1 downto 0);
