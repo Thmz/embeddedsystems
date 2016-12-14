@@ -169,13 +169,63 @@ begin
 		begin
 			wait until falling_edge(clk_tb);
 			AM_RdData_tb <= "00000000000000001111000000000000";
+			AM_WaitRequest_tb <= '0';
 			AM_RdDataValid_tb <= '1';
+			
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
-			AM_RdDataValid_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
 
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
+			AM_RdData_tb <= "10101010101010101010101010101010";
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+			AM_RdData_tb <= "00110011001100110011001100110011";
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+			AM_RdData_tb <= "11110000111100001111000011110000";
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+			AM_RdDataValid_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
 			
 		end procedure;
 		
@@ -200,7 +250,7 @@ begin
 
 		new_phase;--4
 		-- new length
-		test_avalon_write("11", "00000000000000001111000000001111");
+		test_avalon_write("11", "00000000000000001000000000000000"); --		32000 instead of 38400
 
 		new_phase;--5
 		-- read_length

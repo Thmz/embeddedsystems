@@ -52,8 +52,8 @@ begin
 			len_reg <= "00000000000000001001011000000000";	--38400 160*240
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
-			addr_reg <= addr_next;
 			waitbusy_reg <= waitbusy_next;
+			addr_reg <= addr_next;			
 			len_reg <=  LS_Busy & len_next(30 downto 0);
 		end if;
 	end process run_process;
@@ -92,11 +92,13 @@ begin
 						when "00" => --cmd
 						LS_Rd_n <= '0';
 						LS_DC_n <= '0';
+						AS_WaitRequest <= '1';
 						state_next <= READ;
 						
 						when "01" => --data
 						LS_Rd_n <= '0';
 						LS_DC_n <= '1';
+						AS_WaitRequest <= '1';
 						state_next <= READ;
 						
 						when "10" => --addr
@@ -112,16 +114,21 @@ begin
 						when "00" => --cmd
 						LS_Wr_n <= '0';
 						LS_DC_n <= '0';
+						LS_WrData <= AS_WrData(15 downto 0);
+						AS_WaitRequest <= '1';
 						state_next <= WRITE;
 						
 						when "01" => --data
 						LS_Wr_n <= '0';
 						LS_DC_n <= '1';
+						AS_WaitRequest <= '1';
+						LS_WrData <= AS_WrData(15 downto 0);
 						state_next <= WRITE;
 						
 						when "10" => --addr
 						addr_next <= AS_WrData;
 						MS_Address <= AS_WrData;
+						MS_Length <= len_reg;
 						MS_StartDMA <= '1';
 						state_next <= ADDRESS;
 						
@@ -136,21 +143,25 @@ begin
 		-- ??? DOES LS_Busy go high soon enough  ->  solved with waitbusy signal ( wait that LS_Busy goes high at least once before check if it's low)
 		when READ =>
 			AS_RdData <= "0000000000000000" & LS_RdData;
+			AS_WaitRequest <= '1';
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';
 				LS_Rd_n <= '1';
 			elsif (waitbusy_reg = '0') then
 				waitbusy_next <= '1';
+				AS_WaitRequest <= '0';
 				state_next <= IDLE;
 			end if;
 		
 		when WRITE =>
 			LS_WrData <= AS_WrData(15 downto 0);
+			AS_WaitRequest <= '1';
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';				
 				LS_Wr_n <= '1';
 			elsif (waitbusy_reg = '0') then
 				waitbusy_next <= '1';
+				AS_WaitRequest <= '0';
 				state_next <= IDLE;
 			end if;
 		

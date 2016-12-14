@@ -78,63 +78,57 @@ begin
 		end procedure new_phase;		
 		
 		
-		procedure test_empty is
+		procedure clk_cycle is
 		begin
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			assert(AS_WaitRequest_tb = '0') report "empty 1";
-			wait until falling_edge(clk_tb);
-			
+			wait until falling_edge(clk_tb);			
 		end procedure;
 		
-		procedure test_write_len is
+		
+		procedure test_lcd_work is
 		begin
-			wait until falling_edge(clk_tb);
-			AS_ChipSelect_tb <= '1';			
-			AS_Wr_tb <= '1';			
-			AS_Address_tb <= "11";
-			AS_WrData_tb <= "11001100110011001100110011001100";
-			wait until falling_edge(clk_tb);
-			AS_ChipSelect_tb <= '0';			
-			AS_Wr_tb <= '0';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			assert(AS_WaitRequest_tb = '0') report "empty 1";
-			wait until falling_edge(clk_tb);
-			
-		end procedure;
-	
-		procedure test_write_addr is
-		begin
-			wait until falling_edge(clk_tb);
-			AS_ChipSelect_tb <= '1';			
-			AS_Wr_tb <= '1';			
-			AS_Address_tb <= "10";
-			AS_WrData_tb <= "11001100110011001100110011001100";
 			wait until falling_edge(clk_tb);
 			LS_Busy_tb <= '1';
-			AS_ChipSelect_tb <= '0';			
-			AS_Wr_tb <= '0';
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
-			assert(AS_WaitRequest_tb = '0') report "empty 1";
 			wait until falling_edge(clk_tb);
-			
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
 		end procedure;
 		
-		procedure test_read_len is
+		procedure test_lcd_done is
+		begin
+			LS_Busy_tb <= '0';
+			wait until falling_edge(clk_tb);
+		end procedure;
+		
+		procedure test_reg_write(vAddress : in std_logic_vector(1 downto 0); vWrData : in std_logic_vector(31 downto 0)) is
+		begin			
+			wait until falling_edge(clk_tb);	
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';			
+			AS_Address_tb <= vAddress;
+			AS_WrData_tb <= vWrData;
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Wr_tb <= '0';			
+			AS_Address_tb <= "00";
+			AS_WrData_tb <= "00000000000000000000000000000000";
+		end procedure;
+
+		
+		procedure test_reg_read(vAddress : in std_logic_vector(1 downto 0); vRdData : in std_logic_vector(31 downto 0)) is
 		begin
 			wait until falling_edge(clk_tb);
 			AS_ChipSelect_tb <= '1';			
 			AS_Rd_tb <= '1';			
-			AS_Address_tb <= "11";
+			AS_Address_tb <= vAddress;
+			wait for 2 ns;
+			assert(AS_RdData_tb = vRdData) report "unexpected output AS_RdData";
 			wait until falling_edge(clk_tb);
-			assert(AS_RdData_tb = "11001100110011001100110011001100") report "len= previous len";
-			wait until falling_edge(clk_tb);
-			
-		end procedure;
-
-		
+			AS_ChipSelect_tb <= '0';
+			AS_Rd_tb <= '0';
+			AS_Address_tb <= "00";
+		end procedure;		
 
 
 	begin
@@ -143,15 +137,31 @@ begin
 		new_phase;
 		wait for 2 ns;
 		rst_n_tb <= '0';
-		wait until falling_edge(clk_tb);
+		clk_cycle;
 		wait for 2 ns;
+		--ack to normal
 		rst_n_tb <= '1';
-
+		LS_Busy_tb <='0';
+		clk_cycle;
 		new_phase;
-		test_empty;
 		
-		test_write_len;		
-		test_read_len;
+		-- test len_reg
+		test_reg_write("11","11110000111100001111000011110000");		
+		test_reg_read("11","11110000111100001111000011110000");
+		-- test len_addr
+		test_reg_write("10","00110011001100110011001100110011");
+		test_lcd_work;
+		test_lcd_done;
+		test_reg_read("10","00110011001100110011001100110011");
+		-- test cmd write
+		test_reg_write("00","00000000000000001010101010101010");
+		test_lcd_work;
+		test_lcd_done;
+		-- test data write
+		test_reg_write("01","00000000000000001100110011001100");
+		test_lcd_work;
+		test_lcd_done;
+		
 		
 		done <= true;
 		wait;
