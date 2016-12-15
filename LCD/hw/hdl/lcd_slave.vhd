@@ -35,10 +35,12 @@ end entity LCD_Slave;
 
 architecture RTL of LCD_Slave is
 	type state_type is (IDLE, READ, WRITE, ADDRESS, IRQ);
-	signal state_reg, state_next        : state_type := IDLE;
-	signal waitbusy_reg, waitbusy_next  : std_logic := '1';
-	signal addr_reg, addr_next          : std_logic_vector(31 downto 0) := (others => '0');
-	signal len_reg, len_next            : std_logic_vector(31 downto 0) := "00000000000000001001011000000000";	--38400 160*240
+	signal state_reg, state_next               : state_type := IDLE;
+	signal waitbusy_reg, waitbusy_next  	   : std_logic := '1';
+	signal addr_reg, addr_next          	   : std_logic_vector(31 downto 0) := (others => '0');
+	signal len_reg, len_next            	   : std_logic_vector(31 downto 0) := "00000000000000001001011000000000";	--38400 160*240
+	signal dma_state_reg, dma_state_next       : state_type := IDLE;
+	signal dma_waitbusy_reg, dma_waitbusy_next : std_logic := '1';
 	
 begin	
 	
@@ -50,21 +52,23 @@ begin
 			waitbusy_reg <= '1'; 
 			addr_reg <= (others => '0');
 			len_reg <= "00000000000000001001011000000000";	--38400 160*240
+			dma_state_reg <= IDLE;
+			dma_waitbusy_reg <= '1';
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
 			waitbusy_reg <= waitbusy_next;
 			addr_reg <= addr_next;			
 			len_reg <=  LS_Busy & len_next(30 downto 0);
 			waitbusy_reg <= waitbusy_next;
+			dma_state_reg <= dma_state_next;
+			dma_waitbusy_reg <= dma_waitbusy_next;
 		end if;
 	end process run_process;
 	
 
 	--AS_WaitRequest <= '1' when (LS_Busy = '1') else '0';
-
-
 	state_machine_process : process(AS_Address, AS_ChipSelect, AS_Wr, AS_WrData, AS_Rd, LS_Busy, LS_RdData, 
-									state_reg, addr_reg, len_reg) is
+									state_reg, addr_reg, len_reg, dma_state_reg, dma_waitbusy_reg) is
 	begin	
 	-- avoid latches 
 	state_next <= state_reg;
@@ -74,15 +78,11 @@ begin
 	
 	--INIT
 	AS_RdData <= (others => '0');
-	AS_IRQ <= '0';
 	AS_WaitRequest <= '0';
 	LS_DC_n <= '1';
 	LS_Wr_n <= '1';
 	LS_Rd_n <= '1';
 	LS_WrData <= (others => '0');
-	MS_Address <= (others => '0');
-	MS_Length <= (others => '0');
-	MS_StartDMA <= '0';
 	--END INIT	
 	
 	case state_reg is	
@@ -128,10 +128,6 @@ begin
 						
 						when "10" => --addr
 						addr_next <= AS_WrData;
-						MS_Address <= AS_WrData;
-						MS_Length <= len_reg;
-						MS_StartDMA <= '1';
-						state_next <= ADDRESS;
 						
 						when "11" => --len
 						len_next <= AS_WrData;
@@ -166,29 +162,57 @@ begin
 				AS_WaitRequest <= '0';
 				state_next <= IDLE;
 			end if;
+	
+		when others => null;		
 		
+	end case;	
+	end process state_machine_process;
+	
+	
+	--For address and irq, separate process, these are very long states
+	dma_process : process(AS_Address, AS_ChipSelect, AS_Wr, AS_WrData, AS_Rd, LS_Busy, LS_RdData, 
+						  state_reg, addr_reg, len_reg, dma_state_reg, dma_waitbusy_reg) is
+	begin
+	-- avoid latches 
+	dma_state_next <= dma_state_reg;
+	dma_waitbusy_next <= dma_waitbusy_reg;	
+									
+	--INIT	
+	AS_IRQ <= '0';	
+	MS_Address <= (others => '0');
+	MS_Length <= (others => '0');
+	MS_StartDMA <= '0';	
+	--END INIT
+									
+	case dma_state_reg is	
+		when IDLE =>		
+			if (AS_ChipSelect = '1' and AS_Wr = '1' and AS_Address = "10") then
+				MS_Address <= AS_WrData;
+				MS_Length <= len_reg;
+				MS_StartDMA <= '1';
+				dma_state_next <= ADDRESS;
+			end if;				
+						
 		when ADDRESS =>
-			MS_Address <= AS_WrData;
-			MS_Length <= len_reg;
 			if (LS_Busy = '1') then
-				waitbusy_next <= '0';
+				dma_waitbusy_next <= '0';
 				MS_Address <= (others => '0');
 				MS_Length <= (others => '0');
 				MS_StartDMA <= '0';
-			elsif (waitbusy_reg = '0') then 
-				waitbusy_next <= '1';
+			elsif (dma_waitbusy_reg = '0') then 
+				dma_waitbusy_next <= '1';
 				AS_IRQ <= '1';
-				state_next <= IRQ;
+				dma_state_next <= IRQ;
 			end if;
 			
-		when IRQ =>		
-			state_next <= IDLE;
-		
-		when others => null;		
+		when IRQ =>	
+			AS_IRQ <= '1';	--keep it high a bit more than just in ADDRESS state	
+			dma_state_next <= IDLE;
+			
+		when others => null;
 		
 	end case;
-	
-	end process state_machine_process;
+	end process dma_process;
 	
 end architecture RTL;
 

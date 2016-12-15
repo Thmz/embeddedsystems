@@ -336,7 +336,7 @@ begin
 		new_phase; --10
 		test_burst_data;
 		
-		--done <= true;
+		done <= true;
 		wait;
 	end process;
 

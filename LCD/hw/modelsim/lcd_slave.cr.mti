@@ -1,13 +1,4 @@
-C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_slave.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_slave.vhd
-Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity LCD_Slave
--- Compiling architecture RTL of LCD_Slave
-
-} {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_slave_tb_conf.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_slave_tb_conf.vhd
+C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_slave_tb_conf.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_slave_tb_conf.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package STANDARD
 -- Compiling configuration lcd_slave_tb_conf
