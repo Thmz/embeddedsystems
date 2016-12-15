@@ -20,20 +20,37 @@
 #include "io.h"
 #include "system.h"
 
+bool ISBUSY() { // Busy if first bit of length reg is 1
+	int len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
+	return len_reg & (1 << 32); // TODO verify this
+}
+
+void LCD_SET_DMA_LENGTH(int len) {
+	while(ISBUSY()){}
+	IOWR_32DIRECT(LT24_0_BASE, 3*4, len);
+}
+
+
+void LCD_SHOW_FRAME(int addr) {
+	while(ISBUSY()){}
+	IOWR_32DIRECT(LT24_0_BASE, 2*4, addr);
+}
+
 
 void LCD_WR_REG(int cmd) {
-
-	IOWR_32DIRECT(LT24_0_BASE, 0, cmd);
-
+	while(ISBUSY()){}
+	IOWR_32DIRECT(LT24_0_BASE, 0*4, cmd);
 }
 
 void LCD_WR_DATA(int data) {
-	IOWR_32DIRECT(LT24_0_BASE, 1, data);
+	while(ISBUSY()){}
+	IOWR_32DIRECT(LT24_0_BASE, 1*4, data);
 }
 
-//void LCD_RST(){
-	%//IOWR_32DIRECT(LT24_0_BASE, 2, '0x0080');
-//}
+void LCD_RST(){
+	while(ISBUSY()){}
+	IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x0080');
+}
 
 
 
@@ -176,20 +193,26 @@ void LCD_Init()
 	LCD_WR_REG(0x002c);    // 0x2C
 
 
+	// Clear screen with white
+	for (i = 0; i < 320 * 240; ++i) {
+		LCD_WR_DATA(0xFFFF);
+	}
+
 
 }
 
 int main()
 {
 
-printf("HERE");
+printf("START");
  // LCD_Init();
 
 
   while(1){
 	  //printf("floopooop");
-	  IOWR_32DIRECT(LT24_0_BASE, 3*4, 0x5678);
+	//  IOWR_32DIRECT(LT24_0_BASE, 3*4, 0x0000);
 
+	  IOWR_32DIRECT(LT24_0_BASE, 1*4, 0x5678);
 	  printf("send");
 	  int delay = 0;
 	 // printf("looping");
@@ -197,17 +220,17 @@ printf("HERE");
 		//  printf("looping");
 		  delay++;
 	  }
-	  printf("poll");
-	  //IOWR_32DIRECT(LT24_0_BASE, 3*4, 0x5678);
-	  int test = IORD_32DIRECT(LT24_0_BASE, 3*4)+1;
-	  printf("received \n");
+
+	 // printf("test");
+	  //int test = IORD_32DIRECT(LT24_0_BASE,3*4)+1;
+	 // printf("received \n");
 
 	   delay = 0;
 	  while(delay < 100){
 	  		//  printf("looping");
 	  		  delay++;
 	  	  }
-	  printf("%d", test);
+	 // printf("%d", test);
 
   }
 

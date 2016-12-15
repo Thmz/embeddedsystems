@@ -1,5 +1,5 @@
 Assembler report for ES_mini_project_TRDB_D5M_LT24
-Tue Dec 13 17:03:54 2016
+Tue Dec 13 19:17:23 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Tue Dec 13 17:03:54 2016 ;
+; Assembler Status      ; Successful - Tue Dec 13 19:17:23 2016 ;
 ; Revision Name         ; ES_mini_project_TRDB_D5M_LT24         ;
 ; Top-level Entity Name ; DE0_Nano_SoC_TRDB_D5M_LT24_top_level  ;
 ; Family                ; Cyclone V                             ;
@@ -80,8 +80,8 @@ agreement for further details.
 ; Option         ; Setting                                                                                                                ;
 +----------------+------------------------------------------------------------------------------------------------------------------------+
 ; Device         ; 5CSEMA4U23C6                                                                                                           ;
-; JTAG usercode  ; 0x0363B474                                                                                                             ;
-; Checksum       ; 0x0363B474                                                                                                             ;
+; JTAG usercode  ; 0x0366A993                                                                                                             ;
+; Checksum       ; 0x0366A993                                                                                                             ;
 +----------------+------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -91,7 +91,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Tue Dec 13 17:03:24 2016
+    Info: Processing started: Tue Dec 13 19:16:50 2016
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off ES_mini_project_TRDB_D5M_LT24 -c ES_mini_project_TRDB_D5M_LT24
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (115030): Assembler is generating device programming files
@@ -100,9 +100,9 @@ Warning (210042): Can't convert time-limited SOF into POF, HEX File, TTF, or RBF
 Info (210040): SRAM Object File D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/quartus/output_files/ES_mini_project_TRDB_D5M_LT24_time_limited.sof contains time-limited megafunction that supports OpenCore Plus feature -- Vendor: 0x6AF7, Product: 0x00A2
 Info (11878): Hard Processor Subsystem configuration has not changed and a Preloader software update is not required
 Info: Quartus Prime Assembler was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 995 megabytes
-    Info: Processing ended: Tue Dec 13 17:03:54 2016
-    Info: Elapsed time: 00:00:30
-    Info: Total CPU time (on all processors): 00:00:30
+    Info: Peak virtual memory: 994 megabytes
+    Info: Processing ended: Tue Dec 13 19:17:23 2016
+    Info: Elapsed time: 00:00:33
+    Info: Total CPU time (on all processors): 00:00:33
 
 

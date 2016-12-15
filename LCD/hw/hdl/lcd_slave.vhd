@@ -55,6 +55,7 @@ begin
 			waitbusy_reg <= waitbusy_next;
 			addr_reg <= addr_next;			
 			len_reg <=  LS_Busy & len_next(30 downto 0);
+			waitbusy_reg <= waitbusy_next;
 		end if;
 	end process run_process;
 	
