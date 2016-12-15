@@ -171,8 +171,8 @@ begin
 			MS_Length <= len_reg;
 			if (LS_Busy = '1') then
 				waitbusy_next <= '0';
-				MS_Address_tb <= (others => '0');
-				MS_Length_tb <= (others => '0');
+				MS_Address <= (others => '0');
+				MS_Length <= (others => '0');
 				MS_StartDMA <= '0';
 			elsif (waitbusy_reg = '0') then 
 				waitbusy_next <= '1';
