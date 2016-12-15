@@ -28,11 +28,11 @@ architecture bench of lcd_top_tb is
 		-- Avalon master bus signals
 	signal AM_Address_tb          : std_logic_vector(31 downto 0);
 	signal AM_ByteEnable_tb       : std_logic_vector(3 downto 0);		
-	signal AM_Rd_tb               : std_logic;
-	signal AM_RdDataValid_tb      : std_logic;
+	signal AM_Rd_tb               : std_logic := '0';
+	signal AM_RdDataValid_tb      : std_logic := '0';
 	signal AM_Burstcount_tb       : std_logic_vector(7 downto 0);	
 	signal AM_RdData_tb           : std_logic_vector(31 downto 0);	
-	signal AM_WaitRequest_tb      : std_logic;
+	signal AM_WaitRequest_tb      : std_logic := '0';
 		
 		-- LCD
 	signal CS_n_tb          	  : std_logic ;
@@ -172,6 +172,68 @@ begin
 			AM_RdDataValid_tb <= '1';
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AM_RdDataValid_tb <= '0';
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			AM_RdData_tb <= "00000000000000001111000000000000";
+			AM_RdDataValid_tb <= '1';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AM_RdDataValid_tb <= '0';
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			AM_RdData_tb <= "00000000000000001111000000000000";
+			AM_RdDataValid_tb <= '1';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AM_RdDataValid_tb <= '0';
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			AM_RdData_tb <= "00000000000000001111000000000000";
+			AM_RdDataValid_tb <= '1';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
 			AM_RdDataValid_tb <= '0';
 
 			wait until falling_edge(clk_tb);
@@ -198,23 +260,34 @@ begin
 		--random command
 		test_avalon_write("00", "00000000000000001111000000000000");
 
-		new_phase;--4
+
+		new_phase;-- 5
+		-- new data
+		test_avalon_write("01", "00000000000000001111000000001000");
+
+
+		new_phase;--6
+		-- read adress
+		test_avalon_read("10");
+
+
+		new_phase;--7
 		-- new length
 		test_avalon_write("11", "00000000000000001111000000001111");
 
-		new_phase;--5
+		new_phase;--8
 		-- read_length
 		test_avalon_read("11");
 
-		new_phase;--6
+		new_phase;--9
 		
 		-- new data adress
 		test_avalon_write("10", "00000000000000001111000001100000");
 
-		new_phase;
+		new_phase; --10
 		test_burst_data;
 		
-		done <= true;
+		--done <= true;
 		wait;
 	end process;
 
