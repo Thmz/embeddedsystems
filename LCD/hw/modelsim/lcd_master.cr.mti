@@ -1,12 +1,11 @@
-C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_master_tb.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_master_tb.vhd
+C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_master.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_master.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling entity lcd_master_tb
--- Compiling architecture bench of lcd_master_tb
--- Loading entity LCD_Master
+-- Compiling entity LCD_Master
+-- Compiling architecture RTL of LCD_Master
 
 } {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_master_tb_conf.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_master_tb_conf.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
@@ -18,14 +17,5 @@ Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading entity lcd_master_tb
 -- Loading architecture bench of lcd_master_tb
 -- Loading entity LCD_Master
-
-} {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_master.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_master.vhd
-Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity LCD_Master
--- Compiling architecture RTL of LCD_Master
 
 } {} {}}

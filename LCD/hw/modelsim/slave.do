@@ -24,7 +24,7 @@ add wave -noupdate /lcd_slave_tb/done
 add wave -noupdate /lcd_slave_tb/CLK_PER
 add wave -noupdate /lcd_slave_tb/DELAY_TESTS
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {646 ps} 0}
+WaveRestoreCursors {{Cursor 1} {0 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -40,4 +40,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {1 ns}
+WaveRestoreZoom {0 ns} {512 ns}
