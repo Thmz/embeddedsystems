@@ -165,8 +165,6 @@ begin
 		wait for 150 ns;
 		stop_burst;
 		wait for 240 ns;
-		--fifo almoset full;
-		--test_reset;
 		done <= true;
 		wait;
 	end process;

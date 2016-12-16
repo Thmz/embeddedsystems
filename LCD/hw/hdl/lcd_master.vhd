@@ -101,7 +101,7 @@ begin
 				ML_Busy <= '1';
 				if (burst_counter_reg = BURST_COUNT) then					
 					burst_counter_next <= 0;	
-					ML_Busy <= '0';
+					ML_Busy <= '0'; -- will be done anyway, but a bit faster to do it there
 					state_next <= IDLE;					
 				elsif (FIFO_Almost_Full = '0') then
 					AM_Address <= addr_reg;
