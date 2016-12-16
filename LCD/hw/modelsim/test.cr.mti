@@ -1,0 +1,187 @@
+D:/TBENCH/fifo_tb_pkg.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/fifo_tb_pkg.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Compiling package fifo_tb_pkg
+
+} {} {}} D:/TBENCH/fifo16x8top_tb.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/fifo16x8top_tb.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fifo16x8top_tb
+-- Compiling architecture bench of fifo16x8top_tb
+-- Loading entity fifo16x8top
+
+} {} {}} D:/TBENCH/coverage.vhd {0 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/coverage.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading context declaration IEEE_STD_CONTEXT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+** Error: D:/TBENCH/coverage.vhd(14): Library osvvm not found.
+** Error: D:/TBENCH/coverage.vhd(15): (vcom-1136) Unknown identifier "osvvm".
+
+** Error: D:/TBENCH/coverage.vhd(16): (vcom-1136) Unknown identifier "osvvm".
+
+** Error: D:/TBENCH/coverage.vhd(17): (vcom-1136) Unknown identifier "osvvm".
+
+** Error: (vcom-11) Could not find work.fifo_tb_pkg.
+
+** Error (suppressible): D:/TBENCH/coverage.vhd(19): (vcom-1195) Cannot find expanded name "work.fifo_tb_pkg".
+
+** Error: D:/TBENCH/coverage.vhd(19): Unknown expanded name.
+** Error: D:/TBENCH/coverage.vhd(21): VHDL Compiler exiting
+
+} {8.0 10.0 11.0 12.0 13.0 14.0 15.0 16.0 19.0 21.0} {}} D:/TBENCH/driver.vhd {0 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/driver.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading context declaration IEEE_STD_CONTEXT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+** Error: D:/TBENCH/driver.vhd(14): Library osvvm not found.
+** Error: D:/TBENCH/driver.vhd(15): (vcom-1136) Unknown identifier "osvvm".
+
+** Error: (vcom-11) Could not find work.fifo_tb_pkg.
+
+** Error (suppressible): D:/TBENCH/driver.vhd(17): (vcom-1195) Cannot find expanded name "work.fifo_tb_pkg".
+
+** Error: D:/TBENCH/driver.vhd(17): Unknown expanded name.
+** Error: D:/TBENCH/driver.vhd(19): VHDL Compiler exiting
+
+} {8.0 10.0 11.0 12.0 15.0 17.0} {}} D:/TBENCH/fifo_tb_fv.vhd {0 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/fifo_tb_fv.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading context declaration IEEE_STD_CONTEXT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fifo_tb
+-- Compiling architecture fv of fifo_tb
+** Error: (vcom-11) Could not find work.fifo_tb_pkg.
+
+** Error (suppressible): D:/TBENCH/fifo_tb_fv.vhd(16): (vcom-1195) Cannot find expanded name "work.fifo_tb_pkg".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(16): Unknown expanded name.
+** Error: D:/TBENCH/fifo_tb_fv.vhd(39): (vcom-1136) Unknown identifier "fifo_stim_trans".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(40): (vcom-1136) Unknown identifier "fifo_mon_trans".
+
+** Error: (vcom-11) Could not find work.stimgen.
+
+** Error (suppressible): D:/TBENCH/fifo_tb_fv.vhd(57): (vcom-1195) Cannot find expanded name "work.stimgen".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(57): Unknown expanded name.
+** Error: (vcom-11) Could not find work.driver.
+
+** Error (suppressible): D:/TBENCH/fifo_tb_fv.vhd(74): (vcom-1195) Cannot find expanded name "work.driver".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(74): Unknown expanded name.
+** Error: (vcom-11) Could not find work.monitor.
+
+** Error (suppressible): D:/TBENCH/fifo_tb_fv.vhd(104): (vcom-1195) Cannot find expanded name "work.monitor".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(104): Unknown expanded name.
+** Error: (vcom-11) Could not find work.coverage.
+
+** Error (suppressible): D:/TBENCH/fifo_tb_fv.vhd(123): (vcom-1195) Cannot find expanded name "work.coverage".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(123): Unknown expanded name.
+** Error: (vcom-11) Could not find work.scoreboard.
+
+** Error (suppressible): D:/TBENCH/fifo_tb_fv.vhd(137): (vcom-1195) Cannot find expanded name "work.scoreboard".
+
+** Error: D:/TBENCH/fifo_tb_fv.vhd(137): Unknown expanded name.
+** Error: D:/TBENCH/fifo_tb_fv.vhd(143): VHDL Compiler exiting
+
+} {10.0 11.0 14.0 16.0 17.0 18.0 19.0 20.0 23.0 25.0 28.0 30.0 33.0 35.0 38.0 40.0 43.0 45.0} {}} D:/RTL/fifo16x8top_str.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/RTL/fifo16x8top_str.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity fifo16x8top
+-- Compiling architecture str of fifo16x8top
+-- Loading package NUMERIC_STD
+-- Loading entity fifo16x8_ctrl
+-- Loading entity regfile16x8
+
+} {} {}} D:/RTL/fifo16x8_ctrl.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/RTL/fifo16x8_ctrl.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fifo16x8_ctrl
+-- Compiling architecture rtl of fifo16x8_ctrl
+
+} {} {}} D:/TBENCH/fifo_tb_conf.vhd {0 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/fifo_tb_conf.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Compiling configuration fifo_tb_conf
+** Error: (vcom-11) Could not find work.fifo_tb.
+
+** Error: D:/TBENCH/fifo_tb_conf.vhd(7): VHDL Compiler exiting
+
+} {5.0 6.0 7.0 8.0} {}} D:/TBENCH/monitor.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/monitor.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading context declaration IEEE_STD_CONTEXT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fifo_tb_pkg
+-- Compiling entity monitor
+-- Compiling architecture bhv of monitor
+
+} {} {}} D:/RTL/regfile16x8_rtl.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/RTL/regfile16x8_rtl.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity regfile16x8
+-- Compiling architecture rtl of regfile16x8
+-- Loading package NUMERIC_STD
+
+} {} {}} D:/TBENCH/scoreboard.vhd {0 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/scoreboard.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading context declaration IEEE_STD_CONTEXT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fifo_tb_pkg
+-- Compiling entity scoreboard
+-- Compiling architecture ideal of scoreboard
+** Error: (vcom-11) Could not find work.fifo_ref.
+
+** Error (suppressible): D:/TBENCH/scoreboard.vhd(34): (vcom-1195) Cannot find expanded name "work.fifo_ref".
+
+** Error: D:/TBENCH/scoreboard.vhd(34): Unknown expanded name.
+** Error: D:/TBENCH/scoreboard.vhd(83): VHDL Compiler exiting
+
+} {11.0 12.0 15.0 17.0} {}} D:/RTL/fifo_ref.vhd {1 {vcom -work work -2008 -explicit -stats=none D:/RTL/fifo_ref.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fifo_tb_pkg
+-- Compiling entity fifo_ref
+-- Compiling architecture vf_model of fifo_ref
+
+} {} {}} D:/TBENCH/stimgen.vhd {0 {vcom -work work -2008 -explicit -stats=none D:/TBENCH/stimgen.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading context declaration IEEE_STD_CONTEXT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+** Error: D:/TBENCH/stimgen.vhd(13): Library osvvm not found.
+** Error: D:/TBENCH/stimgen.vhd(14): (vcom-1136) Unknown identifier "osvvm".
+
+-- Loading package fifo_tb_pkg
+** Error: D:/TBENCH/stimgen.vhd(17): VHDL Compiler exiting
+
+} {8.0 10.0 12.0 13.0} {}}

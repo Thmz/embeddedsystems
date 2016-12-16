@@ -38,7 +38,7 @@ Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_
 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
 Info: jtag_uart_0: Starting RTL generation for module 'soc_system_jtag_uart_0'
-Info: jtag_uart_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart_0 --dir=C:/TEMP/alt7146_4911342866913066334.dir/0043_jtag_uart_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0043_jtag_uart_0_gen//soc_system_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/TEMP/alt7146_4911342866913066334.dir/0043_jtag_uart_0_gen/  ]
+Info: jtag_uart_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart_0 --dir=C:/TEMP/alt7146_4911342866913066334.dir/0085_jtag_uart_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0085_jtag_uart_0_gen//soc_system_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/TEMP/alt7146_4911342866913066334.dir/0085_jtag_uart_0_gen/  ]
 Info: jtag_uart_0: Done RTL generation for module 'soc_system_jtag_uart_0'
 Info: jtag_uart_0: "soc_system" instantiated altera_avalon_jtag_uart "jtag_uart_0"
 Error: lt24_0: lt24 does not support generation for VHDL Simulation. Generation is available for: Quartus Synthesis.
@@ -96,7 +96,7 @@ Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
 Info: Starting: Create HDL design files for synthesis
-Info: qsys-generate D:\Skydrive\Documenten\Univ\ES\GIT\LCD\hw\quartus\soc_system.qsys --synthesis=VERILOG --output-directory=D:\Skydrive\Documenten\Univ\ES\GIT\LCD\hw\quartus\soc_system\Generate\synthesis --family="Cyclone V" --part=5CSEMA4U23C6
+Info: qsys-generate D:\Skydrive\Documenten\Univ\ES\GIT\LCD\hw\quartus\soc_system.qsys --synthesis=VHDL --output-directory=D:\Skydrive\Documenten\Univ\ES\GIT\LCD\hw\quartus\soc_system\Generate\synthesis --family="Cyclone V" --part=5CSEMA4U23C6
 Progress: Loading quartus/soc_system.qsys
 Progress: Reading input file
 Progress: Adding address_span_extender_0 [altera_address_span_extender 16.0]
@@ -135,13 +135,13 @@ Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_
 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
 Info: jtag_uart_0: Starting RTL generation for module 'soc_system_jtag_uart_0'
-Info: jtag_uart_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart_0 --dir=C:/TEMP/alt7146_4911342866913066334.dir/0046_jtag_uart_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0046_jtag_uart_0_gen//soc_system_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart_0 --dir=C:/TEMP/alt7146_4911342866913066334.dir/0088_jtag_uart_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0088_jtag_uart_0_gen//soc_system_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
 Info: jtag_uart_0: Done RTL generation for module 'soc_system_jtag_uart_0'
 Info: jtag_uart_0: "soc_system" instantiated altera_avalon_jtag_uart "jtag_uart_0"
 Info: lt24_0: "soc_system" instantiated lt24 "lt24_0"
 Info: nios2_gen2_0: "soc_system" instantiated altera_nios2_gen2 "nios2_gen2_0"
 Info: onchip_memory2_0: Starting RTL generation for module 'soc_system_onchip_memory2_0'
-Info: onchip_memory2_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_onchip_memory2_0 --dir=C:/TEMP/alt7146_4911342866913066334.dir/0048_onchip_memory2_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0048_onchip_memory2_0_gen//soc_system_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_memory2_0:   Generation command is [exec C:/programs/altera_lite/16.0/quartus/bin64/perl/bin/perl.exe -I C:/programs/altera_lite/16.0/quartus/bin64/perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/programs/altera_lite/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_onchip_memory2_0 --dir=C:/TEMP/alt7146_4911342866913066334.dir/0090_onchip_memory2_0_gen/ --quartus_dir=C:/programs/altera_lite/16.0/quartus --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0090_onchip_memory2_0_gen//soc_system_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
 Info: onchip_memory2_0: Done RTL generation for module 'soc_system_onchip_memory2_0'
 Info: onchip_memory2_0: "soc_system" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
@@ -157,31 +157,31 @@ Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_con
 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
 Info: cpu: Starting RTL generation for module 'soc_system_nios2_gen2_0_cpu'
-Info: cpu:   Generation command is [exec C:/Programs/altera_lite/16.0/quartus/bin64//eperlcmd.exe -I C:/Programs/altera_lite/16.0/quartus/bin64//perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=soc_system_nios2_gen2_0_cpu --dir=C:/TEMP/alt7146_4911342866913066334.dir/0052_cpu_gen/ --quartus_bindir=C:/Programs/altera_lite/16.0/quartus/bin64/ --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0052_cpu_gen//soc_system_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=0  ]
-Info: cpu: # 2016.12.11 18:13:03 (*) Starting Nios II generation
-Info: cpu: # 2016.12.11 18:13:03 (*)   Checking for plaintext license.
-Info: cpu: # 2016.12.11 18:13:04 (*)   Couldn't query license setup in Quartus directory C:/Programs/altera_lite/16.0/quartus/bin64/
-Info: cpu: # 2016.12.11 18:13:04 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: cpu: # 2016.12.11 18:13:04 (*)   LM_LICENSE_FILE environment variable is empty
-Info: cpu: # 2016.12.11 18:13:04 (*)   Plaintext license not found.
-Info: cpu: # 2016.12.11 18:13:04 (*)   Checking for encrypted license (non-evaluation).
-Info: cpu: # 2016.12.11 18:13:05 (*)   Couldn't query license setup in Quartus directory C:/Programs/altera_lite/16.0/quartus/bin64/
-Info: cpu: # 2016.12.11 18:13:05 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: cpu: # 2016.12.11 18:13:05 (*)   LM_LICENSE_FILE environment variable is empty
-Info: cpu: # 2016.12.11 18:13:05 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
-Info: cpu: # 2016.12.11 18:13:05 (*)   Elaborating CPU configuration settings
-Info: cpu: # 2016.12.11 18:13:05 (*)   Creating all objects for CPU
-Info: cpu: # 2016.12.11 18:13:05 (*)     Testbench
-Info: cpu: # 2016.12.11 18:13:05 (*)     Instruction decoding
-Info: cpu: # 2016.12.11 18:13:05 (*)       Instruction fields
-Info: cpu: # 2016.12.11 18:13:05 (*)       Instruction decodes
-Info: cpu: # 2016.12.11 18:13:06 (*)       Signals for RTL simulation waveforms
-Info: cpu: # 2016.12.11 18:13:06 (*)       Instruction controls
-Info: cpu: # 2016.12.11 18:13:06 (*)     Pipeline frontend
-Info: cpu: # 2016.12.11 18:13:06 (*)     Pipeline backend
-Info: cpu: # 2016.12.11 18:13:10 (*)   Generating RTL from CPU objects
-Info: cpu: # 2016.12.11 18:13:12 (*)   Creating encrypted RTL
-Info: cpu: # 2016.12.11 18:13:14 (*) Done Nios II generation
+Info: cpu:   Generation command is [exec C:/Programs/altera_lite/16.0/quartus/bin64//eperlcmd.exe -I C:/Programs/altera_lite/16.0/quartus/bin64//perl/lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/europa -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin/perl_lib -I C:/programs/altera_lite/16.0/quartus/sopc_builder/bin -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/programs/altera_lite/16.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=soc_system_nios2_gen2_0_cpu --dir=C:/TEMP/alt7146_4911342866913066334.dir/0094_cpu_gen/ --quartus_bindir=C:/Programs/altera_lite/16.0/quartus/bin64/ --verilog --config=C:/TEMP/alt7146_4911342866913066334.dir/0094_cpu_gen//soc_system_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=0  ]
+Info: cpu: # 2016.12.11 18:52:07 (*) Starting Nios II generation
+Info: cpu: # 2016.12.11 18:52:07 (*)   Checking for plaintext license.
+Info: cpu: # 2016.12.11 18:52:08 (*)   Couldn't query license setup in Quartus directory C:/Programs/altera_lite/16.0/quartus/bin64/
+Info: cpu: # 2016.12.11 18:52:08 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2016.12.11 18:52:08 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2016.12.11 18:52:08 (*)   Plaintext license not found.
+Info: cpu: # 2016.12.11 18:52:08 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2016.12.11 18:52:09 (*)   Couldn't query license setup in Quartus directory C:/Programs/altera_lite/16.0/quartus/bin64/
+Info: cpu: # 2016.12.11 18:52:09 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2016.12.11 18:52:09 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2016.12.11 18:52:09 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
+Info: cpu: # 2016.12.11 18:52:09 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2016.12.11 18:52:09 (*)   Creating all objects for CPU
+Info: cpu: # 2016.12.11 18:52:09 (*)     Testbench
+Info: cpu: # 2016.12.11 18:52:10 (*)     Instruction decoding
+Info: cpu: # 2016.12.11 18:52:10 (*)       Instruction fields
+Info: cpu: # 2016.12.11 18:52:10 (*)       Instruction decodes
+Info: cpu: # 2016.12.11 18:52:11 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2016.12.11 18:52:11 (*)       Instruction controls
+Info: cpu: # 2016.12.11 18:52:11 (*)     Pipeline frontend
+Info: cpu: # 2016.12.11 18:52:12 (*)     Pipeline backend
+Info: cpu: # 2016.12.11 18:52:16 (*)   Generating RTL from CPU objects
+Info: cpu: # 2016.12.11 18:52:19 (*)   Creating encrypted RTL
+Info: cpu: # 2016.12.11 18:52:21 (*) Done Nios II generation
 Info: cpu: Done RTL generation for module 'soc_system_nios2_gen2_0_cpu'
 Info: cpu: "nios2_gen2_0" instantiated altera_nios2_gen2_unit "cpu"
 Info: lt24_0_avalon_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "lt24_0_avalon_master_translator"
@@ -194,8 +194,7 @@ Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
 Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
 Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
-Info: router_005: "mm_interconnect_0" instantiated altera_merlin_router "router_005"
-Info: router_007: "mm_interconnect_0" instantiated altera_merlin_router "router_007"
+Info: router_006: "mm_interconnect_0" instantiated altera_merlin_router "router_006"
 Info: nios2_gen2_0_data_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_gen2_0_data_master_limiter"
 Info: Reusing file D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/quartus/soc_system/Generate/synthesis/submodules/altera_avalon_sc_fifo.v
 Info: address_span_extender_0_windowed_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "address_span_extender_0_windowed_slave_burst_adapter"
@@ -223,6 +222,6 @@ Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_m
 Info: Reusing file D:/Skydrive/Documenten/Univ/ES/GIT/LCD/hw/quartus/soc_system/Generate/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: border: "hps_io" instantiated altera_interface_generator "border"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: soc_system: Done "soc_system" with 45 modules, 121 files
+Info: soc_system: Done "soc_system" with 44 modules, 122 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

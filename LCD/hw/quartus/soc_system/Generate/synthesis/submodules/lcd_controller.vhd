@@ -8,27 +8,27 @@ entity lcd_controller is
 		rst_n         : in  std_logic;
 
 		-- LCD
-		CS_n        : out std_logic;
-		DC_n        : out std_logic;
-		Wr_n        : out std_logic;
-		Rd_n        : out std_logic;
+		CS_n        : out std_logic := '1';
+		DC_n        : out std_logic := '1';
+		Wr_n        : out std_logic := '1';
+		Rd_n        : out std_logic := '1';
 		D           : out std_logic_vector(15 downto 0) := (others => '0'); -- should become inout!
 		LCD_ON : out std_logic := '1';
-		RESET_N : out std_logic;
+		RESET_N : out std_logic := '1';
 
 		-- Avalon Slave
 		LS_DC_n     : in  std_logic;
 		LS_Wr_n       : in  std_logic;
 		LS_WrData   : in  std_logic_vector(15 downto 0);
-		LS_RdData   : out std_logic_vector(15 downto 0);
+		LS_RdData   : out std_logic_vector(15 downto 0) := (others => '0');
 		LS_Rd_n       : in  std_logic;
-		LS_Busy     : out std_logic;
+		LS_Busy     : out std_logic := '0';
 
 		-- Master
 		ML_Busy     : in  std_logic;
 
 		-- FIFO 
-		FIFO_Rd     : out std_logic;
+		FIFO_Rd     : out std_logic := '0';
 		FIFO_RdData : in  std_logic_vector(31 downto 0);
 		FIFO_Empty  : in  std_logic
 	);
@@ -42,10 +42,13 @@ architecture rtl of lcd_controller is
 	type state_type is (RESET_LCD, IDLE, WRITE_CMD, READ_CMD_DUMMY, READ_CMD, NEW_FRAME, WAIT_FIFO, WRITE_PIXEL, WRITE_PIXEL_SECOND);
 	signal state_reg, state_next : state_type;
 	signal phase_reg, phase_next : natural;
-
+	signal flipper: std_logic := '0';
 begin
 	LS_Busy <= '0' when state_reg = IDLE else '1';
-
+	
+	LCD_ON <= flipper;
+	RESET_N <= flipper;
+	
 	update_state : process(clk, rst_n) is
 	begin
 		if rst_n = '0' then
@@ -56,6 +59,7 @@ begin
 			state_reg <= state_next;
 			phase_reg <= phase_next;
 			curr_word_reg <= curr_word_next;
+			flipper <= not flipper;
 		end if;
 	end process;
 
@@ -112,7 +116,7 @@ begin
 		DC_n       <= '1';
 		Wr_n       <= '1';
 		Rd_n       <= '1';
-		RESET_N <= '1';
+		--RESET_N <= '1';
 		D          <= (others => '0');
 		LS_RdData  <= (others => '0');
 		
@@ -121,7 +125,7 @@ begin
 
 			-- reset LCD
 			when RESET_LCD =>
-				RESET_N <= '0';
+				--RESET_N <= '0';
 				state_next <= IDLE;
 
 			-- idle

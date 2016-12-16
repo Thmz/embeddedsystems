@@ -188,7 +188,7 @@ begin
 		when IDLE =>		
 			if (AS_ChipSelect = '1' and AS_Wr = '1' and AS_Address = "10") then
 				MS_Address <= AS_WrData;
-				MS_Length <= len_reg;
+				MS_Length <= '0' & len_reg(30 downto 0);
 				MS_StartDMA <= '1';
 				dma_state_next <= ADDRESS;
 			end if;				

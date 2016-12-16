@@ -317,12 +317,12 @@ module soc_system (
 		.AM_WaitRequest (lt24_0_avalon_master_waitrequest),                    //                 .waitrequest
 		.AS_IRQ         (irq_mapper_receiver0_irq),                            // interrupt_sender.irq
 		.D              (lt24_0_conduit_d_stdlogic_vector),                    //        conduit_D.stdlogic_vector
-		.DC_n           (lt24_0_conduit_dc_n_stdlogic),                        //     conduit_DC_n.stdlogic
 		.Rd_n           (lt24_0_conduit_rd_n_stdlogic),                        //     conduit_Rd_n.stdlogic
 		.Wr_n           (lt24_0_conduit_wr_n_stdlogic),                        //     conduit_Wr_n.stdlogic
 		.CS_n           (lt24_0_conduit_cs_n_stdlogic),                        //     conduit_CS_n.stdlogic
 		.LCD_ON         (lt24_0_conduit_lcd_on_stdlogic),                      //   conduit_LCD_ON.stdlogic
-		.Reset_n        (lt24_0_conduit_reset_stdlogic)                        //    conduit_Reset.stdlogic
+		.Reset_n        (lt24_0_conduit_reset_stdlogic),                       //    conduit_Reset.stdlogic
+		.DC_n           (lt24_0_conduit_dc_n_stdlogic)                         //     conduit_DC_n.stdlogic
 	);
 
 	soc_system_nios2_gen2_0 nios2_gen2_0 (

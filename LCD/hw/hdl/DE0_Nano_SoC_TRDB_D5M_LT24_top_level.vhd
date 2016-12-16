@@ -285,6 +285,7 @@ begin
 			lt24_0_conduit_wr_n_stdlogic      => GPIO_0_LT24_WR_N,      --   lt24_0_conduit_wr_n.stdlogic
 			lt24_0_conduit_lcd_on_stdlogic    => GPIO_0_LT24_LCD_ON,    -- lt24_0_conduit_lcd_on.stdlogic
 			lt24_0_conduit_reset_stdlogic     => GPIO_0_LT24_RESET_N      --  lt24_0_conduit_reset.stdlogic
+
         );
 
 end;

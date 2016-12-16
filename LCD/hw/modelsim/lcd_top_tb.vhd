@@ -127,7 +127,7 @@ begin
 		--	wait until falling_edge(clk_tb) and LS_Busy_tb = '0';
 			
 		--	wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
+
 			
 		end procedure;
 
@@ -308,7 +308,8 @@ begin
 		new_phase;--3
 		--random command
 		test_avalon_write("00", "00000000000000001111000000000000");
-
+		-- new data
+		test_avalon_write("01", "00000000000000001111000000001000");
 
 		new_phase;-- 5
 		-- new data
@@ -322,7 +323,7 @@ begin
 
 		new_phase;--7
 		-- new length
-		test_avalon_write("11", "00000000000000001000000000000000"); --		32000 instead of 38400
+		test_avalon_write("11", "00000000000000000000000000010000"); --		32000 instead of 38400
 
 		new_phase;--8
 		-- read_length
@@ -336,7 +337,7 @@ begin
 		new_phase; --10
 		test_burst_data;
 		
-		done <= true;
+		--done <= true;
 		wait;
 	end process;
 

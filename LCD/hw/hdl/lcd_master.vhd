@@ -93,7 +93,7 @@ begin
 				if MS_StartDMA = '1' then
 					addr_next <= MS_Address;
 					len_next <= MS_Length;
-					ML_Busy <= '1';
+					--ML_Busy <= '1';
 					state_next <= READING;				
 				end if;	
 				

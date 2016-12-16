@@ -38,7 +38,7 @@ architecture RTL of LCD_Master is
 	signal addr_reg,addr_next	    	          	: std_logic_vector(31 downto 0) := (others => '0');
 	signal len_reg,len_next  			        	: std_logic_vector(31 downto 0) := (others => '0'); --:= "00000000000000001001011000000000";
 	
-	signal burst_counter_reg, burst_counter_next	: integer := 2399;
+	signal burst_counter_reg, burst_counter_next	: integer := 0; --2399 if end test
 	signal word_counter_reg, word_counter_next		: integer := 0;
 	
 	
@@ -54,7 +54,7 @@ begin
 			state_reg <= IDLE;
 			addr_reg <= (others => '0');
 			len_reg <= (others => '0');
-			burst_counter_reg <= 2399;
+			burst_counter_reg <= 0; --2399 if test end
 			word_counter_reg <= 0;			
 			
 		elsif rising_edge(clk) then
@@ -93,7 +93,7 @@ begin
 				if MS_StartDMA = '1' then
 					addr_next <= MS_Address;
 					len_next <= MS_Length;
-					ML_Busy <= '1';
+					--ML_Busy <= '1';
 					state_next <= READING;				
 				end if;	
 				

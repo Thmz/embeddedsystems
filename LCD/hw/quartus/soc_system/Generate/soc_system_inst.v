@@ -64,13 +64,13 @@
 		.hps_0_io_hps_io_gpio_inst_GPIO53  (<connected-to-hps_0_io_hps_io_gpio_inst_GPIO53>),  //                      .hps_io_gpio_inst_GPIO53
 		.hps_0_io_hps_io_gpio_inst_GPIO54  (<connected-to-hps_0_io_hps_io_gpio_inst_GPIO54>),  //                      .hps_io_gpio_inst_GPIO54
 		.hps_0_io_hps_io_gpio_inst_GPIO61  (<connected-to-hps_0_io_hps_io_gpio_inst_GPIO61>),  //                      .hps_io_gpio_inst_GPIO61
-		.lt24_0_conduit_cs_n_stdlogic      (<connected-to-lt24_0_conduit_cs_n_stdlogic>),      //   lt24_0_conduit_cs_n.stdlogic
-		.lt24_0_conduit_d_stdlogic_vector  (<connected-to-lt24_0_conduit_d_stdlogic_vector>),  //      lt24_0_conduit_d.stdlogic_vector
+		.reset_reset_n                     (<connected-to-reset_reset_n>),                     //                 reset.reset_n
 		.lt24_0_conduit_dc_n_stdlogic      (<connected-to-lt24_0_conduit_dc_n_stdlogic>),      //   lt24_0_conduit_dc_n.stdlogic
-		.lt24_0_conduit_lcd_on_stdlogic    (<connected-to-lt24_0_conduit_lcd_on_stdlogic>),    // lt24_0_conduit_lcd_on.stdlogic
-		.lt24_0_conduit_rd_n_stdlogic      (<connected-to-lt24_0_conduit_rd_n_stdlogic>),      //   lt24_0_conduit_rd_n.stdlogic
 		.lt24_0_conduit_reset_stdlogic     (<connected-to-lt24_0_conduit_reset_stdlogic>),     //  lt24_0_conduit_reset.stdlogic
+		.lt24_0_conduit_lcd_on_stdlogic    (<connected-to-lt24_0_conduit_lcd_on_stdlogic>),    // lt24_0_conduit_lcd_on.stdlogic
+		.lt24_0_conduit_cs_n_stdlogic      (<connected-to-lt24_0_conduit_cs_n_stdlogic>),      //   lt24_0_conduit_cs_n.stdlogic
 		.lt24_0_conduit_wr_n_stdlogic      (<connected-to-lt24_0_conduit_wr_n_stdlogic>),      //   lt24_0_conduit_wr_n.stdlogic
-		.reset_reset_n                     (<connected-to-reset_reset_n>)                      //                 reset.reset_n
+		.lt24_0_conduit_rd_n_stdlogic      (<connected-to-lt24_0_conduit_rd_n_stdlogic>),      //   lt24_0_conduit_rd_n.stdlogic
+		.lt24_0_conduit_d_stdlogic_vector  (<connected-to-lt24_0_conduit_d_stdlogic_vector>)   //      lt24_0_conduit_d.stdlogic_vector
 	);
 

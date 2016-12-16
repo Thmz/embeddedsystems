@@ -65,14 +65,14 @@
 			hps_0_io_hps_io_gpio_inst_GPIO53  : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
 			hps_0_io_hps_io_gpio_inst_GPIO54  : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO54
 			hps_0_io_hps_io_gpio_inst_GPIO61  : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO61
-			lt24_0_conduit_cs_n_stdlogic      : out   std_logic;                                        -- stdlogic
-			lt24_0_conduit_d_stdlogic_vector  : out   std_logic_vector(15 downto 0);                    -- stdlogic_vector
+			reset_reset_n                     : in    std_logic                     := 'X';             -- reset_n
 			lt24_0_conduit_dc_n_stdlogic      : out   std_logic;                                        -- stdlogic
-			lt24_0_conduit_lcd_on_stdlogic    : out   std_logic;                                        -- stdlogic
-			lt24_0_conduit_rd_n_stdlogic      : out   std_logic;                                        -- stdlogic
 			lt24_0_conduit_reset_stdlogic     : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_lcd_on_stdlogic    : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_cs_n_stdlogic      : out   std_logic;                                        -- stdlogic
 			lt24_0_conduit_wr_n_stdlogic      : out   std_logic;                                        -- stdlogic
-			reset_reset_n                     : in    std_logic                     := 'X'              -- reset_n
+			lt24_0_conduit_rd_n_stdlogic      : out   std_logic;                                        -- stdlogic
+			lt24_0_conduit_d_stdlogic_vector  : out   std_logic_vector(15 downto 0)                     -- stdlogic_vector
 		);
 	end component soc_system;
 
@@ -143,13 +143,13 @@
 			hps_0_io_hps_io_gpio_inst_GPIO53  => CONNECTED_TO_hps_0_io_hps_io_gpio_inst_GPIO53,  --                      .hps_io_gpio_inst_GPIO53
 			hps_0_io_hps_io_gpio_inst_GPIO54  => CONNECTED_TO_hps_0_io_hps_io_gpio_inst_GPIO54,  --                      .hps_io_gpio_inst_GPIO54
 			hps_0_io_hps_io_gpio_inst_GPIO61  => CONNECTED_TO_hps_0_io_hps_io_gpio_inst_GPIO61,  --                      .hps_io_gpio_inst_GPIO61
-			lt24_0_conduit_cs_n_stdlogic      => CONNECTED_TO_lt24_0_conduit_cs_n_stdlogic,      --   lt24_0_conduit_cs_n.stdlogic
-			lt24_0_conduit_d_stdlogic_vector  => CONNECTED_TO_lt24_0_conduit_d_stdlogic_vector,  --      lt24_0_conduit_d.stdlogic_vector
+			reset_reset_n                     => CONNECTED_TO_reset_reset_n,                     --                 reset.reset_n
 			lt24_0_conduit_dc_n_stdlogic      => CONNECTED_TO_lt24_0_conduit_dc_n_stdlogic,      --   lt24_0_conduit_dc_n.stdlogic
-			lt24_0_conduit_lcd_on_stdlogic    => CONNECTED_TO_lt24_0_conduit_lcd_on_stdlogic,    -- lt24_0_conduit_lcd_on.stdlogic
-			lt24_0_conduit_rd_n_stdlogic      => CONNECTED_TO_lt24_0_conduit_rd_n_stdlogic,      --   lt24_0_conduit_rd_n.stdlogic
 			lt24_0_conduit_reset_stdlogic     => CONNECTED_TO_lt24_0_conduit_reset_stdlogic,     --  lt24_0_conduit_reset.stdlogic
+			lt24_0_conduit_lcd_on_stdlogic    => CONNECTED_TO_lt24_0_conduit_lcd_on_stdlogic,    -- lt24_0_conduit_lcd_on.stdlogic
+			lt24_0_conduit_cs_n_stdlogic      => CONNECTED_TO_lt24_0_conduit_cs_n_stdlogic,      --   lt24_0_conduit_cs_n.stdlogic
 			lt24_0_conduit_wr_n_stdlogic      => CONNECTED_TO_lt24_0_conduit_wr_n_stdlogic,      --   lt24_0_conduit_wr_n.stdlogic
-			reset_reset_n                     => CONNECTED_TO_reset_reset_n                      --                 reset.reset_n
+			lt24_0_conduit_rd_n_stdlogic      => CONNECTED_TO_lt24_0_conduit_rd_n_stdlogic,      --   lt24_0_conduit_rd_n.stdlogic
+			lt24_0_conduit_d_stdlogic_vector  => CONNECTED_TO_lt24_0_conduit_d_stdlogic_vector   --      lt24_0_conduit_d.stdlogic_vector
 		);
 

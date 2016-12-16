@@ -72,7 +72,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_0_LT24_LCD_ON",
+					"name" : "GPIO_0_LT24_RD_N",
 					"strict" : false
 				},
 				{

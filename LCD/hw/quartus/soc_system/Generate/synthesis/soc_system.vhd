@@ -246,12 +246,12 @@ architecture rtl of soc_system is
 			AM_WaitRequest : in  std_logic                     := 'X';             -- waitrequest
 			AS_IRQ         : out std_logic;                                        -- irq
 			D              : out std_logic_vector(15 downto 0);                    -- stdlogic_vector
-			DC_n           : out std_logic;                                        -- stdlogic
 			Rd_n           : out std_logic;                                        -- stdlogic
 			Wr_n           : out std_logic;                                        -- stdlogic
 			CS_n           : out std_logic;                                        -- stdlogic
 			LCD_ON         : out std_logic;                                        -- stdlogic
-			Reset_n        : out std_logic                                         -- stdlogic
+			Reset_n        : out std_logic;                                        -- stdlogic
+			DC_n           : out std_logic                                         -- stdlogic
 		);
 	end component lcd_top;
 
@@ -788,12 +788,12 @@ begin
 			AM_WaitRequest => lt24_0_avalon_master_waitrequest,                    --                 .waitrequest
 			AS_IRQ         => irq_mapper_receiver0_irq,                            -- interrupt_sender.irq
 			D              => lt24_0_conduit_d_stdlogic_vector,                    --        conduit_D.stdlogic_vector
-			DC_n           => lt24_0_conduit_dc_n_stdlogic,                        --     conduit_DC_n.stdlogic
 			Rd_n           => lt24_0_conduit_rd_n_stdlogic,                        --     conduit_Rd_n.stdlogic
 			Wr_n           => lt24_0_conduit_wr_n_stdlogic,                        --     conduit_Wr_n.stdlogic
 			CS_n           => lt24_0_conduit_cs_n_stdlogic,                        --     conduit_CS_n.stdlogic
 			LCD_ON         => lt24_0_conduit_lcd_on_stdlogic,                      --   conduit_LCD_ON.stdlogic
-			Reset_n        => lt24_0_conduit_reset_stdlogic                        --    conduit_Reset.stdlogic
+			Reset_n        => lt24_0_conduit_reset_stdlogic,                       --    conduit_Reset.stdlogic
+			DC_n           => lt24_0_conduit_dc_n_stdlogic                         --   conduit_DC_n_1.stdlogic
 		);
 
 	nios2_gen2_0 : component soc_system_nios2_gen2_0

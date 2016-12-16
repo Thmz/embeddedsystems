@@ -20,42 +20,45 @@
 #include "io.h"
 #include "system.h"
 
-bool ISBUSY() { // Busy if first bit of length reg is 1
-	int len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
-	return len_reg & (1 << 32); // TODO verify this
+uint32_t ISBUSY() { // Busy if first bit of length reg is 1
+	uint32_t len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
+	uint32_t temp = 1;
+	return len_reg & (temp << 31);
 }
 
-void LCD_SET_DMA_LENGTH(int len) {
-	while(ISBUSY()){}
+void LCD_SET_DMA_LENGTH(uint32_t len) {
+	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 3*4, len);
 }
 
 
-void LCD_SHOW_FRAME(int addr) {
-	while(ISBUSY()){}
+void LCD_SHOW_FRAME(uint32_t addr) {
+	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 2*4, addr);
 }
 
 
-void LCD_WR_REG(int cmd) {
-	while(ISBUSY()){}
+void LCD_WR_REG(uint32_t cmd) {
+	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 0*4, cmd);
 }
 
-void LCD_WR_DATA(int data) {
-	while(ISBUSY()){}
+void LCD_WR_DATA(uint32_t data) {
+	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 1*4, data);
 }
 
 void LCD_RST(){
-	while(ISBUSY()){}
-	IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x0080');
+	while(ISBUSY()>0){}
+	//IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x00000080');
+	IOWR_32DIRECT(LT24_0_BASE, 0*4, '0x00008000');
 }
 
 
 
 void LCD_Init()
 {
+	printf("INIT STARTED \n");
 
 	LCD_RST();
 	//Delay_Ms(1);
@@ -182,21 +185,69 @@ void LCD_Init()
 		LCD_WR_DATA(0x0030);
 		LCD_WR_DATA(0x0000);
 
+
+
 	// Change MADCTL
     // Set LCD in reverse mode (row/column) exchange:  MADCTL B5='1'
     // BGR: MADCTL B3='1'
-	LCD_WR_REG(0x0036);    // Memory Access Control will be overwritten below
-	LCD_WR_DATA(0x0028);
+	LCD_WR_REG(0x0036);
+
+	int32_t MH  = 1 <<2;
+	int32_t BGR = 1 <<3;
+	int32_t ML  = 1 <<4;
+	int32_t MV  = 1 <<5;
+	int32_t MX  = 1 <<6;
+	int32_t MY  = 1 <<7;
+	LCD_WR_DATA(MH + BGR + ML + MV + MX + MY);
+
+
+	// Change adresses
+
+	// Column
+	LCD_WR_REG(0x002A);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0001);
+	LCD_WR_DATA(0x003F);
+
+	// Row
+	LCD_WR_REG(0x002B);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x0000);
+	LCD_WR_DATA(0x00EF);
+
 
 	LCD_WR_REG(0x0029); //display on
 
 	LCD_WR_REG(0x002c);    // 0x2C
 
+	printf("INIT DONE \n");
 
-	// Clear screen with white
-	for (i = 0; i < 320 * 240; ++i) {
-		LCD_WR_DATA(0xFFFF);
+	// Clear screen
+	for (int i = 0; i < 240; i++) {
+		uint16_t color;
+		//if(i % 5 == 0){
+			color =0x0F00;
+		//}else{
+		//color= 0xF000;
+		//}
+
+		for (int j = 0 ; j< 320; j++){
+
+
+			uint16_t color;
+					if(j % 5 == 0){
+						color = 0x0FF0;
+					}else{
+						color = 0xFF00;
+					}
+			LCD_WR_DATA(color);
+		}
 	}
+
+
+	printf("WHTIE PRINTED \n");
 
 
 }
@@ -205,18 +256,19 @@ int main()
 {
 
 printf("START");
- // LCD_Init();
+  LCD_Init();
 
 
   while(1){
 	  //printf("floopooop");
 	//  IOWR_32DIRECT(LT24_0_BASE, 3*4, 0x0000);
 
-	  IOWR_32DIRECT(LT24_0_BASE, 1*4, 0x5678);
-	  printf("send");
+	//  IOWR_32DIRECT(LT24_0_BASE, 0*4, 0x5678);
+	  //LCD_WR_REG(0x5678);
+	  printf("send \n");
 	  int delay = 0;
 	 // printf("looping");
-	  while(delay < 10000){
+	  while(delay < 10000000){
 		//  printf("looping");
 		  delay++;
 	  }

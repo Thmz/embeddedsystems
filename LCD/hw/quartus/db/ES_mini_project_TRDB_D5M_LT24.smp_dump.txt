@@ -6,6 +6,14 @@ state.ST_COMP_TRANS 1 0 0 1
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
+State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|lcd_top:lt24_0|LCD_Slave:SLAV|dma_state_reg
+Name dma_state_reg.IRQ dma_state_reg.ADDRESS dma_state_reg.WRITE dma_state_reg.READ dma_state_reg.IDLE 
+dma_state_reg.IDLE 0 0 0 0 0 
+dma_state_reg.READ 0 0 0 1 1 
+dma_state_reg.WRITE 0 0 1 0 1 
+dma_state_reg.ADDRESS 0 1 0 0 1 
+dma_state_reg.IRQ 1 0 0 0 1 
+
 State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|lcd_top:lt24_0|LCD_Slave:SLAV|state_reg
 Name state_reg.IRQ state_reg.ADDRESS state_reg.WRITE state_reg.READ state_reg.IDLE 
 state_reg.IDLE 0 0 0 0 0 
@@ -21,12 +29,12 @@ state_reg.READING 0 1 1
 state_reg.RECEIVING 1 0 1 
 
 State Machine - |DE0_Nano_SoC_TRDB_D5M_LT24_top_level|soc_system:u0|lcd_top:lt24_0|lcd_controller:CTRL|state_reg
-Name state_reg.WRITE_PIXEL_SECOND state_reg.WRITE_PIXEL state_reg.WAIT_FIFO state_reg.NEW_FRAME state_reg.READ_CMD state_reg.READ_CMD_DUMMY state_reg.WRITE_CMD state_reg.RESET_LCD state_reg.IDLE 
+Name state_reg.WRITE_PIXEL_SECOND state_reg.WRITE_PIXEL state_reg.WAIT_FIFO state_reg.NEW_FRAME state_reg.READ state_reg.READ_DUMMY state_reg.WRITE state_reg.RESET_LCD state_reg.IDLE 
 state_reg.IDLE 0 0 0 0 0 0 0 0 0 
 state_reg.RESET_LCD 0 0 0 0 0 0 0 1 1 
-state_reg.WRITE_CMD 0 0 0 0 0 0 1 0 1 
-state_reg.READ_CMD_DUMMY 0 0 0 0 0 1 0 0 1 
-state_reg.READ_CMD 0 0 0 0 1 0 0 0 1 
+state_reg.WRITE 0 0 0 0 0 0 1 0 1 
+state_reg.READ_DUMMY 0 0 0 0 0 1 0 0 1 
+state_reg.READ 0 0 0 0 1 0 0 0 1 
 state_reg.NEW_FRAME 0 0 0 1 0 0 0 0 1 
 state_reg.WAIT_FIFO 0 0 1 0 0 0 0 0 1 
 state_reg.WRITE_PIXEL 0 1 0 0 0 0 0 0 1 

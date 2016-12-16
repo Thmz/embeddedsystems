@@ -166,6 +166,34 @@ begin
 			
 			
 		end procedure;
+
+
+		procedure test_read(vDC_n : in std_logic; vRdData : in std_logic_vector(15 downto 0)) is
+		begin
+			
+			LS_DC_n_tb   <= vDC_n;
+			LS_Wr_n_tb     <= '1';
+			LS_Rd_n_tb     <= '0';
+			LS_RdData_tb <= vRdData;
+			wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
+			assert(Wr_n_tb = '1') report "assert 1";
+			assert(Rd_n_tb = '0') report "assert 2";
+			
+			LS_Wr_n_tb     <= '1';
+			LS_Rd_n_tb     <= '1';
+			--assert(D_tb = vWrData) report "assert 2.1";
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			assert(Wr_n_tb = '1') report "assert 3";
+			assert(Rd_n_tb = '1') report "assert 4";
+
+			wait until falling_edge(clk_tb) and LS_Busy_tb = '0';
+			
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			
+		end procedure;
 		
 
 
@@ -180,13 +208,14 @@ begin
 		rst_n_tb <= '1';
 
 		new_phase;
-		test_write('1', "1111000011110000");
-		new_phase;
-		test_write('0', "0011110000111100");
-		new_phase;
-		test_new_frame;
-		new_phase;
-		test_new_pixel;
+		test_read('0', "1100110011001100");
+		--test_write('1', "1111000011110000");
+		--new_phase;
+		--test_write('0', "0011110000111100");
+		--new_phase;
+		--test_new_frame;
+		--new_phase;
+		--test_new_pixel;
 		--test_read('0'); -- not implemented in lcd_controller yet
 
 
