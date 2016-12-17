@@ -84,214 +84,69 @@ begin
 			wait until falling_edge(clk_tb);
 		end procedure new_phase;		
 		
-		
-		procedure test_empty is
+				
+		procedure test_whole_small_frame is
 		begin
+		-- write small length
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';			
+			AS_Address_tb <= "11";
+			AS_WrData_tb <= "00000000000000000000000000100000"; --32 so 2 burst
 			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Wr_tb <= '0';			
+			AS_Address_tb <= "00";
+			AS_WrData_tb <= "00000000000000000000000000000000";
 			wait until falling_edge(clk_tb);
-			assert(rst_n_tb = '1') report "empty 1";
+		-- write address start dma
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';			
+			AS_Address_tb <= "10";
+			AS_WrData_tb <= "00000000000000000000000000000000"; --starting address 0x0000000 like real world :)
 			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Wr_tb <= '0';			
+			AS_Address_tb <= "00";
+			AS_WrData_tb <= "00000000000000000000000000000000";
+			wait until falling_edge(clk_tb);
+		--start burst
+			AM_RdData_tb <= "11110000000000000000111100000000";
+			AM_WaitRequest_tb <= '0';
+			AM_RdDataValid_tb <= '1';		
 			
+			wait for 8000 ns;		
+		
 		end procedure;
-
-		procedure test_avalon_write(vAS_Address : in std_logic_vector(1 downto 0); vAS_WrData : in std_logic_vector(31 downto 0)) is
+		
+		procedure as_write (vAS_Address : in std_logic_vector(1 downto 0); vAS_WrData : in std_logic_vector(31 downto 0)) is
 		begin
+			AS_ChipSelect_tb <= '1';			
+			AS_Wr_tb <= '1';			
 			AS_Address_tb <= vAS_Address;
 			AS_WrData_tb <= vAS_WrData;
-
-
-			AS_ChipSelect_tb <= '1';			
-			AS_Wr_tb <= '1';
-
-			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
 			AS_ChipSelect_tb <= '0';			
-			AS_Wr_tb <= '0';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			assert(AS_WaitRequest_tb = '0') report "empty 1";
-			wait until falling_edge(clk_tb);			
-			
-			--wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
-			--assert(Wr_n_tb = '0') report "assert 1";
-			--assert(Rd_n_tb = '1') report "assert 2";
-			--assert(D_tb = vWrData) report "assert 2.1";
-			
-			
-			--wait until falling_edge(clk_tb);
-			--wait until falling_edge(clk_tb);
-			--assert(Wr_n_tb = '1') report "assert 3";
-		--	assert(Rd_n_tb = '1') report "assert 4";
-		--	assert(D_tb = vWrData) report "assert 5";
-
-		--	wait until falling_edge(clk_tb) and LS_Busy_tb = '0';
-			
-		--	wait until falling_edge(clk_tb);
-
-			
-		end procedure;
-
-		procedure test_avalon_read(vAS_Address : in std_logic_vector(1 downto 0)) is
-		begin
-			AS_Address_tb <= vAS_Address;
-			AS_ChipSelect_tb <= '1';			
-			AS_Rd_tb <= '1';
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			AS_ChipSelect_tb <= '0';			
-			AS_Rd_tb <= '0';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			assert(AS_WaitRequest_tb = '0') report "empty 1";
-			wait until falling_edge(clk_tb);			
-			
-			--wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
-			--assert(Wr_n_tb = '0') report "assert 1";
-			--assert(Rd_n_tb = '1') report "assert 2";
-			--assert(D_tb = vWrData) report "assert 2.1";
-			
-			
-			--wait until falling_edge(clk_tb);
-			--wait until falling_edge(clk_tb);
-			--assert(Wr_n_tb = '1') report "assert 3";
-		--	assert(Rd_n_tb = '1') report "assert 4";
-		--	assert(D_tb = vWrData) report "assert 5";
-
-		--	wait until falling_edge(clk_tb) and LS_Busy_tb = '0';
-			
-		--	wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			
-		end procedure;
-
-		procedure test_burst_data is
-		begin
-			wait until falling_edge(clk_tb);
-			AM_RdData_tb <= "00000000000000001111000000000000";
-			AM_WaitRequest_tb <= '0';
-			AM_RdDataValid_tb <= '1';
-			
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			AM_RdData_tb <= "10101010101010101010101010101010";
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			
-			AM_RdData_tb <= "00110011001100110011001100110011";
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			
-			AM_RdData_tb <= "11110000111100001111000011110000";
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			AM_RdDataValid_tb <= '0';
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			AM_RdData_tb <= "00000000000000001111000000000000";
-			AM_RdDataValid_tb <= '1';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			AM_RdDataValid_tb <= '0';
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			AM_RdData_tb <= "00000000000000001111000000000000";
-			AM_RdDataValid_tb <= '1';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			AM_RdDataValid_tb <= '0';
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			AM_RdData_tb <= "00000000000000001111000000000000";
-			AM_RdDataValid_tb <= '1';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			AM_RdDataValid_tb <= '0';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-			
-			
+			AS_Wr_tb <= '0';			
+			AS_Address_tb <= "00";
+			AS_WrData_tb <= "00000000000000000000000000000000";
+			wait until falling_edge(clk_tb);
+		
 		end procedure;
 		
-
-
+		procedure write_reg (vAS_WrData : in std_logic_vector(31 downto 0)) is
+		begin
+			as_write("00",vAS_WrData);
+			wait for 100 ns;
+		end procedure;
+		
+		procedure write_data(vAS_WrData : in std_logic_vector(31 downto 0)) is
+		begin
+			as_write("01",vAS_WrData);	
+			wait for 100 ns;			
+		end procedure;
+		
+		
+		
 	begin
 		report ("START TESTBENCH");
 		done <= false;
@@ -301,43 +156,21 @@ begin
 		wait until falling_edge(clk_tb);
 		wait for 2 ns;
 		rst_n_tb <= '1';
-
-		new_phase;--2
-		test_empty;
-
-		new_phase;--3
-		--random command
-		test_avalon_write("00", "00000000000000001111000000000000");
-		-- new data
-		test_avalon_write("01", "00000000000000001111000000001000");
-
-		new_phase;-- 5
-		-- new data
-		test_avalon_write("01", "00000000000000001111000000001000");
-
-
-		new_phase;--6
-		-- read adress
-		test_avalon_read("10");
-
-
-		new_phase;--7
-		-- new length
-		test_avalon_write("11", "00000000000000000000000000010000"); --		32000 instead of 38400
-
-		new_phase;--8
-		-- read_length
-		test_avalon_read("11");
-
-		new_phase;--9
+		wait until falling_edge(clk_tb);
+		new_phase;--1
+		write_reg("00000000000000000000000000101100"); --0x002c
+		new_phase;
+		--sending 3 pixel  --> nios style working in real life
+		write_data("00000000000000001111000000000000"); --0xf000
+		write_data("00000000000000001111000000000000"); --0xf000
+		write_data("00000000000000001111000000000000"); --0xf000
+		new_phase;
+		-- sending 2* 16 *2 pixel --> dma style not working in real life
+		test_whole_small_frame;
 		
-		-- new data adress
-		test_avalon_write("10", "00000000000000001111000001100000");
-
-		new_phase; --10
-		test_burst_data;
+		new_phase;--1
 		
-		--done <= true;
+		done <= true;
 		wait;
 	end process;
 

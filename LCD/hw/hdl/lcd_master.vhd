@@ -79,7 +79,7 @@ begin
 		
 		--INIT
 		AM_Address <= (others => '0');
-		AM_ByteEnable <= (others => '0');
+		AM_ByteEnable <= "1111";-- need all 4 words  maybe useless since we're doing only read(others => '0');
 		AM_Rd <= '0';
 		AM_Burstcount <= (others => '0');
 		ML_Busy <= '0';
@@ -118,7 +118,7 @@ begin
 				if (word_counter_reg = BURST_LENGTH) then
 					word_counter_next <= 0;
 					burst_counter_next <= burst_counter_reg + 1;
-					addr_next <= std_logic_vector(to_unsigned(to_integer(unsigned(addr_reg)) + BURST_LENGTH, 32));
+					addr_next <= std_logic_vector(to_unsigned(to_integer(unsigned(addr_reg)) + BURST_LENGTH*4, 32));
 					state_next <= READING;
 				else
 					FIFO_Wr <= AM_RdDataValid;
