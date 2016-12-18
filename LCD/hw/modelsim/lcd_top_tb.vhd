@@ -120,7 +120,8 @@ begin
 		
 		procedure as_write (vAS_Address : in std_logic_vector(1 downto 0); vAS_WrData : in std_logic_vector(31 downto 0)) is
 		begin
-			AS_ChipSelect_tb <= '1';			
+			AS_ChipSelect_tb <= '1';	
+			AS_Rd_tb <= '0';		
 			AS_Wr_tb <= '1';			
 			AS_Address_tb <= vAS_Address;
 			AS_WrData_tb <= vAS_WrData;
@@ -132,6 +133,34 @@ begin
 			wait until falling_edge(clk_tb);
 		
 		end procedure;
+
+		procedure as_read(vAS_Address : in std_logic_vector(1 downto 0); vRdData : in std_logic_vector(15 downto 0)) is
+		begin
+			AS_Address_tb <= vAS_Address;
+			AS_ChipSelect_tb <= '1';
+			AS_Wr_tb <= '0';			
+			AS_Rd_tb <= '1';
+			D_tb <= vRdData;
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			AS_ChipSelect_tb <= '0';			
+			AS_Rd_tb <= '0';
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			-- keep signal for a long time because of dummy read
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			D_tb <= "ZZZZZZZZZZZZZZZZ";
+
+		end procedure;
+
 		
 		procedure write_reg (vAS_WrData : in std_logic_vector(31 downto 0)) is
 		begin
@@ -158,6 +187,8 @@ begin
 		rst_n_tb <= '1';
 		wait until falling_edge(clk_tb);
 		new_phase;--1
+		as_read("00", "1110111011101110");
+		new_phase; --2
 		write_reg("00000000000000000000000000101100"); --0x002c
 		new_phase;
 		--sending 3 pixel  --> nios style working in real life

@@ -12,7 +12,7 @@ entity lcd_controller is
 		DC_n        : out std_logic := '1';
 		Wr_n        : out std_logic := '1';
 		Rd_n        : out std_logic := '1';
-		D           : inout std_logic_vector(15 downto 0) := (others => '0'); -- should become inout!
+		D           : inout std_logic_vector(15 downto 0):= (others => 'Z'); -- should become inout!
 		LCD_ON : out std_logic := '1';
 		RESET_N : out std_logic := '1';
 
@@ -20,7 +20,7 @@ entity lcd_controller is
 		LS_DC_n     : in  std_logic;
 		LS_Wr_n       : in  std_logic;
 		LS_WrData   : in  std_logic_vector(15 downto 0);
-		LS_RdData   : out std_logic_vector(15 downto 0) := (others => '0');
+		LS_RdData   : out std_logic_vector(15 downto 0) := (others => 'Z');
 		LS_Rd_n       : in  std_logic;
 		LS_Busy     : out std_logic := '0';
 
@@ -71,7 +71,7 @@ begin
 			csn_reg <= '1';
 			fiford_reg <= '0';
 			lsrddata_reg <= (others => '0');
-			d_reg <= (others => '0');
+			d_reg <= (others => 'Z');
 
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
@@ -109,7 +109,7 @@ begin
 
 				when others =>          -- when 4 or more
 					csn_next <= '1';
-					d_next <= (others => '0'); -- not really needed but nicer to reset all signals
+					d_next <= (others => 'Z'); -- not really needed but nicer to reset all signals
 					dcn_next <= '1'; 
 					wrn_next <= '1';
 					rdn_next <= '1';
@@ -159,9 +159,7 @@ begin
 		curr_word_next <= curr_word_reg;
 		lsrddata_next <= lsrddata_reg;
 
-		RESET_N <= '1';
-		LS_RdData  <= (others => '0');
-		
+		RESET_N <= '1';		
 		
 		case state_reg is
 
@@ -203,7 +201,7 @@ begin
 
 			-- read command
 			when READ =>
-				do_read(dcn_reg, READ);
+				do_read(dcn_reg, IDLE);
 				--state_next <= IDLE;
 
 			-- new frame cmd

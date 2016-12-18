@@ -174,7 +174,7 @@ begin
 			LS_DC_n_tb   <= vDC_n;
 			LS_Wr_n_tb     <= '1';
 			LS_Rd_n_tb     <= '0';
-			LS_RdData_tb <= vRdData;
+			D_tb <= vRdData;
 			wait until falling_edge(clk_tb) and LS_Busy_tb = '1';
 			assert(Wr_n_tb = '1') report "assert 1";
 			assert(Rd_n_tb = '0') report "assert 2";
@@ -192,6 +192,16 @@ begin
 			
 			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
+
+			-- keep signal for a long time because of dummy read
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
 			
 		end procedure;
 		
@@ -207,6 +217,7 @@ begin
 		wait for 2 ns;
 		rst_n_tb <= '1';
 
+		--D_tb <= "1100110011001100";
 		new_phase;
 		test_read('0', "1100110011001100");
 		--test_write('1', "1111000011110000");
