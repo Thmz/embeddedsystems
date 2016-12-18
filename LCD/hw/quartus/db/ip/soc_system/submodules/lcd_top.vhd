@@ -14,7 +14,7 @@ entity lcd_top is
 		Rd_n: out std_logic;
 		LCD_ON: out std_logic;
 		Reset_n : out std_logic;
-		D: out std_logic_vector(15 downto 0);
+		D: inout std_logic_vector(15 downto 0);
 
 		-- Avalon slave signals
 		AS_Address  : in  std_logic_vector(1 downto 0);

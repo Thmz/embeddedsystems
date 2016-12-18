@@ -31,6 +31,15 @@ Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading architecture bench of lcd_top_tb
 -- Loading entity lcd_top
 
+} {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_controller.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_controller.vhd
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity lcd_controller
+-- Compiling architecture rtl of lcd_controller
+
 } {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_master.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_master.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package STANDARD
@@ -47,15 +56,6 @@ Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package std_logic_1164
 -- Compiling entity lcd_fifo
 -- Compiling architecture SYN of lcd_fifo
-
-} {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_controller.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/hdl/lcd_controller.vhd
-Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity lcd_controller
--- Compiling architecture rtl of lcd_controller
 
 } {} {}} C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_top_tb.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_top_tb.vhd
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015

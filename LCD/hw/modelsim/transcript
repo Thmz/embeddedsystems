@@ -1,0 +1,312 @@
+# Reading C:/altera_lite/16.0/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile C:/Users/Lukas/OneDrive/Documents/EPFL/Autumn_16/Embedded_Systems/GIT/LCD/hw/modelsim/lcd_top_lukas.mpf
+# Loading project lcd_top_lukas
+# Compile of lcd_top_tb_conf.vhd failed with 3 errors.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 1 failed with 3 errors.
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.lcd_top_tb -t ns
+# vsim -do "top_lukas.do" work.lcd_top_tb -t ns 
+# Start time: 17:11:58 on Dec 17,2016
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.scfifo(behavior)
+# WARNING: No extended dataflow license exists
+# do top_lukas.do
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: Thomas  Hostname: THOMASLAPTOP  ProcessID: 13884
+# 
+#           Attempting to use alternate WLF file "./wlft8br37x".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlft8br37x
+# 
+run -all
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+run
+run
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd failed with 2 errors.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 1 failed with 2 errors.
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+vsim work.lcd_top_tb -t ns
+# End time: 17:41:36 on Dec 17,2016, Elapsed time: 0:29:38
+# Errors: 0, Warnings: 3
+# vsim -do "top_lukas.do" work.lcd_top_tb -t ns 
+# Start time: 17:41:36 on Dec 17,2016
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.scfifo(behavior)
+# WARNING: No extended dataflow license exists
+# do top_lukas.do
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: Thomas  Hostname: THOMASLAPTOP  ProcessID: 13884
+# 
+#           Attempting to use alternate WLF file "./wlftwcq4nk".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftwcq4nk
+# 
+run -all
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+add wave -position insertpoint  \
+sim:/lcd_top_tb/DUV/SLAV/LS_Busy
+restart
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+add wave -position insertpoint  \
+sim:/lcd_top_tb/DUV/CTRL/FIFO_Rd
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+run -all
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+# Compile of lcd_top_tb_conf.vhd was successful.
+# Compile of lcd_top_tb.vhd was successful.
+# Compile of lcd_top.vhd was successful.
+# Compile of lcd_controller.vhd was successful.
+# Compile of lcd_fifo.vhd was successful.
+# Compile of lcd_master.vhd was successful.
+# Compile of lcd_slave.vhd was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# Loading work.lcd_top_tb(bench)
+# Loading work.lcd_top(rtl)
+# Loading work.lcd_controller(rtl)
+# Loading work.lcd_master(rtl)
+# Loading work.lcd_slave(rtl)
+# Loading work.lcd_fifo(syn)
+run -all
+# GetModuleFileName: Le module spécifié est introuvable.
+# 
+# 
+# ** Note: START TESTBENCH
+#    Time: 0 ns  Iteration: 0  Instance: /lcd_top_tb
+# End time: 19:31:54 on Dec 17,2016, Elapsed time: 1:50:18
+# Errors: 0, Warnings: 3

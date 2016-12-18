@@ -12,7 +12,7 @@ entity lcd_controller is
 		DC_n        : out std_logic := '1';
 		Wr_n        : out std_logic := '1';
 		Rd_n        : out std_logic := '1';
-		D           : out std_logic_vector(15 downto 0) := (others => '0'); -- should become inout!
+		D           : inout std_logic_vector(15 downto 0):= (others => 'Z'); -- should become inout!
 		LCD_ON : out std_logic := '1';
 		RESET_N : out std_logic := '1';
 
@@ -20,7 +20,7 @@ entity lcd_controller is
 		LS_DC_n     : in  std_logic;
 		LS_Wr_n       : in  std_logic;
 		LS_WrData   : in  std_logic_vector(15 downto 0);
-		LS_RdData   : out std_logic_vector(15 downto 0) := (others => '0');
+		LS_RdData   : out std_logic_vector(15 downto 0) := (others => 'Z');
 		LS_Rd_n       : in  std_logic;
 		LS_Busy     : out std_logic := '0';
 
@@ -43,7 +43,7 @@ architecture rtl of lcd_controller is
 	signal state_reg, state_next : state_type;
 	signal phase_reg, phase_next : natural;
 	signal dcn_reg, dcn_next, wrn_next, wrn_reg, rdn_next, rdn_reg , csn_next, csn_reg, fiford_reg, fiford_next: std_logic;
-	signal d_next, d_reg: std_logic_vector(15 downto 0);
+	signal d_next, d_reg, lsrddata_reg, lsrddata_next: std_logic_vector(15 downto 0);
 	signal flipper: std_logic := '0';
 begin
 	LS_Busy <= '0' when state_reg = IDLE else '1';
@@ -56,6 +56,7 @@ begin
 	Rd_n <= rdn_reg;
 	CS_n <= csn_reg;
 	FIFO_Rd <= fiford_reg;
+	LS_RdData <= lsrddata_reg;
 	D <= d_reg;
 	
 	update_state : process(clk, rst_n) is
@@ -69,7 +70,8 @@ begin
 			rdn_reg <= '1';
 			csn_reg <= '1';
 			fiford_reg <= '0';
-			d_reg <= (others => '0');
+			lsrddata_reg <= (others => '0');
+			d_reg <= (others => 'Z');
 
 		elsif rising_edge(clk) then
 			state_reg <= state_next;
@@ -81,6 +83,7 @@ begin
 			csn_reg <= csn_next;
 			d_reg <= d_next;
 			fiford_reg <= fiford_next;
+			lsrddata_reg <= lsrddata_next;
 			flipper <= not flipper;
 		end if;
 	end process;
@@ -106,11 +109,38 @@ begin
 
 				when others =>          -- when 4 or more
 					csn_next <= '1';
-					d_next <= (others => '0'); -- not really needed but nicer to reset all signals
+					d_next <= (others => 'Z'); -- not really needed but nicer to reset all signals
 					dcn_next <= '1'; 
 					wrn_next <= '1';
 					rdn_next <= '1';
 					
+					state_next <= state_target;
+					phase_next <= 0;
+			end case;
+		end procedure;
+		
+		procedure do_read(vDC_n : in std_logic; state_target : in state_type) is
+		begin
+			phase_next <= phase_reg + 1;
+			case phase_reg is
+				when 0 =>
+					dcn_next <= vDC_n;
+					wrn_next <= '1';
+					rdn_next <= '0';
+					csn_next <= '0';
+				when 1 =>
+					
+				when 2 =>
+					rdn_next <= '1';
+					lsrddata_next <= D;
+				when 3      =>
+					
+
+				when others =>          -- when 4 or more
+					csn_next <= '1';
+					dcn_next <= '1'; 
+					wrn_next <= '1';
+					rdn_next <= '1';					
 					state_next <= state_target;
 					phase_next <= 0;
 			end case;
@@ -127,10 +157,9 @@ begin
 		d_next <= d_reg;
 		fiford_next <= fiford_reg;
 		curr_word_next <= curr_word_reg;
+		lsrddata_next <= lsrddata_reg;
 
-		RESET_N <= '1';
-		LS_RdData  <= (others => '0');
-		
+		RESET_N <= '1';		
 		
 		case state_reg is
 
@@ -147,7 +176,8 @@ begin
 				end if;
 
 				if LS_Rd_n = '0' then
-					state_next <= READ;
+					state_next <= READ_DUMMY;
+					do_read(dcn_reg, READ);
 				end if;
 
 				if ML_Busy = '1' then
@@ -166,11 +196,13 @@ begin
 
 			-- read command (dummy)
 			when READ_DUMMY =>
-				state_next <= IDLE;
+				do_read(dcn_reg, READ);
+				--state_next <= IDLE;
 
 			-- read command
 			when READ =>
-				state_next <= IDLE;
+				do_read(dcn_reg, IDLE);
+				--state_next <= IDLE;
 
 			-- new frame cmd
 			when NEW_FRAME =>
@@ -191,11 +223,11 @@ begin
 			when WRITE_PIXEL =>
 				fiford_next   <= '0';
 				curr_word_next <= FIFO_RdData;
-				do_write('0', FIFO_RdData(15 downto 0), WRITE_PIXEL_SECOND);
+				do_write('1', FIFO_RdData(15 downto 0), WRITE_PIXEL_SECOND);
 
 			-- write SECOND pixel
 			when WRITE_PIXEL_SECOND =>
-				do_write('0', curr_word_reg(31 downto 16), WAIT_FIFO);
+				do_write('1', curr_word_reg(31 downto 16), WAIT_FIFO);
 
 		end case;
 	end process;

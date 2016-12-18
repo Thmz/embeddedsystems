@@ -223,11 +223,11 @@ begin
 			when WRITE_PIXEL =>
 				fiford_next   <= '0';
 				curr_word_next <= FIFO_RdData;
-				do_write('0', FIFO_RdData(15 downto 0), WRITE_PIXEL_SECOND);
+				do_write('1', FIFO_RdData(15 downto 0), WRITE_PIXEL_SECOND);
 
 			-- write SECOND pixel
 			when WRITE_PIXEL_SECOND =>
-				do_write('0', curr_word_reg(31 downto 16), WAIT_FIFO);
+				do_write('1', curr_word_reg(31 downto 16), WAIT_FIFO);
 
 		end case;
 	end process;
