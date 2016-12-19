@@ -47,6 +47,7 @@ architecture RTL of LCD_Master is
 	signal BURST_COUNT		       			        : integer := 0;	      -- = len_reg / BURST_LENGTH
 	
 begin
+
 	--Handle reset procedure and state_reg changes
 	run_process : process(clk, rst_n) is
 	begin
@@ -67,6 +68,7 @@ begin
 		end if;
 	end process run_process;
 
+	-- combinatorial state machine process
 	state_machine_process : process(AM_RdDataValid, AM_RdData, AM_WaitRequest, MS_Address, MS_Length, MS_StartDMA, FIFO_Full, FIFO_Almost_Full, 
 									state_reg, addr_reg, len_reg, burst_counter_reg, word_counter_reg, BURST_COUNT, BURST_LENGTH) is
 	begin
@@ -89,6 +91,8 @@ begin
 		BURST_COUNT <= to_integer(unsigned(len_reg))/BURST_LENGTH;
 		
 		case state_reg is	
+		
+			-- STATE IDLE
 			when IDLE =>				
 				if MS_StartDMA = '1' then
 					addr_next <= MS_Address;
@@ -97,12 +101,17 @@ begin
 					state_next <= READING;				
 				end if;	
 				
+			-- STATE READING
 			when READING =>			
 				ML_Busy <= '1';
+				
+				-- if all bursts done (whole frame written to FIFO)
 				if (burst_counter_reg = BURST_COUNT) then					
 					burst_counter_next <= 0;	
 					ML_Busy <= '0'; -- will be done anyway, but a bit faster to do it there
-					state_next <= IDLE;					
+					state_next <= IDLE;		
+				
+				-- frame not done yet and fifo still has place for a burst
 				elsif (FIFO_Almost_Full = '0') then
 					AM_Address <= addr_reg;
 					AM_Burstcount <= std_logic_vector(to_unsigned(BURST_LENGTH,8));
@@ -112,21 +121,31 @@ begin
 					end if;
 				end if;	
 				
+			-- STATE RECEIVING
 			when RECEIVING =>
 				AM_Rd <= '0';
 				ML_Busy <= '1';
+				
+				-- if full burst received
 				if (word_counter_reg = BURST_LENGTH) then
 					word_counter_next <= 0;
 					burst_counter_next <= burst_counter_reg + 1;
 					addr_next <= std_logic_vector(to_unsigned(to_integer(unsigned(addr_reg)) + BURST_LENGTH*4, 32));
 					state_next <= READING;
+					
+				-- still receiving burst
 				else
+				
+					-- give signals to FIFO
 					FIFO_Wr <= AM_RdDataValid;
 					FIFO_WrData <= AM_RdData;
+					
+					-- if this is a valid read, increment word counter
 					if (AM_RdDataValid = '1') then
 						word_counter_next <= word_counter_reg + 1;
 					end if;
 				end if;	
+				
 			when others => null;
 		end case;	
 	end process state_machine_process;

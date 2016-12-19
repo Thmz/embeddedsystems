@@ -187,9 +187,20 @@ begin
 		rst_n_tb <= '1';
 		wait until falling_edge(clk_tb);
 		new_phase;--1
+
+		-- reset LCD
+		as_write("00","00000000000000001000000000000000");
+		for i in 0 to 25 loop
+			wait until falling_edge(clk_tb);
+		end loop;
+
+		--read command
 		as_read("00", "1110111011101110");
+
+		-- write new frame command
 		new_phase; --2
 		write_reg("00000000000000000000000000101100"); --0x002c
+		
 		new_phase;
 		--sending 3 pixel  --> nios style working in real life
 		write_data("00000000000000001111000000000000"); --0xf000
@@ -201,7 +212,7 @@ begin
 		
 		new_phase;--1
 		
-		done <= true;
+		--done <= true;
 		wait;
 	end process;
 
