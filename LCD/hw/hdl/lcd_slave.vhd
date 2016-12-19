@@ -93,13 +93,13 @@ begin
 						when "00" => --cmd
 						LS_Rd_n <= '0';
 						LS_DC_n <= '0';
-						--AS_WaitRequest <= '1';
+						AS_WaitRequest <= '1';
 						state_next <= READ;
 						
 						when "01" => --data
 						LS_Rd_n <= '0';
 						LS_DC_n <= '1';
-						--AS_WaitRequest <= '1';
+						AS_WaitRequest <= '1';
 						state_next <= READ;
 						
 						when "10" => --addr
@@ -116,13 +116,13 @@ begin
 						LS_Wr_n <= '0';
 						LS_DC_n <= '0';
 						LS_WrData <= AS_WrData(15 downto 0);
-						--AS_WaitRequest <= '1';
+						AS_WaitRequest <= '1';
 						state_next <= WRITE;
 						
 						when "01" => --data
 						LS_Wr_n <= '0';
 						LS_DC_n <= '1';
-						--AS_WaitRequest <= '1';
+						AS_WaitRequest <= '1';
 						LS_WrData <= AS_WrData(15 downto 0);
 						state_next <= WRITE;
 						
@@ -141,7 +141,7 @@ begin
 		-- we're keeping data lines open until LS_Busy goes high
 		when READ =>
 			AS_RdData <= "0000000000000000" & LS_RdData;
-			--AS_WaitRequest <= '1';
+			AS_WaitRequest <= '1';
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';
 				LS_Rd_n <= '1';
@@ -153,7 +153,7 @@ begin
 		
 		when WRITE =>
 			LS_WrData <= AS_WrData(15 downto 0);
-			--AS_WaitRequest <= '1';
+			AS_WaitRequest <= '1';
 			if(LS_Busy = '1') then
 				waitbusy_next <= '0';				
 				LS_Wr_n <= '1';
@@ -186,7 +186,7 @@ begin
 									
 	case dma_state_reg is	
 		when IDLE =>		
-			if (AS_ChipSelect = '1' and AS_Wr = '1' and AS_Address = "10") then
+			if (AS_ChipSelect = '1' and AS_Wr = '1' and AS_Address = "10" and LS_Busy ='0') then
 				MS_Address <= AS_WrData;
 				MS_Length <= '0' & len_reg(30 downto 0);
 				MS_StartDMA <= '1';

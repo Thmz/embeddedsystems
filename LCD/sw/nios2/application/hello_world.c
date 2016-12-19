@@ -76,12 +76,27 @@ int main(void) {
 #include "io.h"
 #include "system.h"
 
+#include "sys/alt_irq.h"
+
 #define ONE_MB (1024 * 1024)
 
+
+
+void interrupt_handler(void){
+	int ipending;
+	ipending = __builtin_rdctl(4); //Read the ipending register
+	printf("inter %u \n",ipending);
+return;}
+
+
+
+
+
+
 uint32_t ISBUSY() { // Busy if first bit of length reg is 1
-	uint32_t len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
-	uint32_t temp = 1;
-	return len_reg & (temp << 31);
+	//uint32_t len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
+	//uint32_t temp = 1;
+	return 1==2;//len_reg & (temp << 31);
 }
 
 void LCD_SET_DMA_LENGTH(uint32_t len) {
@@ -293,7 +308,7 @@ void LCD_Init()
 
 		for (int j = 0 ; j< 320; j++){
 			uint16_t color;
-					if(j % 10 == 0){
+					if(j % 20 == 0){
 						color = 0x000F;
 					}else{
 						color = 0xF000;
@@ -515,25 +530,34 @@ int main(void) {
 
   printf("START ");
   LCD_Init();
+
+
+  //enable interrupt
+  //__builtin_wrctl(3, 2);
+  //__builtin_wrctl(0, 1);
+  //alt_irq_enable(1);
+
   Start_DMA(38400,HPS_0_BRIDGES_BASE);
 
+  RAM_Init();
+  /*
   char* filename = "/mnt/host/crazy_wall.bin" ;
   RAM_Init_Pic(0,filename);
   char* filename2 = "/mnt/host/belgium.bin" ;
   RAM_Init_Pic(5*4*160*240,filename2);
   char* filename3 = "/mnt/host/lakeside.bin" ;
   RAM_Init_Pic(10*4*160*240,filename3);
-
+  //*/
 
 
 
   int it = 0;
-  while(it<4){
+  while(it<3){
 
 	  int delay = 0;
 
 
-	  while(delay < 10000000){
+	  while(delay < 20000000){
 	  		//  printf("looping");
 	  		delay++;
 	  }
