@@ -121,25 +121,31 @@ begin
 		
 		-- procedure to do read of cmd (vDC_n = 0) or data (vDC_n = 1) to LCD
 		-- state_target is state that will be activated after the read is done
-		procedure do_read(vDC_n : in std_logic; state_target : in state_type) is
+		-- should be 8 cycle long 160ns
+		procedure do_read(state_target : in state_type) is
 		begin
 			phase_next <= phase_reg + 1;
 			case phase_reg is
-				when 0 =>
-					dcn_next <= vDC_n;
+				when 0 =>	--low 45ns we choose 3 cycles == 60ns
+					dcn_next <= '1';
 					wrn_next <= '1';
 					rdn_next <= '0';
 					csn_next <= '0';
 				when 1 =>
-					
 				when 2 =>
+				when 3 =>
+					
+				when 4 =>
 					rdn_next <= '1';
 					lsrddata_next <= D;
-				when 3      =>
-					
+				when 5 =>
+				when 6 =>
+				when 7 =>				
 
-				when others =>          -- when 4 or more
-					csn_next <= '1';
+				when others =>          -- when 8 or more
+					if state_reg = READ then
+						csn_next <= '1'; -- reset csn only after read (not after read dummy)
+					end if;
 					dcn_next <= '1'; 
 					wrn_next <= '1';
 					rdn_next <= '1';					
@@ -188,7 +194,7 @@ begin
 				-- if incoming read request
 				if LS_Rd_n = '0' then
 					state_next <= READ_DUMMY;
-					do_read(dcn_reg, READ);
+					--do_read(dcn_reg, READ);
 				end if;
 
 				-- if DMA is started
@@ -212,11 +218,11 @@ begin
 
 			-- STATE read command (dummy)
 			when READ_DUMMY =>
-				do_read(dcn_reg, READ);
+				do_read(READ);
 
 			-- STATE read command
 			when READ =>
-				do_read(dcn_reg, IDLE);
+				do_read(IDLE);
 
 			-- STATE new frame cmd
 			when NEW_FRAME =>
