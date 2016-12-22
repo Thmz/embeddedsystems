@@ -1,96 +1,13 @@
-/*
-
-#include <assert.h>
-#include <inttypes.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "io.h"
-#include "system.h"
-
-//#define HPS_0_BRIDGES_BASE (0x0000)            /* address_span_expander base address from system.h (ADAPT TO YOUR DESIGN)
-//#define HPS_0_BRIDGES_SPAN (256 * 1024 * 1024) /* address_span_expander span from system.h (ADAPT TO YOUR DESIGN)
-
-#define ONE_MB (1024 * 1024)
-
-int main(void) {
-    uint32_t megabyte_count = 0;
-
-    printf("sizeof %d \n",sizeof(uint32_t));
-
-    for (uint32_t i = 0; i < HPS_0_BRIDGES_SPAN; i += sizeof(uint32_t)) {
-
-        // Print progress through 256 MB memory available through address span expander
-        if ((i % ONE_MB) == 0) {
-            //printf("megabyte_count = %" PRIu32 "\n", megabyte_count);
-        	printf("megabyte_count = %d \n", megabyte_count);
-            megabyte_count++;
-        }
-
-        uint32_t addr = HPS_0_BRIDGES_BASE + i;
-
-        // Write through address span expander
-        uint32_t writedata = i;
-        IOWR_32DIRECT(addr, 0, writedata);
-
-        // Read through address span expander
-        uint32_t readdata = IORD_32DIRECT(addr, 0);
-
-        // Check if read data is equal to written data
-        assert(writedata == readdata);
-        if (writedata == readdata){
-        	//printf("ok %d \n",i);
-        }
-    }
-
-    return EXIT_SUCCESS;
-}
-
-
-
-
-
-/*
-
- * "Hello World" example.
- *
- * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
- * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
- * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
- * device in your system's hardware.
- * The memory footprint of this hosted application is ~69 kbytes by default
- * using the standard reference design.
- *
- * For a reduced footprint version of this template, and an explanation of how
- * to reduce the memory footprint for a given application, see the
- * "small_hello_world" template.
- */
-
-
 #include <inttypes.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 
-//#include "altera_avalon_pio_regs.h"
 #include "io.h"
 #include "system.h"
-
 #include "sys/alt_irq.h"
 
 #define ONE_MB (1024 * 1024)
-
-
-/*
-void interrupt_handler(void){
-	int ipending;
-	ipending = __builtin_rdctl(4); //Read the ipending register
-	printf("inter %u \n",ipending);
-return;}
-
-*/
-
-
 
 
 uint32_t ISBUSY() { // Busy if first bit of length reg is 1
@@ -128,15 +45,9 @@ void LCD_WR_DATA(uint32_t data) {
 }
 
 void LCD_HW_RST(){
-
-	//IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x00000080');
-	//TO long 0x00008000?
 	IOWR_32DIRECT(LT24_0_BASE, 0*4, 0x0080);
 }
 void LCD_SW_RST(){
-
-	//IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x00000080');
-	//TO long 0x00008000?
 	IOWR_32DIRECT(LT24_0_BASE, 0*4, 0x0001);
 }
 
@@ -153,17 +64,6 @@ uint32_t LCD_RD(uint32_t cmd) {
 void LCD_Init()
 {
 	printf("INIT STARTED \n");
-
-	//LCD_RST();
-	//Delay_Ms(1);
-	//Clr_LCD_RST;
-	//Delay_Ms(10);       // Delay 10ms // This delay time is necessary
-	//Set_LCD_RST;
-	//Delay_Ms(120);       // Delay 120 ms
-//	Clr_LCD_CS;
-
-	  //LCD_SW_RST();
-	  //LCD_HW_RST();
 
 
 	LCD_WR_REG(0x0011); //Exit Sleep
@@ -298,7 +198,7 @@ void LCD_Init()
 	int32_t MV  = 1 <<5;
 	int32_t MX  = 1 <<6;
 	int32_t MY  = 1 <<7;
-	LCD_WR_DATA(MH + BGR + ML + MV + MY + MX );
+	LCD_WR_DATA(MH + BGR + ML + MV + MY );
 
 
 
@@ -313,7 +213,8 @@ void LCD_Init()
 
 
 // ALL CPU DONE
-void LCD_Pic(int it){
+// show a picture from the host system file directly from the cpu (not use of memory)
+void LCD_Pics(int it){
 
 		LCD_WR_REG(0x002c);    // 0x2C
 		
@@ -324,13 +225,9 @@ void LCD_Pic(int it){
 				printf("Error: could not open \"%s\" for reading\n", filename);
 			}
 
-		printf("ok before bef be\n");
-		// Clear screen
 		for (int i = 0; i < 160 * 240; i++) {
 			uint16_t color;
-			color = 0xF000; //-- roughly red
 
-			
 			unsigned char buffer[4];
 
 			fread(buffer,sizeof(buffer),1,foutput);
@@ -343,12 +240,13 @@ void LCD_Pic(int it){
 
 		}
 
-		printf("pic from cpu showned \n");
+		printf("pic from cpu (host sysfile) shown \n");
 
 }
 
 
-void LCD_Easy(int it){
+// show a "computed" picture (red/blue line) directly from cpu
+void LCD_Easy(){
 
 		LCD_WR_REG(0x002c);    // 0x2C
 
@@ -357,12 +255,12 @@ void LCD_Easy(int it){
 			for (int j = 0 ; j< 320; j++){
 
 						if(j % 30 < 5){
-							color = 0xF800;//blue !!! in fact red
+							color = 0xF800;//in fact red
 						}else{
 							if (j % 30 < 20 ){
-								color = 0x07E0+it*4;//green
+								color = 0x07E0;//green
 							}else{
-								color = 0x001F;//red !!! in fact blue
+								color = 0x001F;// in fact blue
 							}
 						}
 				LCD_WR_DATA(color);
@@ -373,9 +271,9 @@ void LCD_Easy(int it){
 }
 
 
-
+//LOAD a picture into memory (only run in the debug)
+//at a relative address start
 void RAM_Init_Pic(uint32_t start, char* filename ){
-
 
 	FILE *foutput = NULL;
 	foutput = fopen(filename, "rb");
@@ -383,116 +281,172 @@ void RAM_Init_Pic(uint32_t start, char* filename ){
 		printf("Error: could not open \"%s\" for reading\n", filename);
 	}
 
-	printf("in ram file open\n");
+	printf("File open now writing it to memory\n");
 	for (uint32_t i = start; i < 160*240*sizeof(uint32_t)+start; i += sizeof(uint32_t)) {
 
 			unsigned char buffer[4];
-
 			fread(buffer,sizeof(buffer),1,foutput);
-
 	        uint32_t addr = HPS_0_BRIDGES_BASE + i;
-
-	        // Write through address span expander
 	        uint32_t writedata = (buffer[0]<<24) + (buffer[1]<<16) + (buffer[2]<<8) + buffer[3];
 	        IOWR_32DIRECT(addr, 0, writedata);
-
-	        // Read through address span expander
-	        uint32_t readdata = IORD_32DIRECT(addr, 0);
-
-	        // Check if read data is equal to written data
-	        assert(writedata == readdata);
 	}
 
 }
 
+void Load_pics_tree(){
+	RAM_Init_Pic(40*4*160*240,"/mnt/host/binpics/tree/frame_0_delay-0.12s.bin");
+	RAM_Init_Pic(41*4*160*240,"/mnt/host/binpics/tree/frame_1_delay-0.12s.bin");
+	RAM_Init_Pic(42*4*160*240,"/mnt/host/binpics/tree/frame_2_delay-0.12s.bin");
+	RAM_Init_Pic(43*4*160*240,"/mnt/host/binpics/tree/frame_3_delay-0.12s.bin");
+	RAM_Init_Pic(44*4*160*240,"/mnt/host/binpics/tree/frame_4_delay-0.12s.bin");
+	RAM_Init_Pic(45*4*160*240,"/mnt/host/binpics/tree/frame_5_delay-0.12s.bin");
+	RAM_Init_Pic(46*4*160*240,"/mnt/host/binpics/tree/frame_6_delay-0.12s.bin");
+	RAM_Init_Pic(47*4*160*240,"/mnt/host/binpics/tree/frame_7_delay-0.12s.bin");
+	RAM_Init_Pic(48*4*160*240,"/mnt/host/binpics/tree/frame_8_delay-0.12s.bin");
+	RAM_Init_Pic(49*4*160*240,"/mnt/host/binpics/tree/frame_9_delay-0.12s.bin");
+	RAM_Init_Pic(50*4*160*240,"/mnt/host/binpics/tree/frame_10_delay-0.12s.bin");
+	RAM_Init_Pic(51*4*160*240,"/mnt/host/binpics/tree/frame_11_delay-0.12s.bin");
 
-void Load_pics(){
-
-
-	  RAM_Init_Pic(0,"/mnt/host/frame_0_delay-0.05s.bin");
-	  RAM_Init_Pic(1*4*160*240,"/mnt/host/frame_1_delay-0.05s.bin");
-	  RAM_Init_Pic(2*4*160*240,"/mnt/host/frame_2_delay-0.05s.bin");
-	  RAM_Init_Pic(3*4*160*240,"/mnt/host/frame_3_delay-0.05s.bin");
-	  RAM_Init_Pic(4*4*160*240,"/mnt/host/frame_4_delay-0.05s.bin");
-	  RAM_Init_Pic(5*4*160*240,"/mnt/host/frame_5_delay-0.05s.bin");
-	  RAM_Init_Pic(6*4*160*240,"/mnt/host/frame_6_delay-0.05s.bin");
-	  RAM_Init_Pic(7*4*160*240,"/mnt/host/frame_7_delay-0.05s.bin");
-	  RAM_Init_Pic(8*4*160*240,"/mnt/host/frame_8_delay-0.05s.bin");
-	  RAM_Init_Pic(9*4*160*240,"/mnt/host/frame_9_delay-0.05s.bin");
-	  RAM_Init_Pic(10*4*160*240,"/mnt/host/frame_10_delay-0.05s.bin");
-	  RAM_Init_Pic(11*4*160*240,"/mnt/host/frame_11_delay-0.05s.bin");
-	  RAM_Init_Pic(12*4*160*240,"/mnt/host/frame_12_delay-0.05s.bin");
-	  RAM_Init_Pic(13*4*160*240,"/mnt/host/frame_13_delay-0.05s.bin");
-	  RAM_Init_Pic(14*4*160*240,"/mnt/host/frame_14_delay-0.05s.bin");
-	  RAM_Init_Pic(15*4*160*240,"/mnt/host/frame_15_delay-0.05s.bin");
-	  RAM_Init_Pic(16*4*160*240,"/mnt/host/frame_16_delay-0.05s.bin");
-	  RAM_Init_Pic(17*4*160*240,"/mnt/host/frame_17_delay-0.05s.bin");
-	  RAM_Init_Pic(18*4*160*240,"/mnt/host/frame_18_delay-0.05s.bin");
-	  RAM_Init_Pic(19*4*160*240,"/mnt/host/frame_19_delay-0.05s.bin");
-	  RAM_Init_Pic(20*4*160*240,"/mnt/host/frame_20_delay-0.05s.bin");
-	  RAM_Init_Pic(21*4*160*240,"/mnt/host/frame_21_delay-0.05s.bin");
-	  RAM_Init_Pic(22*4*160*240,"/mnt/host/frame_22_delay-0.05s.bin");
-	  printf("all pics loaded");
-
-
-
+	  printf("all pics -tree- loaded");
 }
 
+void Show_pics_tree(){
+	int it = 40;
+
+	  while(it<52){ //number of frame
+		  int delay = 0;
+
+		  //delay between frame
+		  while(delay < 300000){
+		  		delay++;
+		  }
+		  LCD_SHOW_FRAME(it*4*160*240);
+
+		  int i = 0;	  //wait that lcd is ready
+		  while(ISBUSY()>0){  i++;}
+		  it++;
+	  }
+}
+
+//load the walking guy pics
+void Load_pics(){
+	  RAM_Init_Pic(0*4*160*240,"/mnt/host/walk/frame_0_delay-0.05s.bin");
+	  RAM_Init_Pic(1*4*160*240,"/mnt/host/walk/frame_1_delay-0.05s.bin");
+	  RAM_Init_Pic(2*4*160*240,"/mnt/host/walk/frame_2_delay-0.05s.bin");
+	  RAM_Init_Pic(3*4*160*240,"/mnt/host/walk/frame_3_delay-0.05s.bin");
+	  RAM_Init_Pic(4*4*160*240,"/mnt/host/walk/frame_4_delay-0.05s.bin");
+	  RAM_Init_Pic(5*4*160*240,"/mnt/host/walk/frame_5_delay-0.05s.bin");
+	  RAM_Init_Pic(6*4*160*240,"/mnt/host/walk/frame_6_delay-0.05s.bin");
+	  RAM_Init_Pic(7*4*160*240,"/mnt/host/walk/frame_7_delay-0.05s.bin");
+	  RAM_Init_Pic(8*4*160*240,"/mnt/host/walk/frame_8_delay-0.05s.bin");
+	  RAM_Init_Pic(9*4*160*240,"/mnt/host/walk/frame_9_delay-0.05s.bin");
+	  RAM_Init_Pic(10*4*160*240,"/mnt/host/walk/frame_10_delay-0.05s.bin");
+	  RAM_Init_Pic(11*4*160*240,"/mnt/host/walk/frame_11_delay-0.05s.bin");
+	  RAM_Init_Pic(12*4*160*240,"/mnt/host/walk/frame_12_delay-0.05s.bin");
+	  RAM_Init_Pic(13*4*160*240,"/mnt/host/walk/frame_13_delay-0.05s.bin");
+	  RAM_Init_Pic(14*4*160*240,"/mnt/host/walk/frame_14_delay-0.05s.bin");
+	  RAM_Init_Pic(15*4*160*240,"/mnt/host/walk/frame_15_delay-0.05s.bin");
+	  RAM_Init_Pic(16*4*160*240,"/mnt/host/walk/frame_16_delay-0.05s.bin");
+	  RAM_Init_Pic(17*4*160*240,"/mnt/host/walk/frame_17_delay-0.05s.bin");
+	  RAM_Init_Pic(18*4*160*240,"/mnt/host/walk/frame_18_delay-0.05s.bin");
+	  RAM_Init_Pic(19*4*160*240,"/mnt/host/walk/frame_19_delay-0.05s.bin");
+	  RAM_Init_Pic(20*4*160*240,"/mnt/host/walk/frame_20_delay-0.05s.bin");
+	  RAM_Init_Pic(21*4*160*240,"/mnt/host/walk/frame_21_delay-0.05s.bin");
+	  RAM_Init_Pic(22*4*160*240,"/mnt/host/walk/frame_22_delay-0.05s.bin");
+	  printf("all pics -walk- loaded");
+}
+
+void Show_pics(){
+	int it = 0;
+
+	  while(it<23){ //number of frame
+		  int delay = 0;
+
+		  //delay between frame
+		  while(delay < 100000){
+		  		delay++;
+		  }
+		  LCD_SHOW_FRAME(it*4*160*240);
+
+		  int i = 0;	  //wait that lcd is ready
+		  while(ISBUSY()>0){  i++;}
+		  it++;
+	  }
+}
+
+void Load_pics_sample(){
+	  RAM_Init_Pic(30*4*160*240,"/mnt/host/binpics/general/belgium.bin");
+	  RAM_Init_Pic(31*4*160*240,"/mnt/host/binpics/general/crazy_wall.bin");
+	  RAM_Init_Pic(32*4*160*240,"/mnt/host/binpics/general/lakeside.bin");
+	  printf("done pics -sample- loaded");
+}
+
+void Show_pics_sample(){
+	int it = 30;
+
+	  while(it<33){ //number of frame
+		  int delay = 0;
+
+		  //delay between frame
+		  while(delay < 30000000){
+		  		delay++;
+		  }
+		  LCD_SHOW_FRAME(it*4*160*240);
+
+		  int i = 0;	  //wait that lcd is ready
+		  while(ISBUSY()>0){  i++;}
+		  it++;
+	  }
+}
 
 
 int main(void) {
 
   printf("START ");
+  LCD_SW_RST();
   LCD_Init();
-
-  //LCD_Easy(5);
-  //enable interrupt
-  //__builtin_wrctl(3, 2);
-  //__builtin_wrctl(0, 1);
-  //alt_irq_enable(1);
-
-  //Load_pics();
-
-  //not needed if == 38400
   LCD_SET_DMA_LENGTH(38400);
 
 
+  //Load_pics();
+  //Load_pics_sample();
+  //Load_pics_tree();
+
   while(1){
-
-  int it = 0;
-  while(it<23){
-
-	  int delay = 0;
-
-	  //LCD_SW_RST();
-	  while(delay < 1){
-	  		//  printf("looping");
-	  		delay++;
-	  }
-	  LCD_SHOW_FRAME(it*4*160*240);
-
-	  int i = 0;
-	  while(ISBUSY()>0){
-		  i++;
-	  }
-	  it++;
-	  //printf("cycle during busy %d \n",i);
-
-	  //LCD_Pic(it);
-	  //LCD_Easy(it);
-  }
-  printf("one cycle done \n");
+	  //Show_pics();
+	  //Show_pics_sample();
+	  Show_pics_tree();
   }
 
-  printf("done ");
+  printf("done !");
   return 0;
 }
 
 
+/*
+	//LCD_RST();
+	//Delay_Ms(1);
+	//Clr_LCD_RST;
+	//Delay_Ms(10);       // Delay 10ms // This delay time is necessary
+	//Set_LCD_RST;
+	//Delay_Ms(120);       // Delay 120 ms
+//	Clr_LCD_CS;
+
+	  //LCD_SW_RST();
+	  //LCD_HW_RST();
+	   *
+	   */
 
 
 
 
+/*
+void isr (void* context, alt_u32 id){
+	printf("inter %u \n",id);
+	return;
+}
+ *
+ */
 
 
 
@@ -688,4 +642,73 @@ void Start_DMA(uint32_t len,uint32_t addr){
 	}
 
 }
+ */
+
+
+/*
+
+#include <assert.h>
+#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "io.h"
+#include "system.h"
+
+//#define HPS_0_BRIDGES_BASE (0x0000)            /* address_span_expander base address from system.h (ADAPT TO YOUR DESIGN)
+//#define HPS_0_BRIDGES_SPAN (256 * 1024 * 1024) /* address_span_expander span from system.h (ADAPT TO YOUR DESIGN)
+
+#define ONE_MB (1024 * 1024)
+
+int main(void) {
+    uint32_t megabyte_count = 0;
+
+    printf("sizeof %d \n",sizeof(uint32_t));
+
+    for (uint32_t i = 0; i < HPS_0_BRIDGES_SPAN; i += sizeof(uint32_t)) {
+
+        // Print progress through 256 MB memory available through address span expander
+        if ((i % ONE_MB) == 0) {
+            //printf("megabyte_count = %" PRIu32 "\n", megabyte_count);
+        	printf("megabyte_count = %d \n", megabyte_count);
+            megabyte_count++;
+        }
+
+        uint32_t addr = HPS_0_BRIDGES_BASE + i;
+
+        // Write through address span expander
+        uint32_t writedata = i;
+        IOWR_32DIRECT(addr, 0, writedata);
+
+        // Read through address span expander
+        uint32_t readdata = IORD_32DIRECT(addr, 0);
+
+        // Check if read data is equal to written data
+        assert(writedata == readdata);
+        if (writedata == readdata){
+        	//printf("ok %d \n",i);
+        }
+    }
+
+    return EXIT_SUCCESS;
+}
+
+
+
+
+
+/*
+
+ * "Hello World" example.
+ *
+ * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
+ * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
+ * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
+ * device in your system's hardware.
+ * The memory footprint of this hosted application is ~69 kbytes by default
+ * using the standard reference design.
+ *
+ * For a reduced footprint version of this template, and an explanation of how
+ * to reduce the memory footprint for a given application, see the
+ * "small_hello_world" template.
  */
