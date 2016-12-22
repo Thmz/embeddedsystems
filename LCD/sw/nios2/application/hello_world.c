@@ -81,59 +81,80 @@ int main(void) {
 #define ONE_MB (1024 * 1024)
 
 
-
+/*
 void interrupt_handler(void){
 	int ipending;
 	ipending = __builtin_rdctl(4); //Read the ipending register
 	printf("inter %u \n",ipending);
 return;}
 
-
+*/
 
 
 
 
 uint32_t ISBUSY() { // Busy if first bit of length reg is 1
-	//uint32_t len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
-	//uint32_t temp = 1;
-	return 1==2;//len_reg & (temp << 31);
+	uint32_t len_reg = IORD_32DIRECT(LT24_0_BASE,3*4);
+	uint32_t temp = 1;
+	return len_reg & (temp << 31);
 }
 
 void LCD_SET_DMA_LENGTH(uint32_t len) {
-	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 3*4, len);
 }
 
 
 void LCD_SHOW_FRAME(uint32_t addr) {
-	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 2*4, addr);
 }
 
+uint32_t RD_LEN() {
+	return IORD_32DIRECT(LT24_0_BASE, 3*4);
+}
+
+uint32_t RD_ADDR() {
+	return IORD_32DIRECT(LT24_0_BASE, 2*4);
+}
+
+
 
 void LCD_WR_REG(uint32_t cmd) {
-	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 0*4, cmd);
 }
 
+
 void LCD_WR_DATA(uint32_t data) {
-	while(ISBUSY()>0){}
 	IOWR_32DIRECT(LT24_0_BASE, 1*4, data);
 }
 
-void LCD_RST(){
-	while(ISBUSY()>0){}
+void LCD_HW_RST(){
+
 	//IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x00000080');
-	IOWR_32DIRECT(LT24_0_BASE, 0*4, '0x00008000');
+	//TO long 0x00008000?
+	IOWR_32DIRECT(LT24_0_BASE, 0*4, 0x0080);
+}
+void LCD_SW_RST(){
+
+	//IOWR_32DIRECT(LT24_0_BASE, 2*4, '0x00000080');
+	//TO long 0x00008000?
+	IOWR_32DIRECT(LT24_0_BASE, 0*4, 0x0001);
 }
 
+
+
+uint32_t LCD_RD(uint32_t cmd) {
+
+	LCD_WR_REG(cmd);
+	//the offset does'nt matter between 0 and 1
+	return IORD_32DIRECT(LT24_0_BASE, 0*4);
+}
 
 
 void LCD_Init()
 {
 	printf("INIT STARTED \n");
 
-	LCD_RST();
+	//LCD_RST();
 	//Delay_Ms(1);
 	//Clr_LCD_RST;
 	//Delay_Ms(10);       // Delay 10ms // This delay time is necessary
@@ -141,6 +162,8 @@ void LCD_Init()
 	//Delay_Ms(120);       // Delay 120 ms
 //	Clr_LCD_CS;
 
+	  //LCD_SW_RST();
+	  //LCD_HW_RST();
 
 
 	LCD_WR_REG(0x0011); //Exit Sleep
@@ -238,17 +261,21 @@ void LCD_Init()
 		LCD_WR_DATA(0x0036);
 		LCD_WR_DATA(0x000f);
 
+		// Change adresses
+
+	// Column
 	LCD_WR_REG(0x002A);
 		LCD_WR_DATA(0x0000);
 		LCD_WR_DATA(0x0000);
-		LCD_WR_DATA(0x0000);
-		LCD_WR_DATA(0x00ef);
-
-	 LCD_WR_REG(0x002B);
-		LCD_WR_DATA(0x0000);
-		LCD_WR_DATA(0x0000);
 		LCD_WR_DATA(0x0001);
-		LCD_WR_DATA(0x003f);
+		LCD_WR_DATA(0x003F);
+
+	// Row
+	LCD_WR_REG(0x002B);
+		LCD_WR_DATA(0x0000);
+		LCD_WR_DATA(0x0000);
+		LCD_WR_DATA(0x0000);
+		LCD_WR_DATA(0x00EF);
 
 	LCD_WR_REG(0x003A);
 		LCD_WR_DATA(0x0055);
@@ -271,98 +298,22 @@ void LCD_Init()
 	int32_t MV  = 1 <<5;
 	int32_t MX  = 1 <<6;
 	int32_t MY  = 1 <<7;
-	LCD_WR_DATA(MH + BGR + ML + MV + MY);
+	LCD_WR_DATA(MH + BGR + ML + MV + MY + MX );
 
-
-	// Change adresses
-
-	// Column
-	LCD_WR_REG(0x002A);
-	LCD_WR_DATA(0x0000);
-	LCD_WR_DATA(0x0000);
-	LCD_WR_DATA(0x0001);
-	LCD_WR_DATA(0x003F);
-
-	// Row
-	LCD_WR_REG(0x002B);
-	LCD_WR_DATA(0x0000);
-	LCD_WR_DATA(0x0000);
-	LCD_WR_DATA(0x0000);
-	LCD_WR_DATA(0x00EF);
 
 
 	LCD_WR_REG(0x0029); //display on
 
-	LCD_WR_REG(0x002c);    // 0x2C
+
 
 	printf("INIT DONE \n");
 
-	// Clear screen
-	for (int i = 0; i < 240; i++) {
-		//uint16_t color;
-		//if(i % 5 == 0){
-			//color =0xFFFF;
-		//}else{
-		//color= 0xF000;
-		//}
-
-		for (int j = 0 ; j< 320; j++){
-			uint16_t color;
-					if(j % 20 == 0){
-						color = 0x000F;
-					}else{
-						color = 0xF000;
-					}
-			LCD_WR_DATA(color);
-		}
-	}
-
-
-	printf("WHTIE PRINTED \n");
-
-
-}
-
-
-void LCD_Easy(int it){
-		//LCD_WR_REG(0x0029); //display on
-
-		LCD_WR_REG(0x002c);    // 0x2C
-
-
-		// Clear screen
-		for (int i = 0; i < 180; i++) {
-			//uint16_t color;
-			//if(i % 5 == 0){
-				//color =0xFFFF;
-			//}else{
-			//color= 0xF000;
-			//}
-
-			for (int j = 0 ; j< 320; j++){
-				uint16_t color;
-						if(j % 30 < 5){
-							color = 0xF800;//blue !!! in fact red
-						}else{
-							if (j % 30 < 20 ){
-								color = 0x07E0+it*4;//green
-							}else{
-								color = 0x001F;//red !!! in fact blue
-							}
-						}
-				LCD_WR_DATA(color);
-			}
-		}
-
-
-		printf("WHTIE PRINTED \n");
-
 }
 
 
 
+// ALL CPU DONE
 void LCD_Pic(int it){
-		//LCD_WR_REG(0x0029); //display on
 
 		LCD_WR_REG(0x002c);    // 0x2C
 		
@@ -372,7 +323,6 @@ void LCD_Pic(int it){
 			if (!foutput){
 				printf("Error: could not open \"%s\" for reading\n", filename);
 			}
-
 
 		printf("ok before bef be\n");
 		// Clear screen
@@ -392,81 +342,33 @@ void LCD_Pic(int it){
 			LCD_WR_DATA(color);			
 
 		}
-		/*
-		printf("ok before bef\n");
 
-		char* filename = "/mnt/host/workfile.bin" ;
-		printf("ok before\n");
-		//LCD_WR_DATA(0x07E0);
-		FILE *foutput = NULL;
-		foutput = fopen(filename, "rb");
-		LCD_WR_DATA(0x07E0);
-		if (!foutput)
-		{
-			printf("Error: could not open \"%s\" for reading\n", filename);
+		printf("pic from cpu showned \n");
+
+}
+
+
+void LCD_Easy(int it){
+
+		LCD_WR_REG(0x002c);    // 0x2C
+
+		uint16_t color;
+		for (int i = 0; i < 180; i++) {
+			for (int j = 0 ; j< 320; j++){
+
+						if(j % 30 < 5){
+							color = 0xF800;//blue !!! in fact red
+						}else{
+							if (j % 30 < 20 ){
+								color = 0x07E0+it*4;//green
+							}else{
+								color = 0x001F;//red !!! in fact blue
+							}
+						}
+				LCD_WR_DATA(color);
+			}
 		}
-
-		printf("ok\n");
-		LCD_WR_DATA(0x07E0);
-	    unsigned char buffer[4];
-
-
-	    fread(buffer,sizeof(buffer),1,foutput); // read 4 bytes to our buffer
-
-	    unsigned int pix = (buffer[0]<<24) + (buffer[1]<<16) + (buffer[2]<<8) + buffer[3];
-	    printf("u = %u\n",pix);
-			*/
-		printf("WHTIE PRINTED \n");
-
-}
-
-
-void WR_LEN(uint32_t len) {
-	while(ISBUSY()>0){}
-	IOWR_32DIRECT(LT24_0_BASE, 3*4, len);
-}
-
-void WR_ADDR(uint32_t addr) {
-	while(ISBUSY()>0){}
-	IOWR_32DIRECT(LT24_0_BASE, 2*4, addr);
-}
-
-uint32_t RD_LEN() {
-	while(ISBUSY()>0){}
-	return IORD_32DIRECT(LT24_0_BASE, 3*4);
-}
-
-uint32_t RD_ADDR() {
-	while(ISBUSY()>0){}
-	return IORD_32DIRECT(LT24_0_BASE, 2*4);
-}
-
-
-void RAM_Init(){
-	uint32_t megabyte_count = 0;
-	//ONLY one MB
-	printf("in ram\n");
-	for (uint32_t i = 0; i < HPS_0_BRIDGES_SPAN/256 + 1; i += sizeof(uint32_t)) {
-
-	        // Print progress through 256 MB memory available through address span expander
-	        if ((i % ONE_MB) == 0) {
-	            //printf("megabyte_count = %" PRIu32 "\n", megabyte_count);
-	        	printf("megabyte_count = %d \n", megabyte_count);
-	            megabyte_count++;
-	        }
-
-	        uint32_t addr = HPS_0_BRIDGES_BASE + i;
-
-	        // Write through address span expander
-	        uint32_t writedata = 0x07E007E0;//0x0;//i;//0x12345678;
-	        IOWR_32DIRECT(addr, 0, writedata);
-
-	        // Read through address span expander
-	        uint32_t readdata = IORD_32DIRECT(addr, 0);
-
-	        // Check if read data is equal to written data
-	        assert(writedata == readdata);
-	}
+		printf("lcd easy done\n");
 
 }
 
@@ -504,78 +406,120 @@ void RAM_Init_Pic(uint32_t start, char* filename ){
 }
 
 
-void Start_DMA(uint32_t len,uint32_t addr){
-	//init len
-	printf("addr = %d\n",addr);
-	WR_LEN(len);
-	uint32_t rd_len = RD_LEN();
+void Load_pics(){
 
-	if (len == rd_len){
-		printf("ok rd_len = %d\n",rd_len);
-	}
 
-	//!!! start DMA
+	  RAM_Init_Pic(0,"/mnt/host/frame_0_delay-0.05s.bin");
+	  RAM_Init_Pic(1*4*160*240,"/mnt/host/frame_1_delay-0.05s.bin");
+	  RAM_Init_Pic(2*4*160*240,"/mnt/host/frame_2_delay-0.05s.bin");
+	  RAM_Init_Pic(3*4*160*240,"/mnt/host/frame_3_delay-0.05s.bin");
+	  RAM_Init_Pic(4*4*160*240,"/mnt/host/frame_4_delay-0.05s.bin");
+	  RAM_Init_Pic(5*4*160*240,"/mnt/host/frame_5_delay-0.05s.bin");
+	  RAM_Init_Pic(6*4*160*240,"/mnt/host/frame_6_delay-0.05s.bin");
+	  RAM_Init_Pic(7*4*160*240,"/mnt/host/frame_7_delay-0.05s.bin");
+	  RAM_Init_Pic(8*4*160*240,"/mnt/host/frame_8_delay-0.05s.bin");
+	  RAM_Init_Pic(9*4*160*240,"/mnt/host/frame_9_delay-0.05s.bin");
+	  RAM_Init_Pic(10*4*160*240,"/mnt/host/frame_10_delay-0.05s.bin");
+	  RAM_Init_Pic(11*4*160*240,"/mnt/host/frame_11_delay-0.05s.bin");
+	  RAM_Init_Pic(12*4*160*240,"/mnt/host/frame_12_delay-0.05s.bin");
+	  RAM_Init_Pic(13*4*160*240,"/mnt/host/frame_13_delay-0.05s.bin");
+	  RAM_Init_Pic(14*4*160*240,"/mnt/host/frame_14_delay-0.05s.bin");
+	  RAM_Init_Pic(15*4*160*240,"/mnt/host/frame_15_delay-0.05s.bin");
+	  RAM_Init_Pic(16*4*160*240,"/mnt/host/frame_16_delay-0.05s.bin");
+	  RAM_Init_Pic(17*4*160*240,"/mnt/host/frame_17_delay-0.05s.bin");
+	  RAM_Init_Pic(18*4*160*240,"/mnt/host/frame_18_delay-0.05s.bin");
+	  RAM_Init_Pic(19*4*160*240,"/mnt/host/frame_19_delay-0.05s.bin");
+	  RAM_Init_Pic(20*4*160*240,"/mnt/host/frame_20_delay-0.05s.bin");
+	  RAM_Init_Pic(21*4*160*240,"/mnt/host/frame_21_delay-0.05s.bin");
+	  RAM_Init_Pic(22*4*160*240,"/mnt/host/frame_22_delay-0.05s.bin");
+	  printf("all pics loaded");
 
-	//WR_ADDR(addr);
-	printf("stated dma \n");
-	uint32_t rd_addr = RD_ADDR();
 
-	if (addr == rd_addr){
-		printf("ok rd_addr = %d\n",rd_addr);
-	}
 
 }
+
+
 
 int main(void) {
 
   printf("START ");
   LCD_Init();
 
-
+  //LCD_Easy(5);
   //enable interrupt
   //__builtin_wrctl(3, 2);
   //__builtin_wrctl(0, 1);
   //alt_irq_enable(1);
 
-  Start_DMA(38400,HPS_0_BRIDGES_BASE);
+  //Load_pics();
 
-  RAM_Init();
-  /*
-  char* filename = "/mnt/host/crazy_wall.bin" ;
-  RAM_Init_Pic(0,filename);
-  char* filename2 = "/mnt/host/belgium.bin" ;
-  RAM_Init_Pic(5*4*160*240,filename2);
-  char* filename3 = "/mnt/host/lakeside.bin" ;
-  RAM_Init_Pic(10*4*160*240,filename3);
-  //*/
+  //not needed if == 38400
+  LCD_SET_DMA_LENGTH(38400);
 
 
+  while(1){
 
   int it = 0;
-  while(it<3){
+  while(it<23){
 
 	  int delay = 0;
 
-
-	  while(delay < 20000000){
+	  //LCD_SW_RST();
+	  while(delay < 1){
 	  		//  printf("looping");
 	  		delay++;
 	  }
-	  WR_ADDR(it*5*4*160*240);
+	  LCD_SHOW_FRAME(it*4*160*240);
 
 	  int i = 0;
 	  while(ISBUSY()>0){
 		  i++;
 	  }
 	  it++;
-	  printf("cycle during busy %d \n",i);
+	  //printf("cycle during busy %d \n",i);
+
 	  //LCD_Pic(it);
 	  //LCD_Easy(it);
+  }
+  printf("one cycle done \n");
   }
 
   printf("done ");
   return 0;
 }
+
+
+
+
+
+
+
+
+
+/*
+	  uint32_t test = LCD_RD(0x000B);
+
+	  //test = LCD_RD(0x000B);
+	  printf("test read : %u \n",test);
+	  */
+/*	  while(j<30){
+		  j++;
+		  if (j == 5){
+			  LCD_WR_REG(0x000B);
+			  printf("read : %u \n",IORD_32DIRECT(LT24_0_BASE, 0*4));
+		  }
+
+			printf("read : %u \n",IORD_32DIRECT(LT24_0_BASE, 1*4));
+	  }*/
+
+
+
+
+
+
+
+
+
 
  // StartDMA(address);
 /*
@@ -606,4 +550,142 @@ int main(void) {
   }*/
 
 
-//*/
+//*/7
+
+/*
+void LCD_Easy(int it){
+		//LCD_WR_REG(0x0029); //display on
+
+		LCD_WR_REG(0x002c);    // 0x2C
+
+
+		// Clear screen
+		for (int i = 0; i < 180; i++) {
+			//uint16_t color;
+			//if(i % 5 == 0){
+				//color =0xFFFF;
+			//}else{
+			//color= 0xF000;
+			//}
+
+			for (int j = 0 ; j< 320; j++){
+				uint16_t color;
+						if(j % 30 < 5){
+							color = 0xF800;//blue !!! in fact red
+						}else{
+							if (j % 30 < 20 ){
+								color = 0x07E0+it*4;//green
+							}else{
+								color = 0x001F;//red !!! in fact blue
+							}
+						}
+				LCD_WR_DATA(color);
+			}
+		}
+
+
+		printf("WHTIE PRINTED \n");
+
+}
+*/
+
+/*
+printf("ok before bef\n");
+
+char* filename = "/mnt/host/workfile.bin" ;
+printf("ok before\n");
+//LCD_WR_DATA(0x07E0);
+FILE *foutput = NULL;
+foutput = fopen(filename, "rb");
+LCD_WR_DATA(0x07E0);
+if (!foutput)
+{
+	printf("Error: could not open \"%s\" for reading\n", filename);
+}
+
+printf("ok\n");
+LCD_WR_DATA(0x07E0);
+unsigned char buffer[4];
+
+
+fread(buffer,sizeof(buffer),1,foutput); // read 4 bytes to our buffer
+
+unsigned int pix = (buffer[0]<<24) + (buffer[1]<<16) + (buffer[2]<<8) + buffer[3];
+printf("u = %u\n",pix);
+	*/
+
+/*
+ * 	// Clear screen
+	for (int i = 0; i < 240; i++) {
+		//uint16_t color;
+		//if(i % 5 == 0){
+			//color =0xFFFF;
+		//}else{
+		//color= 0xF000;
+		//}
+
+		for (int j = 0 ; j< 320; j++){
+			uint16_t color;
+					if(j % 20 == 0){
+						color = 0x000F;
+					}else{
+						color = 0xF000;
+					}
+			LCD_WR_DATA(color);
+		}
+	}
+	*/
+
+/*
+ *
+void Start_DMA(uint32_t len,uint32_t addr){
+	//init len
+	printf("addr = %d\n",addr);
+	WR_LEN(len);
+	uint32_t rd_len = RD_LEN();
+	//LCD_SET_DMA_LENGTH(uint32_t len)
+	if (len == rd_len){
+		printf("ok rd_len = %d\n",rd_len);
+	}
+
+	//!!! start DMA
+
+	//WR_ADDR(addr);
+	printf("stated dma \n");
+	uint32_t rd_addr = RD_ADDR();
+
+	if (addr == rd_addr){
+		printf("ok rd_addr = %d\n",rd_addr);
+	}
+
+}
+ */
+/*
+ * void RAM_Init(){
+	uint32_t megabyte_count = 0;
+	//ONLY one MB
+	printf("in ram\n");
+	for (uint32_t i = 0; i < HPS_0_BRIDGES_SPAN/256 + 1; i += sizeof(uint32_t)) {
+
+	        // Print progress through 256 MB memory available through address span expander
+	        if ((i % ONE_MB) == 0) {
+	            //printf("megabyte_count = %" PRIu32 "\n", megabyte_count);
+	        	printf("megabyte_count = %d \n", megabyte_count);
+	            megabyte_count++;
+	        }
+
+	        uint32_t addr = HPS_0_BRIDGES_BASE + i;
+
+	        // Write through address span expander
+	        uint32_t writedata = 0x07E007E0;//0x0;//i;//0x12345678;
+	        IOWR_32DIRECT(addr, 0, writedata);
+
+	        // Read through address span expander
+	        uint32_t readdata = IORD_32DIRECT(addr, 0);
+
+	        // Check if read data is equal to written data
+	        assert(writedata == readdata);
+	}
+
+}
+ */

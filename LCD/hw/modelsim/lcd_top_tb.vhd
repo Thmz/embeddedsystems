@@ -145,18 +145,9 @@ begin
 			wait until falling_edge(clk_tb);
 			AS_ChipSelect_tb <= '0';			
 			AS_Rd_tb <= '0';
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
 
 			-- keep signal for a long time because of dummy read
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
-
-			wait until falling_edge(clk_tb);
-			wait until falling_edge(clk_tb);
+			wait for 150 ns;
 			D_tb <= "ZZZZZZZZZZZZZZZZ";
 
 		end procedure;
@@ -186,21 +177,15 @@ begin
 		wait for 2 ns;
 		rst_n_tb <= '1';
 		wait until falling_edge(clk_tb);
+		new_phase;
+		write_reg("00000000000000000000000000001100");
 		new_phase;--1
-
-		-- reset LCD
-		as_write("00","00000000000000001000000000000000");
-		for i in 0 to 25 loop
-			wait until falling_edge(clk_tb);
-		end loop;
-
-		--read command
-		as_read("00", "1110111011101110");
-
-		-- write new frame command
+		--as_read("00", "1110111011101110");
+		--as_read("01", "1110111011101110");
+		--as_read("01", "1110111011101110");
+		--as_read("01", "1110111011101110");
 		new_phase; --2
 		write_reg("00000000000000000000000000101100"); --0x002c
-		
 		new_phase;
 		--sending 3 pixel  --> nios style working in real life
 		write_data("00000000000000001111000000000000"); --0xf000
@@ -212,7 +197,7 @@ begin
 		
 		new_phase;--1
 		
-		--done <= true;
+		done <= true;
 		wait;
 	end process;
 

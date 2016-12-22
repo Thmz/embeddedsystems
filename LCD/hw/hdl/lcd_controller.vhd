@@ -39,7 +39,7 @@ entity lcd_controller is
 end entity lcd_controller;
 
 architecture rtl of lcd_controller is
-	type state_type is (RESET_LCD, IDLE, WRITE, READ_DUMMY, READ, NEW_FRAME, WAIT_FIFO, WRITE_PIXEL, WRITE_PIXEL_SECOND);
+	type state_type is (RESET_LCD, IDLE, WRITE, READ_DUMMY, READ, NEW_FRAME, WAIT_FIFO, WAIT_FIFO_RD, WRITE_PIXEL, WRITE_PIXEL_SECOND);
 	signal state_reg, state_next : state_type;
 	signal phase_reg, phase_next : natural;
 	signal dcn_reg, dcn_next, wrn_next, wrn_reg, rdn_next, rdn_reg , csn_next, csn_reg, fiford_reg, fiford_next: std_logic;
@@ -231,9 +231,9 @@ begin
 			-- STATE wait FIFO
 			when WAIT_FIFO =>
 				-- if still pixels available (fifo not empty yet)
-				if FIFO_Empty = '0' then 
+				if FIFO_Empty = '0'  then 
 					fiford_next    <= '1';
-					state_next <= WRITE_PIXEL;
+					state_next <= WAIT_FIFO_RD;
 				end if;
 
 				-- if fifo empty and no DMA ongoing, which means whole frame is processed
@@ -241,9 +241,12 @@ begin
 					state_next <= IDLE;
 				end if;
 
+			when WAIT_FIFO_RD =>
+				fiford_next   <= '0';
+				state_next <= WRITE_PIXEL;
+
 			-- STATE Write Pixel
 			when WRITE_PIXEL =>
-				fiford_next   <= '0';
 				curr_word_next <= FIFO_RdData;
 				do_write('1', FIFO_RdData(15 downto 0), WRITE_PIXEL_SECOND);
 
@@ -254,5 +257,3 @@ begin
 		end case;
 	end process;
 end architecture rtl;
-
-

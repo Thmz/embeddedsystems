@@ -92,13 +92,7 @@ begin
 				if (AS_ChipSelect = '1') then
 					if (AS_Rd = '1') then --read
 						case AS_Address is
-							when "00" => --cmd
-							LS_Rd_n <= '0';
-							LS_DC_n <= '0';
-							AS_WaitRequest <= '1';
-							state_next <= READ;
-							
-							when "01" => --data
+							when "00" | "01" => --cmd or data 
 							LS_Rd_n <= '0';
 							LS_DC_n <= '1';
 							AS_WaitRequest <= '1';
@@ -148,7 +142,10 @@ begin
 				AS_WaitRequest <= '1';
 				if(LS_Busy = '1') then
 					waitbusy_next <= '0';
-					LS_Rd_n <= '1';
+					--hold it a bit longer
+					if (waitbusy_reg = '0') then
+						LS_Rd_n <= '1';
+					end if;
 				elsif (waitbusy_reg = '0') then
 					waitbusy_next <= '1';
 					AS_WaitRequest <= '0';
@@ -160,8 +157,11 @@ begin
 				LS_WrData <= AS_WrData(15 downto 0);
 				AS_WaitRequest <= '1';
 				if(LS_Busy = '1') then
-					waitbusy_next <= '0';				
-					LS_Wr_n <= '1';
+					waitbusy_next <= '0';	
+					--hold it a bit longer
+					if (waitbusy_reg = '0') then
+						LS_Wr_n <= '1';
+					end if;
 				elsif (waitbusy_reg = '0') then
 					waitbusy_next <= '1';
 					AS_WaitRequest <= '0';
