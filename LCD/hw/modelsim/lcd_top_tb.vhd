@@ -110,9 +110,18 @@ begin
 			AS_WrData_tb <= "00000000000000000000000000000000";
 			wait until falling_edge(clk_tb);
 		--start burst
-			AM_RdData_tb <= "11110000000000000000111100000000";
+			
 			AM_WaitRequest_tb <= '0';
-			AM_RdDataValid_tb <= '1';		
+			AM_RdDataValid_tb <= '1';	
+			for i in 0 to 100 loop
+				AM_RdData_tb <= "11110000000000000000111100000000";
+				wait until falling_edge(clk_tb);
+				AM_RdData_tb <= "00010000000000000000100000000000";
+				wait until falling_edge(clk_tb);
+				AM_RdData_tb <= "01010000000010000000100000000000";
+				wait until falling_edge(clk_tb);
+			end loop;
+
 			
 			wait for 8000 ns;		
 		
@@ -130,6 +139,10 @@ begin
 			AS_Wr_tb <= '0';			
 			AS_Address_tb <= "00";
 			AS_WrData_tb <= "00000000000000000000000000000000";
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
 			wait until falling_edge(clk_tb);
 		
 		end procedure;
@@ -149,6 +162,10 @@ begin
 			-- keep signal for a long time because of dummy read
 			wait for 150 ns;
 			D_tb <= "ZZZZZZZZZZZZZZZZ";
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+			wait until falling_edge(clk_tb);
+
 
 		end procedure;
 
@@ -180,7 +197,9 @@ begin
 		new_phase;
 		write_reg("00000000000000000000000000001100");
 		new_phase;--1
-		--as_read("00", "1110111011101110");
+		as_read("00", "1110111011101110");
+
+		new_phase;
 		--as_read("01", "1110111011101110");
 		--as_read("01", "1110111011101110");
 		--as_read("01", "1110111011101110");
